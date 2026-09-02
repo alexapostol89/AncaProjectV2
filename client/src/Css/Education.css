@@ -1,0 +1,170 @@
+﻿.education-page {
+    max-width: 1250px; /* Increased max-width to give more room for 3 cards */
+}
+
+/* Horizontal Sliding Track Layout */
+.edu-slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.edu-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 1rem 0.5rem;
+    width: 100%;
+    /* Hide scrollbar for clean design */
+    scrollbar-width: none; /* Firefox */
+}
+
+.edu-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.slide-card {
+    flex: 0 0 calc(33.333% - 1rem); /* Forces exactly 3 cards to fit side by side */
+    min-width: 300px; /* Prevents cards from getting too squished on smaller viewports */
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column; /* Stack icon/date on top of text for a cleaner look when side-by-side */
+    gap: 1.2rem;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(156, 102, 68, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slide-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.timeline-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.timeline-content h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-dark);
+}
+
+.timeline-date {
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.timeline-org {
+    font-weight: 500;
+    color: var(--text-muted);
+    margin: 0.2rem 0 0.8rem;
+    font-size: 0.85rem;
+}
+
+.timeline-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Slider Controls */
+.edu-slider-btn {
+    position: absolute;
+    z-index: 10;
+    background: var(--bg-card);
+    border: 1px solid rgba(156, 102, 68, 0.2);
+    color: var(--primary);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.edu-slider-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.edu-slider-btn.prev {
+    left: -23px;
+}
+
+.edu-slider-btn.next {
+    right: -23px;
+}
+
+/* Full Certificate Section Below */
+.edu-certificate-section {
+    text-align: center;
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(156, 102, 68, 0.08);
+}
+
+.edu-certificate-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.certificate-frame {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: var(--bg-cream);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.full-certificate-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .slide-card {
+        flex: 0 0 calc(50% - 1rem); /* Show 2 cards on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .slide-card {
+        flex: 0 0 100%; /* Show 1 card on mobile */
+    }
+    .edu-slider-btn.prev {
+        left: 0;
+    }
+    .edu-slider-btn.next {
+        right: 0;
+    }
+}

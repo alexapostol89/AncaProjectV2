@@ -1,0 +1,286 @@
+﻿.journal-page {
+    max-width: 950px;
+}
+
+.journal-tagline {
+    font-size: 1.15rem;
+    color: var(--primary);
+    font-style: italic;
+    margin-top: -0.5rem;
+}
+
+/* Hero Quote Box */
+.journal-hero-quote {
+    background: var(--bg-card);
+    border-left: 4px solid var(--primary);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 3.5rem;
+    position: relative;
+}
+
+.quote-icon-top {
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.journal-hero-quote p {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.journal-hero-quote span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Story Grid */
+.journal-story-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3.5rem;
+}
+
+.journal-text-block h2 {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+}
+
+.journal-text-block p {
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+}
+
+.highlight-text {
+    font-weight: 600;
+    color: var(--text-dark) !important;
+    background: var(--accent-soft);
+    padding: 1rem;
+    border-radius: 12px;
+    border-left: 3px solid var(--primary);
+}
+
+/* Features Card */
+.journal-features-card {
+    background: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(156, 102, 68, 0.1);
+}
+
+.journal-features-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.features-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.target-audience {
+    display: flex;
+    gap: 12px;
+    background: var(--accent-soft);
+    padding: 1.2rem;
+    border-radius: 12px;
+    color: var(--primary);
+}
+
+.target-audience p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* Review Box */
+.journal-review-box {
+    background: var(--accent-soft);
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 3.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.journal-review-box p {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Deep Dive */
+.journal-deep-dive {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 20px;
+    margin-bottom: 3.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.journal-deep-dive h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+}
+
+.journal-deep-dive p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Psychologist Review Card */
+.psychologist-review-card {
+    background: #25201D;
+    color: #DDD4CE;
+    padding: 3rem;
+    border-radius: 20px;
+    margin-bottom: 3.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.psy-quote-icon {
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.psychologist-review-card p {
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: #EDE0D4;
+}
+
+.psy-author {
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* Table of Contents */
+.journal-toc-section {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 20px;
+    margin-bottom: 3.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.journal-toc-section h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.toc-item {
+    background: var(--bg-cream);
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.toc-item span {
+    background: var(--accent-soft);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+/* Purchase Box */
+.journal-purchase-box {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: white;
+    padding: 3.5rem;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+
+.journal-purchase-box h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.journal-purchase-box p {
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.amazon-links-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.amazon-btn {
+    background: white;
+    color: var(--text-dark);
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.amazon-btn:hover {
+    background: var(--accent-soft);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .journal-story-grid {
+        grid-template-columns: 1fr;
+    }
+}

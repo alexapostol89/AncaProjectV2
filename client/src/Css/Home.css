@@ -1,0 +1,232 @@
+﻿/* Hero Carousel */
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    height: 92vh;
+    min-height: 650px;
+    margin-top: 70px;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    background-size: cover;
+    background-position: center;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(30, 20, 15, 0.25) 0%, rgba(30, 20, 15, 0.6) 100%);
+}
+
+.hero-content-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 10;
+}
+
+.hero-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    max-width: 720px;
+    padding: 3rem 2.5rem;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Split Card inside Carousel */
+.hero-card.hero-split-card {
+    max-width: 1050px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 2.5rem;
+    align-items: center;
+    text-align: left;
+    padding: 2.5rem;
+}
+
+.hero-card-img-wrapper {
+    width: 100%;
+}
+
+.hero-card-img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    display: block;
+}
+
+.hero-card-text-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-card-text-wrapper h1 {
+    font-size: 1.8rem;
+    line-height: 1.25;
+    margin-bottom: 0.8rem;
+}
+
+.hero-card-text-wrapper .lead-text {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-dark);
+}
+
+.hero-card-text-wrapper .hero-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(8px);
+    border: none;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 20;
+}
+
+.slider-btn:hover {
+    background: rgba(255,255,255,0.85);
+    color: var(--text-dark);
+}
+
+.slider-btn.prev { left: 24px; }
+.slider-btn.next { right: 24px; }
+
+.slider-dots {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 20;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
+
+.dot.active {
+    width: 28px;
+    border-radius: 10px;
+    background: white;
+}
+
+/* Services Preview */
+.services-preview {
+    max-width: 1150px;
+    margin: 80px auto;
+    padding: 0 5%;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-muted);
+}
+
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    padding: 2.5rem 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--accent-soft);
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-link {
+    margin-top: auto;
+    padding-top: 1.2rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width: 900px) {
+    .hero-card.hero-split-card {
+        grid-template-columns: 1fr;
+        max-width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 1.5rem;
+    }
+    .hero-card-img {
+        height: 280px;
+    }
+    .hero-card-text-wrapper h1 {
+        font-size: 1.5rem;
+    }
+}

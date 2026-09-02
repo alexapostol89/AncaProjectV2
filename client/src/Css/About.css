@@ -1,0 +1,236 @@
+﻿.about-page {
+    max-width: 1050px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 3.5rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.about-portrait-img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    display: block;
+}
+
+.lead-text {
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+}
+
+.about-text-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.about-text-card p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.values-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.value-item {
+    display: flex;
+    gap: 1rem;
+}
+
+.value-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.value-item h4 {
+    font-size: 1.05rem;
+    margin-bottom: 0.2rem;
+}
+
+.value-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Personal Story Card Section */
+.about-story-section {
+    margin: 4rem 0;
+}
+
+.story-card {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(156, 102, 68, 0.08);
+}
+
+.story-card p {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.story-highlight {
+    font-weight: 600;
+    color: var(--primary) !important;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--accent-soft);
+}
+
+/* Testimonial Section */
+.about-testimonial-section {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.testimonial-quote {
+    background: var(--accent-soft);
+    padding: 3rem 4rem;
+    border-radius: 24px;
+    max-width: 850px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonial-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.testimonial-quote footer {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.05rem;
+}
+
+/* Offerings Section */
+.about-offerings-section {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.about-offerings-section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.offering-item {
+    background: var(--bg-card);
+    padding: 1.8rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.bullet-emoji {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.offering-item p {
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 0.98rem;
+    margin-bottom: 0;
+}
+
+/* Call to Action Box */
+.about-cta-section {
+    margin: 5rem 0 2rem;
+}
+
+.cta-box {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: white;
+    padding: 3.5rem 2.5rem;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.cta-box h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.cta-box p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 1rem;
+    opacity: 0.95;
+}
+
+.cta-highlight {
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 2rem !important;
+}
+
+.cta-buttons .btn-primary {
+    background: white;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.cta-buttons .btn-primary:hover {
+    background: var(--bg-cream);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-portrait-img {
+        height: 380px;
+    }
+    .testimonial-quote {
+        padding: 2rem 1.5rem;
+    }
+    .story-card {
+        padding: 1.8rem;
+    }
+    .cta-box {
+        padding: 2.5rem 1.5rem;
+    }
+}
