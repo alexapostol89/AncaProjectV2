@@ -1,6 +1,9 @@
-﻿import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useLanguage } from '../i18n';
+import LanguageSelector from './LanguageSelector';
 
 export default function Navbar() {
+    const { messages } = useLanguage();
     return (
         <nav className="navbar">
             <NavLink to="/" className="nav-brand">
@@ -14,40 +17,41 @@ export default function Navbar() {
             <ul className="nav-links">
                 <li>
                     <NavLink to="/" className={({ isActive }) => (isActive ? 'active-link' : '')}>
-                        Acasă
+                        {messages.nav.home}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/despre" className={({ isActive }) => (isActive ? 'active-link' : '')}>
-                        Despre mine
+                        {messages.nav.about}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/servicii" className={({ isActive }) => (isActive ? 'active-link' : '')}>
-                        Servicii
+                        {messages.nav.services}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/studii" className={({ isActive }) => (isActive ? 'active-link' : '')}>
-                        Studii
+                        {messages.nav.education}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/preturi" className={({ isActive }) => (isActive ? 'active-link' : '')}>
-                        Prețuri
+                        {messages.nav.pricing}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/jurnal" className={({ isActive }) => (isActive ? 'btn-nav active-link' : 'btn-nav')}>
-                        Jurnalul femeii expat
+                        {messages.nav.journal}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/contact" className={({ isActive }) => (isActive ? 'active-link' : '')} style={{ fontWeight: 600 }}>
-                        Contact
+                        {messages.nav.contact}
                     </NavLink>
                 </li>
             </ul>
+            <LanguageSelector className="navbar-language" />
         </nav>
     );
 }

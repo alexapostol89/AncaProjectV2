@@ -1,6 +1,7 @@
-﻿import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { GraduationCap, Award, BookOpen, HeartPulse, ChevronLeft, ChevronRight } from 'lucide-react';
 import '../Css/Education.css';
+import { useLanguage } from '../i18n';
 
 const educationItems = [
     {
@@ -41,7 +42,8 @@ const educationItems = [
 ];
 
 export default function Education() {
-    const sliderRef = useRef(null);
+    const { messages } = useLanguage();
+    const sliderRef = useRef<HTMLDivElement>(null);
 
     const scrollLeft = () => {
         if (sliderRef.current) {
@@ -58,8 +60,8 @@ export default function Education() {
     return (
         <div className="page-content education-page">
             <div className="page-header">
-                <span className="page-subtitle">Pregătire și acreditări</span>
-                <h1>Studii & Formare Profesională</h1>
+                <span className="page-subtitle">{messages.education.subtitle}</span>
+                <h1>{messages.education.title}</h1>
             </div>
 
             {/* Horizontal Sliding Track Section */}
@@ -69,17 +71,19 @@ export default function Education() {
                 </button>
 
                 <div className="edu-track" ref={sliderRef}>
-                    {educationItems.map((item, idx) => (
+                    {educationItems.map((item, idx) => {
+                        const translated = messages.education.items[idx];
+                        return (
                         <div className="timeline-item slide-card" key={idx}>
                             <div className="timeline-icon">{item.icon}</div>
                             <div className="timeline-content">
-                                <span className="timeline-date">{item.date}</span>
-                                <h3>{item.title}</h3>
-                                <p className="timeline-org">{item.org}</p>
-                                <p>{item.desc}</p>
+                                <span className="timeline-date">{translated.date}</span>
+                                <h3>{translated.title}</h3>
+                                <p className="timeline-org">{translated.org}</p>
+                                <p>{translated.desc}</p>
                             </div>
                         </div>
-                    ))}
+                    ); })}
                 </div>
 
                 <button className="edu-slider-btn next" onClick={scrollRight} aria-label="Slide dreapta">
@@ -89,7 +93,7 @@ export default function Education() {
 
             {/* Bottom Area: Full-Size Certificate Image */}
             <div className="edu-certificate-section">
-                <h2>Atestat de Liberă Practică</h2>
+                <h2>{messages.education.certificate}</h2>
                 <div className="certificate-frame">
                     <img
                         src="/3.jpg"

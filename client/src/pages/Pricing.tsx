@@ -1,8 +1,11 @@
-﻿import { Check, Sparkles } from 'lucide-react';
+import { Check, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../Css/Pricing.css';
+import { useLanguage } from '../i18n';
 
 export default function Pricing() {
+    const { messages } = useLanguage();
+    const t = messages.pricing;
     const plans = [
         {
             name: 'Ședință Individuală',
@@ -49,30 +52,30 @@ export default function Pricing() {
     return (
         <div className="page-content">
             <div className="page-header">
-                <span className="page-subtitle">Tarife transparente</span>
-                <h1>Prețuri & Pachete</h1>
+                <span className="page-subtitle">{t.subtitle}</span>
+                <h1>{t.title}</h1>
             </div>
 
             <div className="pricing-grid">
                 {plans.map((p, idx) => (
                     <div key={idx} className={`pricing-card ${p.popular ? 'popular' : ''}`}>
-                        {p.popular && <div className="popular-badge"><Sparkles size={14} /> Cel mai recomandat</div>}
-                        <h3>{p.name}</h3>
-                        <p className="pricing-desc">{p.description}</p>
+                        {p.popular && <div className="popular-badge"><Sparkles size={14} /> {t.popular}</div>}
+                        <h3>{t.plans[idx][0]}</h3>
+                        <p className="pricing-desc">{t.plans[idx][2]}</p>
                         <div className="pricing-number">
                             <span className="amount">{p.price}</span>
                             <span className="currency">RON</span>
-                            <span className="period">{p.period}</span>
+                            <span className="period">{t.plans[idx][1]}</span>
                         </div>
 
                         <ul className="pricing-features">
-                            {p.features.map((feat, i) => (
-                                <li key={i}><Check size={16} color="var(--primary)" /> {feat}</li>
+                            {p.features.map((_, i) => (
+                                <li key={i}><Check size={16} color="var(--primary)" /> {t.plans[idx][3][i]}</li>
                             ))}
                         </ul>
 
                         <Link to="/contact" className={p.popular ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', textAlign: 'center', display: 'block' }}>
-                            Alege acest pachet
+                            {t.choose}
                         </Link>
                     </div>
                 ))}

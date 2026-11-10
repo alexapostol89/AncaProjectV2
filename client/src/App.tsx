@@ -9,9 +9,11 @@ import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import ExpatJournal from './pages/ExpatJournal';
 import "./Css/App.css";
+import { LanguageProvider } from './i18n';
 
 export default function App() {
     return (
+        <LanguageProvider>
         <Router>
             <div className="app-layout">
                 <Navbar />
@@ -29,5 +31,6 @@ export default function App() {
                 <Footer />
             </div>
         </Router>
+        </LanguageProvider>
     );
 }
