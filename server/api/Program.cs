@@ -6,12 +6,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using api.Configuration;
 using api.Data;
 using api.Models;
 using api.Services;
 
+LoadLocalDatabaseUrl();
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // ---- Configuration ---------------------------------------------------
 // Bound from appsettings.json / user-secrets (dev) / environment variables (prod).
@@ -41,6 +46,13 @@ builder.Services
 
 // ---- Database (PostgreSQL on Neon) -------------------------------------
 var connectionString = builder.Configuration.GetConnectionString("Default");
+var neonDatabaseUrl = builder.Configuration["DATABASE_URL"];
+if (string.IsNullOrWhiteSpace(connectionString) && !string.IsNullOrWhiteSpace(neonDatabaseUrl))
+{
+    connectionString = ToNpgsqlConnectionString(neonDatabaseUrl);
+    builder.Configuration["ConnectionStrings:Default"] = connectionString;
+}
+
 if (string.IsNullOrWhiteSpace(connectionString))
 {
     throw new InvalidOperationException(
@@ -150,9 +162,79 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapGet("/", () => "Anca Berbunschi — Psihologie API");
-app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+app.MapGet("/health", async (AppDbContext db, CancellationToken cancellationToken) =>
+{
+    var connected = await db.Database.CanConnectAsync(cancellationToken);
+    return connected
+        ? Results.Ok(new { status = "ok", database = "ok" })
+        : Results.Problem("Database unavailable.", statusCode: StatusCodes.Status503ServiceUnavailable);
+});
 
 // Migrations (dev only, see Database:MigrateOnStartup) + first admin.
 await DatabaseInitializer.InitializeAsync(app.Services);
 
 app.Run();
+
+static void LoadLocalDatabaseUrl()
+{
+    if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("DATABASE_URL")))
+    {
+        return;
+    }
+
+    // Neon CLI writes local credentials at the repository root. Search upward
+    // so `dotnet run` works from either the repo root or server/api.
+    for (var directory = new DirectoryInfo(Directory.GetCurrentDirectory()); directory is not null; directory = directory.Parent)
+    {
+        var envPath = Path.Combine(directory.FullName, ".env.local");
+        if (!File.Exists(envPath))
+        {
+            continue;
+        }
+
+        foreach (var line in File.ReadLines(envPath))
+        {
+            var trimmedLine = line.Trim();
+            if (trimmedLine.StartsWith("DATABASE_URL=", StringComparison.Ordinal))
+            {
+                var value = trimmedLine["DATABASE_URL=".Length..].Trim();
+                if (value.Length >= 2 && ((value[0] == '"' && value[^1] == '"') || (value[0] == '\'' && value[^1] == '\'')))
+                {
+                    value = value[1..^1];
+                }
+
+                Environment.SetEnvironmentVariable("DATABASE_URL", value);
+                return;
+            }
+        }
+
+        return;
+    }
+}
+
+static string ToNpgsqlConnectionString(string databaseUrl)
+{
+    if (!Uri.TryCreate(databaseUrl, UriKind.Absolute, out var uri) ||
+        (uri.Scheme != "postgres" && uri.Scheme != "postgresql"))
+    {
+        throw new InvalidOperationException("DATABASE_URL must be a PostgreSQL URL.");
+    }
+
+    var credentialParts = uri.UserInfo.Split(':', 2);
+    if (credentialParts.Length != 2)
+    {
+        throw new InvalidOperationException("DATABASE_URL must include PostgreSQL credentials.");
+    }
+
+    return new NpgsqlConnectionStringBuilder
+    {
+        Host = uri.Host,
+        Port = uri.IsDefaultPort ? 5432 : uri.Port,
+        Database = Uri.UnescapeDataString(uri.AbsolutePath.TrimStart('/')),
+        Username = Uri.UnescapeDataString(credentialParts[0]),
+        Password = Uri.UnescapeDataString(credentialParts[1]),
+        SslMode = SslMode.Require,
+        Pooling = true,
+        MaxPoolSize = 10
+    }.ConnectionString;
+}

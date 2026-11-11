@@ -1,0 +1,6 @@
+.neon
+node_modules/
+.idea/
+.env
+.env.local
+.env.local
