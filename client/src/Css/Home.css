@@ -1,8 +1,8 @@
-﻿/* Hero Carousel */
+/* Hero Carousel */
 .hero-slider-container {
     position: relative;
     width: 100%;
-    height: 92vh;
+    height: calc(92vh / var(--page-zoom));  /* vh is zoomed on big screens, undo that */
     min-height: 650px;
     margin-top: 70px;
     overflow: hidden;
@@ -216,15 +216,27 @@
 }
 
 @media (max-width: 900px) {
+    /* The card is taller than the screen here, so let the section grow with it
+       instead of squeezing the card into a scroll box. */
+    .hero-slider-container {
+        height: auto;
+        min-height: 0;
+    }
+    .hero-content-wrapper {
+        position: relative;
+        padding: 2rem 1rem 3.5rem;
+    }
     .hero-card.hero-split-card {
         grid-template-columns: 1fr;
-        max-width: 90%;
-        max-height: 85vh;
-        overflow-y: auto;
+        max-width: 560px;
+        gap: 1.5rem;
         padding: 1.5rem;
     }
     .hero-card-img {
         height: 280px;
+    }
+    .slider-btn {
+        display: none; /* arrows would cover the text; the dots remain */
     }
     .hero-card-text-wrapper h1 {
         font-size: 1.5rem;

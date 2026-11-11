@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "title": "Anca Alexandra Berbunschi — Psychologist"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About me",
+    "services": "Services",
+    "education": "Education",
+    "pricing": "Pricing",
+    "journal": "Expat Woman’s Journal",
+    "contact": "Contact",
+    "login": "Log in",
+    "logout": "Log out",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "languageSelector": {
+    "label": "Choose your language"
+  },
+  "home": {
+    "subtitle": "Private Practice",
+    "title": "A space for listening, acceptance, and transformation",
+    "lead": "My mission is to gently accompany you on your journey of self-discovery, offering a confidential and non-judgmental space.",
+    "description": "Whether you are experiencing anxiety, going through a difficult transition, or want to better understand patterns that hold you back, integrative psychotherapy offers tools to support meaningful change.",
+    "book": "Book a session",
+    "about": "About me",
+    "prev": "Previous slide",
+    "next": "Next slide",
+    "support": "How I can support you",
+    "journey": "Every therapeutic journey is unique and adapted to your own pace.",
+    "individual": "Individual psychotherapy",
+    "individualDesc": "Explore emotions, manage anxiety, move through difficult times, and regain inner clarity.",
+    "growth": "Personal development",
+    "growthDesc": "Improve relationships, build self-esteem, and develop healthy boundaries.",
+    "counseling": "Counselling and support",
+    "counselingDesc": "A warm, empathetic, confidential space to understand the challenges in your daily life.",
+    "details": "Service details",
+    "photoAlt": "Anca – psychotherapist",
+    "slide": "Slide {{number}}"
+  },
+  "about": {
+    "subtitle": "A little about me",
+    "hello": "Hello, I’m Anca Alexandra Berbunschi",
+    "lead": "I am a psychologist and integrative psychotherapist in training. I love nature, cats, and honest conversations that bring clarity and meaning.",
+    "intro": "I believe everyone has inner resources for healing. Sometimes, though, we need a guide and a warm presence to help us through moments of confusion.",
+    "value1": "A space without judgment",
+    "value1d": "Confidentiality, unconditional acceptance, and genuine empathy.",
+    "value2": "An integrative approach",
+    "value2d": "Flexible techniques tailored to your emotional needs and pace.",
+    "value3": "An authentic therapeutic relationship",
+    "value3d": "We build a relationship based on trust, safety, and mutual respect.",
+    "story": [
+      "I am 33 and I like my age. I have two adopted cats and love them dearly.",
+      "Psychology was a second chance I gave myself, and it helped me find myself again. I enjoy growing personally and professionally. I am proud of how far I have come, though I still have difficult days. That makes me human, and I try not to treat others in ways I would not want to be treated.",
+      "In our sessions, I bring knowledge that I continually update from scientifically sound sources, and I am ready to meet you with all your feelings and thoughts. I have gathered the theory and practical methods that may help.",
+      "I am honest, direct when needed, and careful with the person in front of me. I will not promise a miraculous recovery in a set time. I will help you understand yourself and work toward feeling better by the end of our work together.",
+      "I will also encourage you to work on yourself between our sessions."
+    ],
+    "testimonial": "“I felt heard, guided, supported, validated, and understood. For the first time, someone was not judging me, but seeing me exactly as I am.”",
+    "choose": "Choose what feels right for you",
+    "offerings": [
+      "Individual sessions online or in person in Iași",
+      "An intensive personal development programme by email",
+      "Articles, free resources, and a guided journal for expat women (RO & EN)"
+    ],
+    "next": "Take the next step",
+    "nextText": "If you feel ready to stop carrying everything alone, I am here.",
+    "free": "Book a free, no-obligation 15-minute conversation so we can meet and you can see whether my approach feels right for you.",
+    "book": "Book a free 15-minute call",
+    "photoAlt": "Anca Alexandra Berbunschi – psychologist"
+  },
+  "services": {
+    "subtitle": "Support and guidance",
+    "title": "Services",
+    "items": [
+      {
+        "title": "Individual psychotherapy",
+        "description": "One-to-one sessions for anxiety, depression, panic attacks, grief, or self-esteem concerns.",
+        "details": [
+          "Duration: 50 minutes",
+          "In person or online",
+          "Weekly frequency"
+        ]
+      },
+      {
+        "title": "Personal development and self-awareness",
+        "description": "For anyone who wants to explore their potential, understand behavioural patterns, and build more fulfilling relationships.",
+        "details": [
+          "Duration: 50 minutes",
+          "Clear goal setting",
+          "Practical exercises and reflection"
+        ]
+      },
+      {
+        "title": "Online psychological counselling",
+        "description": "Flexible video sessions (WhatsApp / Zoom) from the comfort of home, wherever you live.",
+        "details": [
+          "Duration: 50 minutes",
+          "Flexible scheduling"
+        ]
+      }
+    ],
+    "book": "Book a session"
+  },
+  "education": {
+    "subtitle": "Training and credentials",
+    "title": "Education and professional training",
+    "certificate": "Professional practice certificate",
+    "items": [
+      {
+        "date": "Professional training",
+        "title": "Psychotherapist in training in integrative psychotherapy",
+        "org": "Romanian Association of Integrative Psychotherapy (psihoterapieintegrativa.ro)",
+        "desc": "Advanced training in integrative methods for understanding and healing psychological processes."
+      },
+      {
+        "date": "University master’s degree",
+        "title": "Master’s degree in Psychology",
+        "org": "Faculty of Psychology and Education Sciences — “Alexandru Ioan Cuza” University of Iași",
+        "desc": "Advanced studies in psychology and clinical research."
+      },
+      {
+        "date": "University bachelor’s degree",
+        "title": "Bachelor’s degree in Psychology",
+        "org": "Faculty of Psychology, Education Sciences and Social Work — “Petre Andrei” University of Iași",
+        "desc": "A solid theoretical and practical foundation in psychological sciences and human support."
+      },
+      {
+        "date": "Professional practice certificates",
+        "title": "Registration number: 29283",
+        "org": "College of Psychologists of Romania (COPSI)",
+        "desc": "Certificates in Clinical Psychology and Educational Psychology, school counselling, and career guidance."
+      },
+      {
+        "date": "Specialisation / advanced course",
+        "title": "Compassionate Inquiry: healing deep traumatic wounds",
+        "org": "Speaker: Gabor Maté (PESI)",
+        "desc": "A therapeutic approach focused on understanding deep trauma and using compassion as a tool for inner transformation."
+      }
+    ],
+    "prev": "Previous",
+    "next": "Next",
+    "certificateAlt": "Professional practice certificate – Anca Alexandra Berbunschi"
+  },
+  "pricing": {
+    "subtitle": "Transparent fees",
+    "title": "Pricing and packages",
+    "plans": [
+      {
+        "name": "Individual session",
+        "period": "/ session (50 min)",
+        "description": "A good way to begin therapy or attend occasional sessions.",
+        "features": [
+          "50-minute session",
+          "In person or online",
+          "Initial assessment and therapy plan",
+          "Complete confidentiality"
+        ]
+      },
+      {
+        "name": "Package of 4 sessions",
+        "period": "/ month (4 sessions)",
+        "description": "A recommended option for continuity and lasting progress.",
+        "features": [
+          "Four 50-minute sessions",
+          "Guaranteed weekly time slot",
+          "Save 10%",
+          "Reflection and work materials included",
+          "Email support between sessions"
+        ]
+      },
+      {
+        "name": "Package of 8 sessions",
+        "period": "/ 2 months (8 sessions)",
+        "description": "For a deeper, steady therapeutic process over the medium term.",
+        "features": [
+          "Eight 50-minute sessions",
+          "Save 15%",
+          "Priority booking",
+          "Reschedule up to 24 hours ahead"
+        ]
+      }
+    ],
+    "popular": "Most popular",
+    "choose": "Choose this package"
+  },
+  "contact": {
+    "subtitle": "Take the first step",
+    "title": "Contact and appointments",
+    "talk": "Let’s talk",
+    "intro": "If you feel ready to start therapy or have questions about sessions, please get in touch.",
+    "location": "Location",
+    "address": "Practice: Iași, Romania / Online sessions via Zoom or WhatsApp",
+    "hours": "Hours",
+    "schedule": "Monday – Friday: 09:00 – 19:00",
+    "form": "Send a message",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "session": "Preferred session type",
+    "online": "Online (Google Meet / Zoom)",
+    "physical": "In person (at the practice)",
+    "unsure": "I’m not sure; I’d like a recommendation",
+    "message": "Message / What brings you to therapy?",
+    "placeholder": "Write a few thoughts...",
+    "hint": "This form is not monitored continuously and is not suitable for emergencies. In an emergency, call 112.",
+    "consent": "I have read and agree to the Privacy Policy.",
+    "send": "Send message",
+    "sending": "Sending...",
+    "sent": "Your message has been sent.",
+    "nameError": "Please enter your name.",
+    "emailError": "Please enter a valid email address.",
+    "messageError": "Your message must be at least 10 characters.",
+    "consentError": "Please agree before sending your message.",
+    "serverError": "Something went wrong. Please try again.",
+    "namePlaceholder": "e.g. Maria Popescu"
+  },
+  "auth": {
+    "loginSubtitle": "Welcome back",
+    "loginTitle": "Log in",
+    "registerSubtitle": "New account",
+    "registerTitle": "Create an account",
+    "loginRequired": "To book a session, please log in or create an account.",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "passwordHint": "At least 8 characters, with a lowercase letter, an uppercase letter and a digit.",
+    "loginButton": "Log in",
+    "loggingIn": "Checking...",
+    "registerButton": "Create account",
+    "registering": "Creating your account...",
+    "noAccount": "No account yet?",
+    "registerLink": "Create one",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "nameError": "Your name must be at least 2 characters.",
+    "emailError": "Please enter a valid email address.",
+    "passwordRequired": "Please enter your password.",
+    "passwordWeak": "Your password must be at least 8 characters and include a lowercase letter, an uppercase letter and a digit.",
+    "passwordMismatch": "The passwords do not match.",
+    "invalidCredentials": "Incorrect email or password.",
+    "emailTaken": "An account with this email already exists.",
+    "tooManyRequests": "Too many attempts. Please wait a minute and try again.",
+    "networkError": "Could not reach the server. Please check your internet connection.",
+    "serverError": "Something went wrong. Please try again."
+  },
+  "journal": {
+    "subtitle": "A guide to transformation & introspection",
+    "title": "The Expat Woman’s Journal",
+    "tagline": "Thoughts and feelings of a woman blossoming far from her roots",
+    "quote1": "“The author has created a tool that truly adds value to my life. Filling in this guide feels like a ritual – a hygge moment carved out of the daily rush, where I can take care of myself and process my emotions as an expat. On top of all that, it comes with an amazing group of women from all over the world – a community I can connect with just one click away. The best gift you can give yourself 💯”",
+    "quote1Source": "(Amazon customer)",
+    "whyTitle": "Why I wrote this journal",
+    "why": [
+      "I left Romania full of excitement, because I was tired of crying and of living with anger and guilt. I left because I could no longer stay.",
+      "If you, too, are a woman living far from the country that shaped you, but where you no longer felt you belonged, then you know what I am talking about.",
+      "The Expat Woman’s Journal is not a classic journal. No little hearts, no motivational affirmations. It is a therapeutic space. Clear, honest, sometimes uncomfortable, but deeply liberating.",
+      "A place where you can finally sit with yourself, without apologising for feeling too much or for not being enough.",
+      "It contains questions that dig into deep layers, and exercises designed by a woman psychologist who left, tore herself away from her roots, cried from longing and hardship, and learned to put herself back together."
+    ],
+    "whyPromise": "It does not promise healing. It promises that you will no longer feel like you are the only one.",
+    "featuresTitle": "What is inside the journal?",
+    "features": [
+      "Written in Romanian",
+      "52 therapeutic themes dedicated to expat women",
+      "Questions about emotions, relationships, needs, longing and identity",
+      "Moments of introspection and presence with yourself",
+      "Space for gratitude, reflection and plans for your well-being"
+    ],
+    "audience": "It is for you if you are blossoming far from your roots. An honest gift for any Romanian expat woman, or for yourself.",
+    "quote2": "“The author of this journal asks important questions about one’s new life, identity and self-perception. The journal deepens and supports a good analysis of one’s current situation. It is an excellent tool for finding yourself again or for connecting with your (new?) self. I warmly recommend it if you need a guide to bring order to your thoughts, feelings and life.”",
+    "quote2Author": "— Cristina-Maria Amorsen, Amazon customer",
+    "refugeTitle": "A place of refuge and inner order",
+    "refuge": [
+      "If you are an expat woman too, you already know that beyond beautiful landscapes and new cultures come longing, fears, unanswered questions, emotions that are hard to carry and needs you keep putting off. This journal is your place of refuge. The space where you can bring order to your thoughts, emotions and wishes, without a mask.",
+      "It is not just a journal for writing down what you did today. It is a 52-week guide that invites you to sit with yourself, take a break from the to-do list of life far from your roots, and ask your soul how it feels. Through weekly themes, meaningful questions and moments of introspection, the journal helps you understand your emotions, recognise which relationships nourish you and which drain you, and discover what “home” means to you, beyond coordinates on a map."
+    ],
+    "psyQuote": "“Reading Anca’s journal, I realised how much I would have wished for a tool like this to document my experience as an expat woman more than 10 years ago. Many of my feelings from back then have been lost, and when I try to remember them, I realise that my perception has changed in the meantime... Through this journal, Anca manages to map an extremely deep journey, tracing the borders of a new identity and drawing emotional landscapes of boundless beauty. At the end of this journey you will find yourself – much stronger, wiser and more aware – and may everything you have recorded in this journal become the most beautiful success story: YOURS!”",
+    "psyAuthor": "Roxana Dumitrașcu – psychologist",
+    "tocTitle": "Contents",
+    "tocIntroLabel": "Intro",
+    "tocIntro": "Introduction: about the journal, its purpose and the author’s thoughts",
+    "chapterLabel": "Ch.",
+    "chapters": [
+      "1. Identity and personal transformation",
+      "2. Life as an expat – adapting and belonging",
+      "3. The relationship with yourself",
+      "4. Relationships with others",
+      "5. Emotions, fears and vulnerabilities",
+      "6. Longing and the connection with Romania",
+      "7. Cultural integration",
+      "8. Resources, habits and safe spaces",
+      "9. Resilience and personal lessons",
+      "10. Gratitude and self-celebration"
+    ],
+    "tocOutroLabel": "Outro",
+    "tocOutro": "End of the journal & closing reflections – who am I today, after this journey?",
+    "buyTitle": "Order it now",
+    "buyText": "Choose the Amazon site for the country you live in:"
+  },
+  "footer": {
+    "tagline": "Private Psychology Practice",
+    "copyright": "Made with care for inner balance."
+  }
+}

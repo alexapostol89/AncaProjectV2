@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "title": "Anca Alexandra Berbunschi — Psykolog"
+  },
+  "nav": {
+    "home": "Hjem",
+    "about": "Om mig",
+    "services": "Ydelser",
+    "education": "Uddannelse",
+    "pricing": "Priser",
+    "journal": "Udvandrerkvindens dagbog",
+    "contact": "Kontakt",
+    "login": "Log ind",
+    "logout": "Log ud",
+    "openMenu": "Åbn menu",
+    "closeMenu": "Luk menu"
+  },
+  "languageSelector": {
+    "label": "Vælg sprog"
+  },
+  "home": {
+    "subtitle": "Privat praksis",
+    "title": "Et sted med plads til at blive lyttet til, accepteret og forandret",
+    "lead": "Min mission er nænsomt at følge dig på din vej mod større selvindsigt i et fortroligt og ikke-dømmende rum.",
+    "description": "Uanset om du oplever angst, gennemgår en svær overgang eller ønsker at forstå de mønstre, der holder dig tilbage, giver integrativ psykoterapi redskaber til meningsfuld forandring.",
+    "book": "Book en session",
+    "about": "Om mig",
+    "prev": "Forrige slide",
+    "next": "Næste slide",
+    "support": "Sådan kan jeg støtte dig",
+    "journey": "Hvert terapeutisk forløb er unikt og tilpasset dit eget tempo.",
+    "individual": "Individuel psykoterapi",
+    "individualDesc": "Udforsk følelser, håndter angst, kom gennem svære perioder, og genfind din indre klarhed.",
+    "growth": "Personlig udvikling",
+    "growthDesc": "Styrk relationer og selvværd, og opbyg sunde grænser.",
+    "counseling": "Rådgivning og støtte",
+    "counselingDesc": "Et varmt, empatisk og fortroligt rum til at forstå hverdagens udfordringer.",
+    "details": "Læs om ydelsen",
+    "photoAlt": "Anca – psykoterapeut",
+    "slide": "Slide {{number}}"
+  },
+  "about": {
+    "subtitle": "Lidt om mig",
+    "hello": "Hej, jeg hedder Anca Alexandra Berbunschi",
+    "lead": "Jeg er psykolog og under uddannelse til integrativ psykoterapeut. Jeg holder af naturen, katte og ærlige samtaler, der giver klarhed og mening.",
+    "intro": "Jeg tror på, at alle mennesker har indre ressourcer til forandring. Nogle gange har vi brug for en guide og et varmt nærvær til at finde vej gennem forvirringen.",
+    "value1": "Et rum uden fordømmelse",
+    "value1d": "Fortrolighed, ubetinget accept og ægte empati.",
+    "value2": "En integrativ tilgang",
+    "value2d": "Fleksible metoder tilpasset dine følelsesmæssige behov og dit tempo.",
+    "value3": "En ægte terapeutisk relation",
+    "value3d": "Vi bygger en relation på tillid, tryghed og gensidig respekt.",
+    "story": [
+      "Jeg er 33 år, og jeg kan godt lide min alder. Jeg har to adopterede katte, som jeg elsker højt.",
+      "Psykologien blev en ny chance, jeg gav mig selv, og hjalp mig med at finde tilbage til mig selv. Jeg holder af personlig og faglig udvikling. Jeg er stolt af min udvikling, men har også svære dage. Det gør mig menneskelig, og jeg prøver ikke at behandle andre på måder, jeg ikke selv bryder mig om.",
+      "I vores samtaler møder jeg dig med viden, som jeg løbende opdaterer fra videnskabeligt troværdige kilder, og med plads til alle dine tanker og følelser. Jeg har samlet teori og metoder, som kan være til hjælp.",
+      "Jeg er ærlig og direkte, når det er nødvendigt, og møder dig med omsorg. Jeg lover ikke mirakuløs bedring på en bestemt tid. Jeg hjælper dig med at forstå dig selv bedre og arbejde hen imod at få det bedre.",
+      "Jeg vil også opmuntre dig til at arbejde med dig selv mellem vores samtaler."
+    ],
+    "testimonial": "“Jeg følte mig lyttet til, guidet, støttet, anerkendt og forstået. For første gang var der ikke nogen, der dømte mig, men én, der så mig præcis, som jeg er.”",
+    "choose": "Vælg det, der passer til dig",
+    "offerings": [
+      "Individuelle sessioner online eller fysisk i Iași",
+      "Et intensivt forløb i personlig udvikling via e-mail",
+      "Artikler, gratis ressourcer og en guidet dagbog for udvandrerkvinder (RO & EN)"
+    ],
+    "next": "Tag det næste skridt",
+    "nextText": "Hvis du er klar til ikke længere at bære alt alene, er jeg her.",
+    "free": "Book en gratis, uforpligtende samtale på 15 minutter, så vi kan mødes, og du kan mærke, om min tilgang passer til dig.",
+    "book": "Book en gratis samtale på 15 minutter",
+    "photoAlt": "Anca Alexandra Berbunschi – psykolog"
+  },
+  "services": {
+    "subtitle": "Støtte og vejledning",
+    "title": "Ydelser",
+    "items": [
+      {
+        "title": "Individuel psykoterapi",
+        "description": "Individuelle samtaler om angst, depression, panikanfald, sorg eller lavt selvværd.",
+        "details": [
+          "Varighed: 50 minutter",
+          "Fysisk eller online",
+          "Ugentligt"
+        ]
+      },
+      {
+        "title": "Personlig udvikling og selvindsigt",
+        "description": "For dig, der vil udforske dit potentiale, forstå dine mønstre og skabe mere harmoniske relationer.",
+        "details": [
+          "Varighed: 50 minutter",
+          "Klare mål",
+          "Praktiske øvelser og refleksion"
+        ]
+      },
+      {
+        "title": "Psykologisk rådgivning online",
+        "description": "Fleksible videosamtaler (WhatsApp / Zoom) hjemmefra, uanset hvor du bor.",
+        "details": [
+          "Varighed: 50 minutter",
+          "Fleksible tider"
+        ]
+      }
+    ],
+    "book": "Book en session"
+  },
+  "education": {
+    "subtitle": "Uddannelse og kvalifikationer",
+    "title": "Uddannelse og faglig træning",
+    "certificate": "Autorisation",
+    "items": [
+      {
+        "date": "Faglig uddannelse",
+        "title": "Under uddannelse til integrativ psykoterapeut",
+        "org": "Den Rumænske Forening for Integrativ Psykoterapi (psihoterapieintegrativa.ro)",
+        "desc": "Videreuddannelse i integrative metoder til forståelse og behandling af psykiske processer."
+      },
+      {
+        "date": "Universitetsuddannelse på kandidatniveau",
+        "title": "Kandidatgrad i psykologi",
+        "org": "Fakultetet for Psykologi og Uddannelsesvidenskab — “Alexandru Ioan Cuza”-universitetet i Iași",
+        "desc": "Fordybende studier i psykologi og klinisk forskning."
+      },
+      {
+        "date": "Universitetsuddannelse på bachelorniveau",
+        "title": "Bachelorgrad i psykologi",
+        "org": "Fakultetet for Psykologi, Uddannelsesvidenskab og Socialt Arbejde — “Petre Andrei”-universitetet i Iași",
+        "desc": "Et solidt teoretisk og praktisk fundament inden for psykologi og menneskelig støtte."
+      },
+      {
+        "date": "Praksisbeviser",
+        "title": "Personligt registreringsnummer: 29283",
+        "org": "Det Rumænske Psykologkollegium (COPSI)",
+        "desc": "Beviser inden for klinisk psykologi og pædagogisk psykologi samt skole- og erhvervsvejledning."
+      },
+      {
+        "date": "Specialisering / videregående kursus",
+        "title": "Compassionate Inquiry: heling af dybe traumatiske sår",
+        "org": "Underviser: Gabor Maté (PESI)",
+        "desc": "En terapeutisk tilgang med fokus på forståelse af dybe traumer og medfølelse som redskab til indre forandring."
+      }
+    ],
+    "prev": "Forrige",
+    "next": "Næste",
+    "certificateAlt": "Autorisation – Anca Alexandra Berbunschi"
+  },
+  "pricing": {
+    "subtitle": "Gennemsigtige priser",
+    "title": "Priser og pakker",
+    "plans": [
+      {
+        "name": "Individuel session",
+        "period": "/ session (50 min.)",
+        "description": "Velegnet til at begynde et forløb eller til enkelte samtaler.",
+        "features": [
+          "Varighed: 50 minutter",
+          "Fysisk eller online",
+          "Indledende vurdering og terapiplan",
+          "Fuld fortrolighed"
+        ]
+      },
+      {
+        "name": "Pakke med 4 sessioner",
+        "period": "/ måned (4 sessioner)",
+        "description": "Et anbefalet valg for kontinuitet og varige fremskridt.",
+        "features": [
+          "Fire sessioner á 50 minutter",
+          "Fast ugentlig tid",
+          "Spar 10%",
+          "Materialer til arbejde og refleksion",
+          "E-mailstøtte mellem sessionerne"
+        ]
+      },
+      {
+        "name": "Pakke med 8 sessioner",
+        "period": "/ 2 måneder (8 sessioner)",
+        "description": "Til et dybere og stabilt terapeutisk forløb på mellemlangt sigt.",
+        "features": [
+          "Otte sessioner á 50 minutter",
+          "Spar 15%",
+          "Prioriteret booking",
+          "Ændring indtil 24 timer før"
+        ]
+      }
+    ],
+    "popular": "Mest populær",
+    "choose": "Vælg denne pakke"
+  },
+  "contact": {
+    "subtitle": "Tag det første skridt",
+    "title": "Kontakt og tidsbestilling",
+    "talk": "Lad os tale sammen",
+    "intro": "Hvis du er klar til at begynde i terapi eller har spørgsmål om samtalerne, er du velkommen til at skrive.",
+    "location": "Adresse",
+    "address": "Praksis: Iași, Rumænien / Online via Zoom eller WhatsApp",
+    "hours": "Åbningstid",
+    "schedule": "Mandag – fredag: 09.00 – 19.00",
+    "form": "Send en besked",
+    "name": "Fulde navn",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "session": "Ønsket samtaletype",
+    "online": "Online (Google Meet / Zoom)",
+    "physical": "Fysisk (i klinikken)",
+    "unsure": "Jeg er ikke sikker og vil gerne have en anbefaling",
+    "message": "Besked / Hvad bringer dig til terapi?",
+    "placeholder": "Skriv et par tanker...",
+    "hint": "Denne formular overvåges ikke løbende og er ikke til nødsituationer. Ring 112 i en nødsituation.",
+    "consent": "Jeg har læst og accepterer privatlivspolitikken.",
+    "send": "Send besked",
+    "sending": "Sender...",
+    "sent": "Din besked er sendt.",
+    "nameError": "Skriv venligst dit navn.",
+    "emailError": "Indtast en gyldig e-mailadresse.",
+    "messageError": "Beskeden skal være på mindst 10 tegn.",
+    "consentError": "Du skal give samtykke, før beskeden kan sendes.",
+    "serverError": "Der opstod en fejl. Prøv venligst igen.",
+    "namePlaceholder": "F.eks. Maria Popescu"
+  },
+  "auth": {
+    "loginSubtitle": "Velkommen tilbage",
+    "loginTitle": "Log ind",
+    "registerSubtitle": "Ny konto",
+    "registerTitle": "Opret en konto",
+    "loginRequired": "For at booke en session skal du logge ind eller oprette en konto.",
+    "fullName": "Fulde navn",
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "confirmPassword": "Bekræft adgangskode",
+    "passwordHint": "Mindst 8 tegn med et lille bogstav, et stort bogstav og et tal.",
+    "loginButton": "Log ind",
+    "loggingIn": "Kontrollerer...",
+    "registerButton": "Opret konto",
+    "registering": "Opretter din konto...",
+    "noAccount": "Har du ikke en konto?",
+    "registerLink": "Opret en",
+    "haveAccount": "Har du allerede en konto?",
+    "loginLink": "Log ind",
+    "nameError": "Navnet skal være på mindst 2 tegn.",
+    "emailError": "Indtast en gyldig e-mailadresse.",
+    "passwordRequired": "Indtast din adgangskode.",
+    "passwordWeak": "Adgangskoden skal være på mindst 8 tegn og indeholde et lille bogstav, et stort bogstav og et tal.",
+    "passwordMismatch": "Adgangskoderne er ikke ens.",
+    "invalidCredentials": "Forkert e-mail eller adgangskode.",
+    "emailTaken": "Der findes allerede en konto med denne e-mail.",
+    "tooManyRequests": "For mange forsøg. Vent et minut, og prøv igen.",
+    "networkError": "Kunne ikke kontakte serveren. Tjek din internetforbindelse.",
+    "serverError": "Der opstod en fejl. Prøv venligst igen."
+  },
+  "journal": {
+    "subtitle": "En guide til forandring og selvransagelse",
+    "title": "Udvandrerkvindens dagbog",
+    "tagline": "Tanker og følelser hos en kvinde, der blomstrer langt fra sine rødder",
+    "quote1": "»Forfatteren har skabt et værktøj, der virkelig tilfører mit liv værdi. At udfylde denne guide føles som et ritual – et hyggeligt øjeblik, der er skabt midt i hverdagens travlhed, hvor jeg kan passe på mig selv og bearbejde mine følelser som udvandrer. Oven i det hele følger der en fantastisk gruppe af kvinder fra hele verden med – et fællesskab, jeg kan få kontakt til med blot et enkelt klik. Den bedste gave, du kan give dig selv 💯”",
+    "quote1Source": "(Amazon-kunde)",
+    "whyTitle": "Hvorfor jeg skrev denne dagbog",
+    "why": [
+      "Jeg forlod Rumænien fuld af forventning, for jeg var træt af at græde og af at leve med vrede og skyldfølelse. Jeg rejste, fordi jeg ikke længere kunne blive.",
+      "Hvis du også er en kvinde, der bor langt væk fra det land, der har formet dig, men hvor du ikke længere følte, at du hørte til, så ved du, hvad jeg taler om.",
+      "»The Expat Woman’s Journal« er ikke en klassisk dagbog. Ingen små hjerter, ingen motiverende citater. Det er et terapeutisk rum. Klart, ærligt, til tider ubehageligt, men dybt befriende.",
+      "Et sted, hvor du endelig kan være i fred med dig selv, uden at skulle undskylde for at føle for meget eller for ikke at være god nok.",
+      "Den indeholder spørgsmål, der går i dybden, og øvelser udarbejdet af en kvindelig psykolog, der rejste væk, rev sig løs fra sine rødder, græd af længsel og modgang og lærte at samle sig selv igen."
+    ],
+    "whyPromise": "Det lover ikke helbredelse. Det lover, at du ikke længere vil føle, at du er den eneste.",
+    "featuresTitle": "Hvad indeholder tidsskriftet?",
+    "features": [
+      "Skrevet på rumænsk",
+      "52 terapeutiske temaer rettet mod kvinder, der bor i udlandet",
+      "Spørgsmål om følelser, relationer, behov, længsel og identitet",
+      "Øjeblikke med selvransagelse og nærvær med sig selv",
+      "Et sted til taknemmelighed, refleksion og planer for dit velbefindende"
+    ],
+    "audience": "Den er til dig, hvis du blomstrer langt væk fra dine rødder. En oprigtig gave til enhver rumænsk kvinde, der bor i udlandet – eller til dig selv.",
+    "quote2": "»Forfatteren af denne dagbog stiller vigtige spørgsmål om ens nye liv, identitet og selvopfattelse. Dagbogen giver mulighed for at gå i dybden med og understøtter en god analyse af ens nuværende situation. Den er et fremragende redskab til at genfinde sig selv eller til at skabe forbindelse til sit (nye?) jeg. Jeg kan varmt anbefale den, hvis du har brug for en vejledning til at skabe orden i dine tanker, følelser og dit liv.”",
+    "quote2Author": "— Cristina-Maria Amorsen, Amazon-kunde",
+    "refugeTitle": "Et tilflugtssted og et sted med indre ro",
+    "refuge": [
+      "Hvis du også er en kvinde, der bor i udlandet, ved du allerede, at bag de smukke landskaber og nye kulturer gemmer der sig længsel, frygt, ubesvarede spørgsmål, følelser, der er svære at bære, og behov, som du hele tiden udskyder. Denne dagbog er dit tilflugtssted. Det sted, hvor du kan skabe orden i dine tanker, følelser og ønsker – helt uden at skulle tage en maske på.",
+      "Det er ikke bare en dagbog, hvor du skriver ned, hvad du har lavet i dag. Det er en 52-ugers guide, der opfordrer dig til at tage tid til dig selv, holde en pause fra livets opgaveliste langt væk fra dine rødder og spørge din sjæl, hvordan den har det. Gennem ugentlige temaer, meningsfulde spørgsmål og øjeblikke til selvransagelse hjælper dagbogen dig med at forstå dine følelser, erkende, hvilke relationer der giver dig næring, og hvilke der dræner dig, samt opdage, hvad »hjem« betyder for dig – ud over koordinaterne på et kort."
+    ],
+    "psyQuote": "»Da jeg læste Ancas dagbog, gik det op for mig, hvor meget jeg ville have ønsket mig et værktøj som dette til at dokumentere mine oplevelser som udvandrerkvinde for mere end 10 år siden. Mange af mine følelser fra dengang er gået tabt, og når jeg prøver at huske dem, indser jeg, at min opfattelse har ændret sig i mellemtiden... Gennem denne dagbog formår Anca at kortlægge en utrolig dyb rejse, hvor hun afgrænser en ny identitet og tegner følelsesmæssige landskaber af grænseløs skønhed. Ved slutningen af denne rejse vil du finde dig selv – meget stærkere, klogere og mere bevidst – og må alt, hvad du har nedskrevet i denne dagbog, blive den smukkeste succeshistorie: DIN!”",
+    "psyAuthor": "Roxana Dumitrașcu – psykolog",
+    "tocTitle": "Indhold",
+    "tocIntroLabel": "Indledning",
+    "tocIntro": "Indledning: om tidsskriftet, dets formål og forfatterens betragtninger",
+    "chapterLabel": "Kap.",
+    "chapters": [
+      "1. Identitet og personlig forandring",
+      "2. Livet som udvandrer – tilpasning og tilhørsforhold",
+      "3. Forholdet til dig selv",
+      "4. Forhold til andre",
+      "5. Følelser, frygt og sårbarhed",
+      "6. Savnet og båndet til Rumænien",
+      "7. Kulturel integration",
+      "8. Ressourcer, vaner og trygge rum",
+      "9. Modstandsdygtighed og personlige erfaringer",
+      "10. Taknemmelighed og selvros"
+    ],
+    "tocOutroLabel": "Afslutning",
+    "tocOutro": "Afslutning på dagbogen og afsluttende refleksioner – hvem er jeg i dag, efter denne rejse?",
+    "buyTitle": "Bestil det nu",
+    "buyText": "Vælg den Amazon-hjemmeside, der gælder for det land, du bor i:"
+  },
+  "footer": {
+    "tagline": "Privat psykologpraksis",
+    "copyright": "Skabt med omtanke for indre balance."
+  }
+}

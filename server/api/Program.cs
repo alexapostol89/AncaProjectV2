@@ -12,6 +12,10 @@ using api.Data;
 using api.Models;
 using api.Services;
 
+// Local development:
+//  - server/api/.env (copied from .env.example) → environment variables
+//  - DATABASE_URL from the repo-root .env.local written by the Neon CLI (used if no connection string is set)
+DotEnv.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 LoadLocalDatabaseUrl();
 
 var builder = WebApplication.CreateBuilder(args);

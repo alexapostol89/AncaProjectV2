@@ -8,12 +8,14 @@ import Education from './pages/Education';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import ExpatJournal from './pages/ExpatJournal';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import "./Css/App.css";
-import { LanguageProvider } from './i18n';
+import { AuthProvider } from './context/AuthContext';
 
 export default function App() {
     return (
-        <LanguageProvider>
+        <AuthProvider>
         <Router>
             <div className="app-layout">
                 <Navbar />
@@ -26,11 +28,13 @@ export default function App() {
                         <Route path="/preturi" element={<Pricing />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/jurnal" element={<ExpatJournal />} />
+                        <Route path="/autentificare" element={<Login />} />
+                        <Route path="/inregistrare" element={<Register />} />
                     </Routes>
                 </main>
                 <Footer />
             </div>
         </Router>
-        </LanguageProvider>
+        </AuthProvider>
     );
 }

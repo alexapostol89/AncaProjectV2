@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "title": "Anca Alexandra Berbunschi — Psiholog"
+  },
+  "nav": {
+    "home": "Acasă",
+    "about": "Despre mine",
+    "services": "Servicii",
+    "education": "Studii",
+    "pricing": "Prețuri",
+    "journal": "Jurnalul femeii expat",
+    "contact": "Contact",
+    "login": "Autentificare",
+    "logout": "Ieșire",
+    "openMenu": "Deschide meniul",
+    "closeMenu": "Închide meniul"
+  },
+  "languageSelector": {
+    "label": "Selectează limba"
+  },
+  "home": {
+    "subtitle": "Cabinet Individual",
+    "title": "Un spațiu de ascultare, acceptare și transformare",
+    "lead": "Misiunea mea este de a te însoți cu blândețe pe drumul cunoașterii de sine, oferindu-ți un mediu confidențial și lipsit de judecată.",
+    "description": "Fie că te confrunți cu stări de anxietate, treci printr-o tranziție dificilă sau îți dorești să înțelegi mai profund tiparele care te blochează, psihoterapia integrativă îți pune la dispoziție instrumentele necesare pentru o schimbare reală.",
+    "book": "Programează o ședință",
+    "about": "Despre mine",
+    "prev": "Slide anterior",
+    "next": "Slide următor",
+    "support": "Cum te pot sprijini",
+    "journey": "Fiecare călătorie terapeutică este unică și adaptată ritmului tău personal.",
+    "individual": "Psihoterapie individuală",
+    "individualDesc": "Explorarea emoțiilor, gestionarea anxietății, depășirea momentelor dificile și recăpătarea clarității interioare.",
+    "growth": "Dezvoltare personală",
+    "growthDesc": "Îmbunătățirea relațiilor, creșterea stimei de sine și construirea unor limite sănătoase.",
+    "counseling": "Consiliere și suport",
+    "counselingDesc": "Un spațiu cald, empatic și confidențial, dedicat înțelegerii dificultăților tale zilnice.",
+    "details": "Detalii despre serviciu",
+    "photoAlt": "Anca – psihoterapeut",
+    "slide": "Slide-ul {{number}}"
+  },
+  "about": {
+    "subtitle": "Ce trebuie să știi despre mine",
+    "hello": "Bună, sunt Anca Alexandra Berbunschi",
+    "lead": "Sunt psiholog și psihoterapeut integrativ în formare, iubitoare de natură, pisici și conversații autentice care aduc claritate și sens vieții.",
+    "intro": "Cred cu tărie că fiecare om deține în interior resursele necesare vindecării, însă uneori avem nevoie de un ghid și de o prezență caldă care să ne lumineze drumul prin momentele de confuzie.",
+    "value1": "Spațiu fără judecată",
+    "value1d": "Confidențialitate, acceptare necondiționată și empatie autentică.",
+    "value2": "Abordare integrativă",
+    "value2d": "Tehnici flexibile, adaptate nevoilor tale emoționale și ritmului tău unic.",
+    "value3": "Relație terapeutică autentică",
+    "value3d": "Construim o alianță bazată pe încredere, siguranță și respect reciproc.",
+    "story": [
+      "Am 33 de ani și îmi place vârsta mea. Am două pisici adoptate și le iubesc enorm.",
+      "Psihologia a fost a doua șansă pe care mi-am oferit-o și așa m-am regăsit. Îmi place să mă dezvolt personal și profesional. Sunt mândră de evoluția mea, dar am și zile dificile. Asta mă face om, iar eu încerc să nu le fac altora ceea ce mie nu-mi place.",
+      "În ședințe sunt prezentă cu informații pe care le actualizez constant din surse validate științific, pregătită să te însoțesc cu toate stările și gândurile tale. Am adunat teoria, tehnicile și metodele de care ai putea avea nevoie.",
+      "Sunt onestă, directă când e nevoie și am grijă de omul din fața mea. Nu promit vindecare miraculoasă într-un anumit timp. Mă voi asigura că te înțelegi mai bine și că la finalul colaborării noastre ești într-un loc mai bun.",
+      "Îți voi recomanda și te voi încuraja să lucrezi cu tine și între ședințe."
+    ],
+    "testimonial": "„M-am simțit ascultată, ghidată, susținută, validată și înțeleasă. Pentru prima dată nu era cineva care mă judeca, ci cineva care mă vedea exact așa cum sunt.”",
+    "choose": "Alege ce este potrivit pentru tine",
+    "offerings": [
+      "Ședințe individuale online și fizic în Iași",
+      "Program intensiv de dezvoltare personală prin email",
+      "Articole, resurse gratuite și jurnal ghidat pentru femei expat (RO & EN)"
+    ],
+    "next": "Să facem pasul următor",
+    "nextText": "Dacă simți că nu mai vrei să duci singură tot ce te apasă, sunt aici.",
+    "free": "Programează o discuție gratuită de 15 minute, fără obligații, ca să ne cunoaștem și să afli dacă stilul meu ți se potrivește.",
+    "book": "Programează 15 minute gratuite",
+    "photoAlt": "Anca Alexandra Berbunschi – psiholog"
+  },
+  "services": {
+    "subtitle": "Sprijin și ghidare",
+    "title": "Servicii oferite",
+    "items": [
+      {
+        "title": "Psihoterapie individuală",
+        "description": "Ședințe individuale pentru gestionarea anxietății, depresiei, atacurilor de panică, doliului sau problemelor de stimă de sine.",
+        "details": [
+          "Durată: 50 de minute",
+          "Format: fizic sau online",
+          "Frecvență: săptămânală"
+        ]
+      },
+      {
+        "title": "Dezvoltare personală și autocunoaștere",
+        "description": "Pentru cei care vor să își descopere potențialul, să își înțeleagă tiparele și să construiască relații mai armonioase.",
+        "details": [
+          "Durată: 50 de minute",
+          "Stabilirea unor obiective clare",
+          "Exerciții practice și reflecție"
+        ]
+      },
+      {
+        "title": "Consiliere psihologică online",
+        "description": "Ședințe flexibile prin video (WhatsApp / Zoom), din confortul casei tale, indiferent de oraș sau țară.",
+        "details": [
+          "Durată: 50 de minute",
+          "Program flexibil"
+        ]
+      }
+    ],
+    "book": "Programează o ședință"
+  },
+  "education": {
+    "subtitle": "Pregătire și acreditări",
+    "title": "Studii și formare profesională",
+    "certificate": "Atestat de liberă practică",
+    "items": [
+      {
+        "date": "Formare Profesională",
+        "title": "Psihoterapeut în formare în psihoterapie integrativă",
+        "org": "Asociația Română de Psihoterapie Integrativă (psihoterapieintegrativa.ro)",
+        "desc": "Specializare avansată în metode integrative pentru înțelegerea și vindecarea proceselor psihice."
+      },
+      {
+        "date": "Studii Universitare de Master",
+        "title": "Masterat în Psihologie",
+        "org": "Facultatea de Psihologie și Științele Educației — Universitatea „Alexandru Ioan Cuza” din Iași",
+        "desc": "Studii aprofundate în domeniul psihologiei și al cercetării clinice."
+      },
+      {
+        "date": "Studii Universitare de Licență",
+        "title": "Licențiată în Psihologie",
+        "org": "Facultatea de Psihologie, Științele Educației și Asistență Socială — Universitatea „Petre Andrei” din Iași",
+        "desc": "Baze teoretice și practice solide în științele psihologice și asistență umană."
+      },
+      {
+        "date": "Atestate de Liberă Practică",
+        "title": "Cod personal: 29283",
+        "org": "Colegiul Psihologilor din România (COPSI)",
+        "desc": "Atestate eliberate în Psihologie clinică și Psihologie educațională, consiliere școlară și vocațională."
+      },
+      {
+        "date": "Specializare / Curs Avansat",
+        "title": "Compassionate Inquiry: vindecarea rănilor traumatice profunde",
+        "org": "Speaker: Gabor Maté (PESI)",
+        "desc": "Abordare terapeutică axată pe înțelegerea traumelor profunde și compasiune ca instrument de transformare interioară."
+      }
+    ],
+    "prev": "Înapoi",
+    "next": "Înainte",
+    "certificateAlt": "Atestat de liberă practică – Anca Alexandra Berbunschi"
+  },
+  "pricing": {
+    "subtitle": "Tarife transparente",
+    "title": "Prețuri și pachete",
+    "plans": [
+      {
+        "name": "Ședință individuală",
+        "period": "/ ședință (50 min)",
+        "description": "Ideală pentru începerea procesului terapeutic sau întâlniri ocazionale.",
+        "features": [
+          "Durată: 50 de minute",
+          "Format fizic sau online",
+          "Evaluare inițială și plan terapeutic",
+          "Confidențialitate completă"
+        ]
+      },
+      {
+        "name": "Pachet 4 ședințe (abonament)",
+        "period": "/ lună (4 ședințe)",
+        "description": "O opțiune recomandată pentru continuitate și rezultate durabile.",
+        "features": [
+          "4 ședințe a câte 50 de minute",
+          "Interval orar săptămânal fix",
+          "Economisești 10%",
+          "Materiale de lucru și reflecție incluse",
+          "Suport prin email între ședințe"
+        ]
+      },
+      {
+        "name": "Pachet 8 ședințe",
+        "period": "/ 2 luni (8 ședințe)",
+        "description": "Pentru un proces terapeutic profund și stabil pe termen mediu.",
+        "features": [
+          "8 ședințe a câte 50 de minute",
+          "Economisești 15%",
+          "Prioritate la programări",
+          "Reprogramare cu 24 de ore înainte"
+        ]
+      }
+    ],
+    "popular": "Cel mai recomandat",
+    "choose": "Alege acest pachet"
+  },
+  "contact": {
+    "subtitle": "Fă primul pas",
+    "title": "Contact și programări",
+    "talk": "Hai să stăm de vorbă",
+    "intro": "Dacă simți că a sosit momentul să începi terapia sau ai întrebări despre ședințe, nu ezita să-mi scrii.",
+    "location": "Locație",
+    "address": "Cabinet: Iași, România / Ședințe online pe Zoom / WhatsApp",
+    "hours": "Program",
+    "schedule": "Luni – Vineri: 09:00 – 19:00",
+    "form": "Trimite un mesaj",
+    "name": "Nume și prenume",
+    "email": "Email",
+    "phone": "Telefon",
+    "session": "Tipul de ședință preferat",
+    "online": "Online (Google Meet / Zoom)",
+    "physical": "Fizic (la cabinet)",
+    "unsure": "Nu sunt sigur(ă), aș dori o recomandare",
+    "message": "Mesaj / Ce te aduce la terapie?",
+    "placeholder": "Scrie câteva gânduri...",
+    "hint": "Acest formular nu este monitorizat permanent și nu este potrivit pentru urgențe. În caz de urgență, sună la 112.",
+    "consent": "Am citit și sunt de acord cu Politica de confidențialitate.",
+    "send": "Trimite mesajul",
+    "sending": "Se trimite...",
+    "sent": "Mesajul a fost trimis.",
+    "nameError": "Te rugăm să introduci numele tău.",
+    "emailError": "Adresa de email nu este validă.",
+    "messageError": "Mesajul trebuie să aibă cel puțin 10 caractere.",
+    "consentError": "Este necesar acordul pentru a putea trimite mesajul.",
+    "serverError": "A apărut o eroare neașteptată. Te rugăm să încerci din nou.",
+    "namePlaceholder": "Ex: Maria Popescu"
+  },
+  "auth": {
+    "loginSubtitle": "Bine ai revenit",
+    "loginTitle": "Autentificare",
+    "registerSubtitle": "Cont nou",
+    "registerTitle": "Creează un cont",
+    "loginRequired": "Pentru a programa o ședință, te rugăm să te autentifici sau să îți creezi un cont.",
+    "fullName": "Nume și prenume",
+    "email": "Email",
+    "password": "Parolă",
+    "confirmPassword": "Confirmă parola",
+    "passwordHint": "Minimum 8 caractere, cu literă mică, literă mare și cifră.",
+    "loginButton": "Intră în cont",
+    "loggingIn": "Se verifică...",
+    "registerButton": "Creează contul",
+    "registering": "Se creează contul...",
+    "noAccount": "Nu ai cont?",
+    "registerLink": "Creează unul",
+    "haveAccount": "Ai deja cont?",
+    "loginLink": "Autentifică-te",
+    "nameError": "Numele trebuie să aibă cel puțin 2 caractere.",
+    "emailError": "Adresa de email nu este validă.",
+    "passwordRequired": "Introdu parola.",
+    "passwordWeak": "Parola trebuie să aibă minimum 8 caractere și să conțină o literă mică, o literă mare și o cifră.",
+    "passwordMismatch": "Parolele nu coincid.",
+    "invalidCredentials": "Email sau parolă incorectă.",
+    "emailTaken": "Există deja un cont cu această adresă de email.",
+    "tooManyRequests": "Prea multe încercări. Te rugăm să aștepți un minut și să încerci din nou.",
+    "networkError": "Nu am putut contacta serverul. Verifică-ți conexiunea la internet.",
+    "serverError": "A apărut o eroare neașteptată. Te rugăm să încerci din nou."
+  },
+  "journal": {
+    "subtitle": "Ghid de transformare & introspecție",
+    "title": "Jurnalul femeii expat",
+    "tagline": "Gânduri și stări ale unei femei ce înflorește departe de rădăcini",
+    "quote1": "„Autoarea a creat un instrument care adaugă cu adevărat valoare vieții mele. Completarea acestui ghid se simte ca un ritual – un moment hygge sculptat din agitația zilnică, în care pot avea grijă de mine și îmi pot procesa emoțiile de expat. Pe lângă toate acestea, vine cu un grup uimitor de femei din întreaga lume – o comunitate cu care mă pot conecta la doar un clic distanță. Cel mai bun cadou pe care ți-l poți face 💯”",
+    "quote1Source": "(clientă amazon)",
+    "whyTitle": "De ce am scris acest jurnal",
+    "why": [
+      "Am plecat din România entuziasmată pentru că mă săturasem să plâng, să trăiesc furie, vină. Am plecat pentru că nu mai puteam să rămân.",
+      "Dacă și tu ești o femeie care trăiește departe de țara în care s-a format ca om, dar în care nu se mai regăsea acolo, atunci știi despre ce vorbesc.",
+      "Jurnalul femeii expat nu e un jurnal clasic. Nu e cu inimioare și afirmații motivaționale. E un spațiu terapeutic. Clar, sincer, incomod uneori, dar profund eliberator.",
+      "Un loc unde te poți așeza în sfârșit cu tine, fără să îți ceri scuze că simți prea mult sau că nu ești suficientă.",
+      "Conține întrebări care sapă în straturi adânci, exerciții gândite de o femeie psiholog care a plecat, s-a rupt de rădăcini, a plâns de dor și greu și a învățat să se strângă la loc."
+    ],
+    "whyPromise": "Nu promite vindecare. Promite că nu o să mai simți că ești singura.",
+    "featuresTitle": "Ce conține jurnalul?",
+    "features": [
+      "În limba română",
+      "52 de teme terapeutice dedicate femeilor expat",
+      "Întrebări despre emoții, relații, nevoi, dor și identitate",
+      "Momente de introspecție și prezență cu tine",
+      "Spațiu pentru recunoștință, reflecție și planuri de bine"
+    ],
+    "audience": "E pentru tine dacă înflorești departe de rădăcini. Un cadou sincer pentru orice femeie româncă expat sau pentru tine însăți.",
+    "quote2": "„Autoarea acestui jurnal pune importante întrebări legate de noua viață, identitate și percepția de sine. Jurnalul aprofundează și facilitează o analiză bună a situației actuale. Este un instrument excelent pentru a te regăsi sau pentru a te conecta cu (noul?) sine. Îl recomand cu căldură dacă ai nevoie de un ghid pentru a face ordine în gândurile, sentimentele și viața ta.”",
+    "quote2Author": "— Cristina-Maria Amorsen, clientă amazon",
+    "refugeTitle": "Un loc de refugiu și ordonare interioară",
+    "refuge": [
+      "Dacă și tu ești femeie expat, știi deja că dincolo de peisaje frumoase și culturi noi, vin la pachet și dorul, fricile, întrebările fără răspuns, emoțiile greu de dus și nevoile pe care le tot amâni. Jurnalul acesta e locul tău de refugiu. Spațiul în care îți poți pune ordine în gânduri, emoții și dorințe, fără mască.",
+      "Nu e doar un jurnal în care să scrii ce-ai făcut azi. E un ghid pe 52 de săptămâni care te invită să te așezi cu tine, să-ți iei o pauză de la to-do list-ul vieții departe de rădăcini și să-ți întrebi sufletul cum se simte. Prin teme săptămânale, întrebări cu sens și momente de introspecție, jurnalul te ajută să îți înțelegi emoțiile, să identifici ce relații te hrănesc și ce te consumă, și să descoperi ce înseamnă „acasă” pentru tine, dincolo de coordonate pe hartă."
+    ],
+    "psyQuote": "„Citind jurnalul scris de Anca, am realizat cât de mult mi-aș fi dorit un astfel de instrument care să documenteze experiența mea de femeie expat, acum mai bine de 10 ani. Multe din trăirile mele de atunci s-au pierdut, iar când încerc să mi le reamintesc, realizez că percepția mea s-a modificat între timp... Prin acest jurnal, Anca reușește să cartografieze o călătorie extrem de profundă, trasând granițele unei noi identități și desenând reliefuri emoționale de o frumusețe fără margini. La capătul acestei călătorii te vei găsi pe tine, mult mai puternică, mai înțeleaptă și mai conștientă, iar tot ce ai consemnat în acest jurnal să fie cea mai frumoasă poveste de succes: A TA!”",
+    "psyAuthor": "Roxana Dumitrașcu – psiholog",
+    "tocTitle": "Cuprins",
+    "tocIntroLabel": "Intro",
+    "tocIntro": "Introducere: Despre jurnal, scopul său și gândurile autoarei",
+    "chapterLabel": "Cap",
+    "chapters": [
+      "1. Identitate și transformare personală",
+      "2. Viața de expat – adaptare și apartenență",
+      "3. Relația cu sine",
+      "4. Relațiile cu ceilalți",
+      "5. Emoții, frici și vulnerabilități",
+      "6. Dorul și legătura cu România",
+      "7. Integrarea culturală",
+      "8. Resurse, obiceiuri și spații de siguranță",
+      "9. Reziliență și lecții personale",
+      "10. Recunoștință și celebrare de sine"
+    ],
+    "tocOutroLabel": "Outro",
+    "tocOutro": "Final de jurnal & Reflecții de încheiere – cine sunt azi, după această călătorie?",
+    "buyTitle": "Comandă-l acum",
+    "buyText": "Alege site-ul Amazon corespunzător țării în care locuiești:"
+  },
+  "footer": {
+    "tagline": "Cabinet Individual de Psihologie",
+    "copyright": "Creat cu grijă pentru echilibru interior."
+  }
+}
