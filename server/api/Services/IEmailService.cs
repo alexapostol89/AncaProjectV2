@@ -10,4 +10,7 @@ public interface IEmailService
     /// controller can translate it into a proper HTTP error response.
     /// </summary>
     Task SendContactNotificationAsync(ContactRequest request, CancellationToken cancellationToken = default);
+
+    /// <summary>Sends the "reset your password" link.</summary>
+    Task SendPasswordResetAsync(string toEmail, string fullName, string resetLink, CancellationToken cancellationToken = default);
 }

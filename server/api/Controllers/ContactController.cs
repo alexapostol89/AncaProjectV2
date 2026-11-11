@@ -1,3 +1,4 @@
+using api.Configuration;
 using api.DTOs;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[EnableRateLimiting("contact")]
+[EnableRateLimiting(RateLimitPolicies.Contact)]
 public class ContactController : ControllerBase
 {
     private readonly IEmailService _emailService;
