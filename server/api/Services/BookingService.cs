@@ -163,11 +163,11 @@ public sealed class BookingService(
                 .SetProperty(b => b.DecidedByUserId, adminId), cancellationToken);
         if (claimed == 0) return NotPending();
 
-        string eventId;
+        CalendarBookingEvent calendarEvent;
         try
         {
             var start = Utc(booking.StartUtc);
-            eventId = await calendar.CreateBookingAsync(booking.User.FullName, booking.User.Email, start, cancellationToken);
+            calendarEvent = await calendar.CreateBookingAsync(booking.User.FullName, booking.User.Email, start, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -187,13 +187,13 @@ public sealed class BookingService(
         booking.Status = BookingStatus.Approved;
         booking.DecidedAt = now;
         booking.DecidedByUserId = adminId;
-        booking.GoogleEventId = eventId;
+        booking.GoogleEventId = calendarEvent.EventId;
         await db.SaveChangesAsync(cancellationToken);
 
         try
         {
             await emailService.SendBookingApprovedAsync(booking.User.FullName, booking.User.Email,
-                Utc(booking.StartUtc), cancellationToken);
+                Utc(booking.StartUtc), calendarEvent.VideoConferenceUrl, cancellationToken);
         }
         catch (Exception ex)
         {

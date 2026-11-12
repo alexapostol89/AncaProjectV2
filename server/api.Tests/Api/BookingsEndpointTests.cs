@@ -165,7 +165,7 @@ public sealed class BookingsEndpointTests : IDisposable
             { "Sunday", TestTime.At(TestTime.FutureSunday(), 10, 0) },
             { "before 10:00", TestTime.At(day, 9, 10) },
             { "ends after 20:00", TestTime.At(day, 19, 30) },
-            { "not on the 50-minute grid", TestTime.At(day, 10, 30) },
+            { "not on the hourly grid", TestTime.At(day, 10, 30) },
             { "with seconds", TestTime.At(day, 10, 0).AddSeconds(15) },
             { "in the past", DateTimeOffset.UtcNow.AddDays(-1) },
             { "more than 90 days ahead", TestTime.At(TestTime.FutureWorkday(100), 10, 0) },

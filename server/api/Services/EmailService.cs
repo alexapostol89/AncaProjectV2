@@ -118,16 +118,18 @@ public class EmailService : IEmailService
         }
     }
 
-    public Task SendBookingApprovedAsync(string fullName, string email, DateTimeOffset start, CancellationToken cancellationToken = default)
+    public Task SendBookingApprovedAsync(string fullName, string email, DateTimeOffset start, string? videoConferenceUrl, CancellationToken cancellationToken = default)
     {
         var name = HtmlEncoder.Default.Encode(fullName);
         var when = FormatRomaniaTime(start);
+        var videoLink = string.IsNullOrWhiteSpace(videoConferenceUrl) ? "" : $"<p>Google Meet: <a href=\"{HtmlEncoder.Default.Encode(videoConferenceUrl)}\">Join the video session</a></p>";
         return SendAsync(new ResendEmailPayload
         {
             From = $"{_settings.FromName} <{_settings.From}>",
             To = [email],
             Subject = "Ședința ta este confirmată — Cabinet Psihologie",
             Html = $"""
+                {videoLink}
                 <div style="font-family:sans-serif;line-height:1.6;color:#2b2b2b;">
                   <p>Bună, {name},</p>
                   <p>Ședința ta din <strong>{when}</strong> (ora României) este confirmată.</p>

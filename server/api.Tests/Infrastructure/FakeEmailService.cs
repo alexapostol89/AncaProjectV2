@@ -29,10 +29,10 @@ public sealed class FakeEmailService : IEmailService
         return Task.CompletedTask;
     }
 
-    public Task SendBookingApprovedAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken = default)
+    public Task SendBookingApprovedAsync(string name, string email, DateTimeOffset start, string? videoConferenceUrl, CancellationToken cancellationToken = default)
     {
         if (ThrowOnApproved) throw new InvalidOperationException("Email provider returned 500.");
-        Emails.Add(new Sent("Approved", name, email, start));
+        Emails.Add(new Sent("Approved", name, email, start, videoConferenceUrl));
         return Task.CompletedTask;
     }
 

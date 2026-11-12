@@ -7,12 +7,13 @@ using Microsoft.Extensions.Options;
 namespace api.Services;
 
 public sealed record CalendarSlot(DateTimeOffset Start, DateTimeOffset End);
+public sealed record CalendarBookingEvent(string EventId, string? VideoConferenceUrl);
 
 public interface IGoogleCalendarService
 {
     Task<IReadOnlyList<CalendarSlot>> GetAvailabilityAsync(DateOnly date, CancellationToken cancellationToken);
-    /// <summary>Creates the calendar event (inviting the client) and returns its Google event id.</summary>
-    Task<string> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken);
+    /// <summary>Creates the calendar event, requests a Google Meet link, and invites the client.</summary>
+    Task<CalendarBookingEvent> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken);
 }
 
 /// <summary>Calls Google's OAuth and Calendar REST APIs using a server-only refresh token.</summary>
@@ -34,7 +35,7 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
         var localStart = date.ToDateTime(new TimeOnly(10, 0));
         var localEnd = date.ToDateTime(new TimeOnly(20, 0));
         var duration = TimeSpan.FromMinutes(_settings.SessionMinutes);
-        for (var local = localStart; local.Add(duration) <= localEnd; local = local.Add(duration))
+        for (var local = localStart; local.Add(duration) <= localEnd; local = local.AddHours(1))
         {
             var start = new DateTimeOffset(local, RomaniaTimeZone.GetUtcOffset(local));
             var end = start.Add(duration);
@@ -44,7 +45,7 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
         return slots;
     }
 
-    public async Task<string> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken)
+    public async Task<CalendarBookingEvent> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken)
     {
         await BookingGate.WaitAsync(cancellationToken);
         try
@@ -54,7 +55,7 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
             var busy = await GetBusyAsync(token, start.AddMinutes(-1), end.AddMinutes(1), cancellationToken);
             if (busy.Any(x => start < x.End && end > x.Start)) throw new CalendarSlotUnavailableException();
 
-            using var request = new HttpRequestMessage(HttpMethod.Post, $"https://www.googleapis.com/calendar/v3/calendars/{Uri.EscapeDataString(_settings.CalendarId)}/events?sendUpdates=all")
+            using var request = new HttpRequestMessage(HttpMethod.Post, $"https://www.googleapis.com/calendar/v3/calendars/{Uri.EscapeDataString(_settings.CalendarId)}/events?sendUpdates=all&conferenceDataVersion=1")
             {
                 Content = JsonContent.Create(new
                 {
@@ -62,7 +63,8 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
                     description = "Ședință programată prin ancaberbunschi.ro.",
                     start = new { dateTime = start.ToString("o"), timeZone = _settings.TimeZone },
                     end = new { dateTime = end.ToString("o"), timeZone = _settings.TimeZone },
-                    attendees = new[] { new { email, displayName = (string?)name } }
+                    attendees = new[] { new { email, displayName = (string?)name } },
+                    conferenceData = new { createRequest = new { requestId = Guid.NewGuid().ToString("N"), conferenceSolutionKey = new { type = "hangoutsMeet" } } }
                 })
             };
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -73,7 +75,13 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
                 throw new InvalidOperationException("Calendar event could not be created.");
             }
             using var json = JsonDocument.Parse(await response.Content.ReadAsStringAsync(cancellationToken));
-            return json.RootElement.GetProperty("id").GetString() ?? string.Empty;
+            var root = json.RootElement;
+            string? videoUrl = null;
+            if (root.TryGetProperty("conferenceData", out var conference) && conference.TryGetProperty("entryPoints", out var entryPoints))
+                foreach (var entry in entryPoints.EnumerateArray())
+                    if (entry.TryGetProperty("entryPointType", out var type) && type.GetString() == "video" && entry.TryGetProperty("uri", out var uri))
+                    { videoUrl = uri.GetString(); break; }
+            return new CalendarBookingEvent(root.GetProperty("id").GetString() ?? string.Empty, videoUrl);
         }
         finally
         {

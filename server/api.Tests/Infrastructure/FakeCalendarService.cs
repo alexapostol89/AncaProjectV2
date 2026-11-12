@@ -36,7 +36,7 @@ public sealed class FakeCalendarService : IGoogleCalendarService
         if (date.DayOfWeek == DayOfWeek.Sunday) return Task.FromResult<IReadOnlyList<CalendarSlot>>([]);
 
         var slots = new List<CalendarSlot>();
-        for (var minutes = 600; minutes + SessionMinutes <= 1200; minutes += SessionMinutes)
+        for (var minutes = 600; minutes + SessionMinutes <= 1200; minutes += 60)
         {
             var start = TestTime.At(date, minutes / 60, minutes % 60);
             var end = start.AddMinutes(SessionMinutes);
@@ -46,7 +46,7 @@ public sealed class FakeCalendarService : IGoogleCalendarService
         return Task.FromResult<IReadOnlyList<CalendarSlot>>(slots);
     }
 
-    public Task<string> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken)
+    public Task<CalendarBookingEvent> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken)
     {
         if (NotConfigured) throw new CalendarNotConfiguredException();
         if (CreateThrows is not null) throw CreateThrows;
@@ -56,6 +56,6 @@ public sealed class FakeCalendarService : IGoogleCalendarService
         var id = $"evt-{Created.Count + 1}";
         Created.Add(new CreatedEvent(name, email, start, id));
         MarkBusy(start, SessionMinutes);
-        return Task.FromResult(id);
+        return Task.FromResult(new CalendarBookingEvent(id, $"https://meet.google.com/{id}"));
     }
 }

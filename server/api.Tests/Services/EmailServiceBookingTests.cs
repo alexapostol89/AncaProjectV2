@@ -147,7 +147,7 @@ public sealed class EmailServiceBookingTests
     {
         _resend.On("emails", HttpStatusCode.OK);
 
-        await CreateService().SendBookingApprovedAsync("Ioana", "ioana@example.com", _start);
+        await CreateService().SendBookingApprovedAsync("Ioana", "ioana@example.com", _start, "https://meet.google.com/test");
 
         var email = Assert.Single(SentEmails());
         Assert.Equal(["ioana@example.com"], email.To);
@@ -182,7 +182,7 @@ public sealed class EmailServiceBookingTests
     {
         _resend.On("emails", HttpStatusCode.OK);
 
-        await CreateService().SendBookingApprovedAsync("Ioana", "ioana@example.com", _start);
+        await CreateService().SendBookingApprovedAsync("Ioana", "ioana@example.com", _start, null);
 
         Assert.Equal("Bearer re_test", _resend.Requests[0].Authorization);
     }

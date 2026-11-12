@@ -28,7 +28,7 @@ public sealed class BookingFlowTests : IDisposable
 
         // 1. Client sees a free day and picks the 14:10 slot.
         var slots = await FreeSlotsAsync(client);
-        var chosen = slots.Single(s => s == TestTime.At(_day, 14, 10));
+        var chosen = slots.Single(s => s == TestTime.At(_day, 14, 0));
 
         // 2. Client sends the request → Pending, practice notified, nothing in Google yet.
         var requested = await ApiFactory.ReadAsync<MyBookingDto>(await client.PostAsJsonAsync("/api/bookings", new { start = chosen }));

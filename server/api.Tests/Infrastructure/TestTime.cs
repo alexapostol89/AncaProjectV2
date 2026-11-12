@@ -32,7 +32,7 @@ public static class TestTime
     /// <summary>The n-th 50-minute slot of the day (0 = 10:00, 1 = 10:50, ... 11 = 19:10).</summary>
     public static DateTimeOffset Slot(DateOnly date, int index)
     {
-        var minutes = 600 + index * 50;
+        var minutes = 600 + index * 60;
         return At(date, minutes / 60, minutes % 60);
     }
 }

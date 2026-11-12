@@ -111,7 +111,8 @@ public sealed class GoogleCalendarServiceTests
     {
         GoogleWorks(eventId: "abc123");
 
-        var id = await CreateService().CreateBookingAsync("Ioana", "ioana@example.com", TestTime.Slot(_day, 2), CancellationToken.None);
+        var created = await CreateService().CreateBookingAsync("Ioana", "ioana@example.com", TestTime.Slot(_day, 2), CancellationToken.None);
+        var id = created.EventId;
 
         Assert.Equal("abc123", id);
     }

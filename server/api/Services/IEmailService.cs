@@ -15,7 +15,7 @@ public interface IEmailService
     Task SendBookingRequestedAsync(string name, string email, DateTimeOffset start, string reviewLink, CancellationToken cancellationToken = default);
 
     /// <summary>Tells the client their session was approved.</summary>
-    Task SendBookingApprovedAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken = default);
+    Task SendBookingApprovedAsync(string name, string email, DateTimeOffset start, string? videoConferenceUrl, CancellationToken cancellationToken = default);
 
     /// <summary>Tells the client their session request was declined, with an optional reason.</summary>
     Task SendBookingRejectedAsync(string name, string email, DateTimeOffset start, string? reason, CancellationToken cancellationToken = default);
