@@ -57,5 +57,5 @@ export const rejectBooking = (id: string, reason: string, token: string) =>
 export const formatSessionTime = (iso: string, locale?: string) =>
     new Intl.DateTimeFormat(locale, {
         weekday: "short", day: "2-digit", month: "2-digit", year: "numeric",
-        hour: "2-digit", minute: "2-digit", timeZone: "Europe/Bucharest",
+        hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: "Europe/Bucharest",
     }).format(new Date(iso));
