@@ -50,7 +50,7 @@ public sealed class BookingsController(IBookingService bookings, ILogger<Booking
         var zone = TimeZoneInfo.FindSystemTimeZoneById(OperatingSystem.IsWindows() ? "GTB Standard Time" : "Europe/Bucharest");
         var local = TimeZoneInfo.ConvertTime(request.Start, zone);
         var minuteOfDay = local.Hour * 60 + local.Minute;
-        if (local.DayOfWeek == DayOfWeek.Sunday || request.Start <= DateTimeOffset.UtcNow || minuteOfDay < 600 || minuteOfDay + 50 > 1200 || (minuteOfDay - 600) % 50 != 0 || local.Second != 0 || request.Start > DateTimeOffset.UtcNow.AddDays(90))
+        if (local.DayOfWeek == DayOfWeek.Sunday || request.Start <= DateTimeOffset.UtcNow || minuteOfDay < 600 || minuteOfDay + 50 > 1200 || (minuteOfDay - 600) % 60 != 0 || local.Second != 0 || request.Start > DateTimeOffset.UtcNow.AddDays(90))
             return BadRequest(new { message = "Choose an available time between 10:00 and 20:00 Romania time, within the next 90 days.", code = "invalid_time" });
         try
         {

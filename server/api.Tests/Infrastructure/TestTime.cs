@@ -29,7 +29,7 @@ public static class TestTime
         return new DateTimeOffset(local, Romania.GetUtcOffset(local));
     }
 
-    /// <summary>The n-th 50-minute slot of the day (0 = 10:00, 1 = 10:50, ... 11 = 19:10).</summary>
+    /// <summary>The n-th hourly slot of the day (0 = 10:00, ... 9 = 19:00).</summary>
     public static DateTimeOffset Slot(DateOnly date, int index)
     {
         var minutes = 600 + index * 60;
