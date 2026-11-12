@@ -68,8 +68,7 @@ public sealed class AdminNotificationTests : IDisposable
     [Fact]
     public void New_request_emails_are_configured_to_reach_the_practice_gmail()
     {
-        // Only the Resend account owner's address while ancaberbunschi.ro is not verified in Resend:
-        // with the test sender (onboarding@resend.dev) any other recipient makes Resend refuse the email.
+        // The practice inbox. It is also the Resend account owner, so it works with the test sender too.
         var settings = _api.Services.GetRequiredService<IOptions<EmailSettings>>().Value;
 
         Assert.Equal(["psihologancaalexandra@gmail.com"], settings.BookingRequestTo);

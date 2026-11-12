@@ -52,11 +52,11 @@ public sealed class EmailServiceBookingTests
     {
         _resend.On("emails", HttpStatusCode.OK);
 
-        await CreateService("berbunschi.anca@yahoo.com", "psihologancaalexandra@gmail.com")
+        await CreateService("admin@clinic.test", "psihologancaalexandra@gmail.com")
             .SendBookingRequestedAsync("Ioana", "ioana@example.com", _start, "https://site.test/admin/programari");
 
         var practiceEmail = SentEmails()[0];
-        Assert.Equal(["berbunschi.anca@yahoo.com", "psihologancaalexandra@gmail.com"], practiceEmail.To);
+        Assert.Equal(["admin@clinic.test", "psihologancaalexandra@gmail.com"], practiceEmail.To);
         Assert.DoesNotContain(PracticeInbox, practiceEmail.To);
     }
 
@@ -65,10 +65,10 @@ public sealed class EmailServiceBookingTests
     {
         _resend.On("emails", HttpStatusCode.OK);
 
-        await CreateService("berbunschi.anca@yahoo.com", " ", "BERBUNSCHI.ANCA@yahoo.com")
+        await CreateService("admin@clinic.test", " ", "ADMIN@CLINIC.TEST")
             .SendBookingRequestedAsync("Ioana", "ioana@example.com", _start, "https://site.test/x");
 
-        Assert.Equal(["berbunschi.anca@yahoo.com"], SentEmails()[0].To);
+        Assert.Equal(["admin@clinic.test"], SentEmails()[0].To);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public sealed class EmailServiceBookingTests
     {
         _resend.On("emails", HttpStatusCode.OK);
 
-        await CreateService("berbunschi.anca@yahoo.com").SendBookingRequestedAsync("Ioana", "ioana@example.com", _start, "https://site.test/x");
+        await CreateService("admin@clinic.test").SendBookingRequestedAsync("Ioana", "ioana@example.com", _start, "https://site.test/x");
 
         Assert.Equal(["ioana@example.com"], SentEmails()[1].To);
     }
