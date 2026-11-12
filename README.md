@@ -115,7 +115,7 @@ In `.env` and environment variables, `:` becomes `__` (e.g. `Jwt:Key` → `Jwt__
 | `GoogleCalendar:ClientId`, `ClientSecret`, `RefreshToken` | yes | `.env` / Fly secrets | Server-only OAuth credentials for availability checks and event creation |
 | `GoogleCalendar:CalendarId` | no | `.env` / `appsettings.json` | Calendar to check and add bookings to; `primary` for the connected account |
 | `Email:From`, `Email:FromName`, `Email:To` | no | `appsettings*.json` / Fly secret | Sender and the practice inbox |
-| `Email:BookingRequestTo` | no | `appsettings.json` | Who gets the "new session request" email (list; falls back to `Email:To`). Currently berbunschi.anca@yahoo.com and psihologancaalexandra@gmail.com |
+| `Email:BookingRequestTo` | no | `appsettings.json` | Who gets the "new session request" email (list; falls back to `Email:To`). Currently only psihologancaalexandra@gmail.com, because `ancaberbunschi.ro` isn't verified in Resend yet and the test sender can only email the Resend account owner. Add berbunschi.anca@yahoo.com back once the domain is verified |
 | `ClientApp:BaseUrl` | no | `appsettings*.json` | Frontend URL, used to build links in emails |
 | `Cors:AllowedOrigins` | no | `appsettings*.json` / Fly secrets | Which frontends may call the API |
 | `Database:MigrateOnStartup` | no | `appsettings*.json` | `true` in dev, `false` in prod |
