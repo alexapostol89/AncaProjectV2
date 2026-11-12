@@ -300,6 +300,17 @@
     "buyTitle": "Comandă-l acum",
     "buyText": "Alege site-ul Amazon corespunzător țării în care locuiești:"
   },
+  "booking": {
+    "subtitle": "Online / Iași",
+    "title": "Programează o ședință",
+    "intro": "Alege o zi de luni până sâmbătă și un interval disponibil de 50 de minute. Ședințele sunt disponibile între 10:00 și 20:00, ora României (Europe/Bucharest).",
+    "date": "Data",
+    "loading": "Se încarcă orele disponibile…",
+    "availableTimes": "Ore disponibile",
+    "none": "Nu sunt ore disponibile în această zi. Te rugăm să alegi altă zi.",
+    "confirm": "Confirmă ședința",
+    "confirmed": "Ședința ta este programată. Invitația în calendar a fost trimisă la {{email}}."
+  },
   "footer": {
     "tagline": "Cabinet Individual de Psihologie",
     "copyright": "Creat cu grijă pentru echilibru interior."

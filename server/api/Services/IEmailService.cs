@@ -11,6 +11,9 @@ public interface IEmailService
     /// </summary>
     Task SendContactNotificationAsync(ContactRequest request, CancellationToken cancellationToken = default);
 
+    /// <summary>Sends the psychologist a notice when a calendar session is booked.</summary>
+    Task SendBookingNotificationAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken = default);
+
     /// <summary>Sends the "reset your password" link.</summary>
     Task SendPasswordResetAsync(string toEmail, string fullName, string resetLink, CancellationToken cancellationToken = default);
 }

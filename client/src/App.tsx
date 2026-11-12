@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import ExpatJournal from './pages/ExpatJournal';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Booking from './pages/Booking';
 import "./Css/App.css";
 import { AuthProvider } from './context/AuthContext';
 
@@ -27,6 +28,7 @@ export default function App() {
                         <Route path="/studii" element={<Education />} />
                         <Route path="/preturi" element={<Pricing />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/booking" element={<Booking />} />
                         <Route path="/jurnal" element={<ExpatJournal />} />
                         <Route path="/autentificare" element={<Login />} />
                         <Route path="/inregistrare" element={<Register />} />

@@ -10,7 +10,7 @@ import '../Css/Auth.css';
 
 /**
  * Login page. If another page sent the user here (e.g. "Book a session"),
- * it passes { from: '/contact' } in the router state, and after logging in
+ * it passes { from: '/booking' } in the router state, and after logging in
  * we send the user back there.
  */
 export default function Login() {

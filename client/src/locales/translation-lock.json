@@ -228,7 +228,16 @@
     "journal.buyTitle": "945c00b86d015293",
     "journal.buyText": "d1650ad7be2f2c45",
     "footer.tagline": "04955d2245be5383",
-    "footer.copyright": "d83205fcd4671f5e"
+    "footer.copyright": "d83205fcd4671f5e",
+    "booking.subtitle": "448458fdea2a20b7",
+    "booking.title": "bf464a0e6f824c82",
+    "booking.intro": "b64843aa861c499a",
+    "booking.date": "eb9a4bc1c0c153e4",
+    "booking.loading": "7b3a45e92fb7c5ad",
+    "booking.availableTimes": "ae6c6161552b02e0",
+    "booking.none": "cb82529834c2488f",
+    "booking.confirm": "e5df591b7a2c3f88",
+    "booking.confirmed": "f94b191ad284f61b"
   },
   "da": {
     "meta.title": "d29b2b179f3cc32a",
@@ -459,6 +468,15 @@
     "journal.tocOutroLabel": "7c10b1802deae488",
     "journal.tocOutro": "066c5a150b9d51c6",
     "journal.buyTitle": "945c00b86d015293",
-    "journal.buyText": "d1650ad7be2f2c45"
+    "journal.buyText": "d1650ad7be2f2c45",
+    "booking.subtitle": "448458fdea2a20b7",
+    "booking.title": "bf464a0e6f824c82",
+    "booking.intro": "b64843aa861c499a",
+    "booking.date": "eb9a4bc1c0c153e4",
+    "booking.loading": "7b3a45e92fb7c5ad",
+    "booking.availableTimes": "ae6c6161552b02e0",
+    "booking.none": "cb82529834c2488f",
+    "booking.confirm": "e5df591b7a2c3f88",
+    "booking.confirmed": "f94b191ad284f61b"
   }
 }

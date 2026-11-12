@@ -8,4 +8,7 @@ public static class RateLimitPolicies
 
     /// <summary>Login, register, password reset: 10 requests / minute. Slows down password guessing and spam.</summary>
     public const string Auth = "auth";
+
+    /// <summary>Booking reads/writes: 10 requests / minute per IP.</summary>
+    public const string Booking = "booking";
 }

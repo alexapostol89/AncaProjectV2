@@ -112,6 +112,8 @@ In `.env` and environment variables, `:` becomes `__` (e.g. `Jwt:Key` → `Jwt__
 | `Jwt:Key` | yes | `.env` / Fly secret | Signs login tokens (≥ 32 chars) |
 | `Jwt:Issuer`, `Jwt:Audience`, `Jwt:ExpiryHours` | no | `appsettings.json` | Token settings (login lasts 8 hours) |
 | `Email:ApiKey` | yes | `.env` / Fly secret | Resend API key. If empty in Development, reset links are printed to the console instead of emailed |
+| `GoogleCalendar:ClientId`, `ClientSecret`, `RefreshToken` | yes | `.env` / Fly secrets | Server-only OAuth credentials for availability checks and event creation |
+| `GoogleCalendar:CalendarId` | no | `.env` / `appsettings.json` | Calendar to check and add bookings to; `primary` for the connected account |
 | `Email:From`, `Email:FromName`, `Email:To` | no | `appsettings*.json` / Fly secret | Sender and the practice inbox |
 | `ClientApp:BaseUrl` | no | `appsettings*.json` | Frontend URL, used to build links in emails |
 | `Cors:AllowedOrigins` | no | `appsettings*.json` / Fly secrets | Which frontends may call the API |
@@ -119,6 +121,12 @@ In `.env` and environment variables, `:` becomes `__` (e.g. `Jwt:Key` → `Jwt__
 | `Seed:AdminEmail`, `Seed:AdminPassword`, `Seed:AdminFullName` | password yes | `.env` / Fly secret | First admin, created at startup if that email doesn't exist |
 
 The app refuses to start with a clear message if the connection string or JWT key is missing.
+
+### Google Calendar booking setup
+
+Bookings use the practice's Google Calendar through the Calendar API. Create an OAuth client in Google Cloud, enable the Google Calendar API, and authorize the client as `psihologancaalexandra@gmail.com` with the `calendar.freebusy` and `calendar.events` scopes. Store the resulting client ID, client secret, and offline refresh token as `GoogleCalendar__ClientId`, `GoogleCalendar__ClientSecret`, and `GoogleCalendar__RefreshToken` in `server/api/.env` locally and as Fly secrets in production. Keep the refresh token server-side. Event creation sends Google Calendar updates to attendees; the API also emails the practice inbox when a booking succeeds.
+
+The booking endpoint currently offers 50-minute slots Monday through Saturday from 10:00 to 20:00 Europe/Bucharest, up to 90 days ahead. Configure `GoogleCalendar:SessionMinutes` to change the duration. A Google connection is required before bookings can be completed.
 
 ### Frontend (`client`)
 
@@ -381,6 +389,9 @@ fly secrets set -a anca-api \
   ConnectionStrings__Default="<Neon main branch, pooled>" \
   Jwt__Key="<random ≥32 chars>" \
   Email__ApiKey="<Resend key>" \
+  GoogleCalendar__ClientId="<OAuth client id>" \
+  GoogleCalendar__ClientSecret="<OAuth client secret>" \
+  GoogleCalendar__RefreshToken="<offline refresh token>" \
   Seed__AdminEmail="<admin email>" Seed__AdminPassword="<strong password>"
 ```
 

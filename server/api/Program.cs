@@ -32,6 +32,10 @@ builder.Services
     .ValidateOnStart();
 
 builder.Services
+    .AddOptions<GoogleCalendarSettings>()
+    .Bind(builder.Configuration.GetSection(GoogleCalendarSettings.SectionName));
+
+builder.Services
     .AddOptions<JwtSettings>()
     .Bind(builder.Configuration.GetSection(JwtSettings.SectionName))
     .Validate(s => s.Key.Length >= 32, "Jwt:Key must be set and at least 32 characters long.")
@@ -103,6 +107,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpClient<IEmailService, EmailService>();
+builder.Services.AddHttpClient<IGoogleCalendarService, GoogleCalendarService>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserAdminService, UserAdminService>();
@@ -142,6 +147,7 @@ builder.Services.AddRateLimiter(options =>
 
     options.AddPolicy(RateLimitPolicies.Contact, httpContext => PerIp(httpContext, permitLimit: 5));
     options.AddPolicy(RateLimitPolicies.Auth, httpContext => PerIp(httpContext, permitLimit: 10));
+    options.AddPolicy(RateLimitPolicies.Booking, httpContext => PerIp(httpContext, permitLimit: 10));
 
     static RateLimitPartition<string> PerIp(HttpContext httpContext, int permitLimit) =>
         RateLimitPartition.GetFixedWindowLimiter(

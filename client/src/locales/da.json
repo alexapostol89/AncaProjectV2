@@ -300,6 +300,17 @@
     "buyTitle": "Bestil det nu",
     "buyText": "Vælg den Amazon-hjemmeside, der gælder for det land, du bor i:"
   },
+  "booking": {
+    "subtitle": "Online / Iași",
+    "title": "Book en session",
+    "intro": "Vælg en dato fra mandag til lørdag og en ledig session på 50 minutter. Sessionerne er tilgængelige fra kl. 10.00 til 20.00 rumænsk tid (Europe/Bucharest).",
+    "date": "Dato",
+    "loading": "Indlæser ledige tider…",
+    "availableTimes": "Ledige tider",
+    "none": "Der er ingen ledige tider på denne dato. Prøv en anden dag.",
+    "confirm": "Bekræft session",
+    "confirmed": "Din session er booket. En kalenderinvitation er sendt til {{email}}."
+  },
   "footer": {
     "tagline": "Privat psykologpraksis",
     "copyright": "Skabt med omtanke for indre balance."

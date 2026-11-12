@@ -62,6 +62,22 @@ public class EmailService : IEmailService
         }
     }
 
+    public Task SendBookingNotificationAsync(string fullName, string email, DateTimeOffset start, CancellationToken cancellationToken = default)
+    {
+        var name = HtmlEncoder.Default.Encode(fullName);
+        var safeEmail = HtmlEncoder.Default.Encode(email);
+        var localTime = TimeZoneInfo.ConvertTime(start, TimeZoneInfo.FindSystemTimeZoneById(OperatingSystem.IsWindows() ? "GTB Standard Time" : "Europe/Bucharest"));
+        var html = $"<div style=\"font-family:sans-serif;line-height:1.6;color:#2b2b2b;\"><h2>Ședință nouă programată</h2><p><strong>Nume:</strong> {name}</p><p><strong>Email:</strong> {safeEmail}</p><p><strong>Data:</strong> {localTime:dd.MM.yyyy HH:mm} (ora României)</p><p>Ședința a fost adăugată automat în Google Calendar.</p></div>";
+        return SendAsync(new ResendEmailPayload
+        {
+            From = $"{_settings.FromName} <{_settings.From}>",
+            To = [_settings.To],
+            ReplyTo = email,
+            Subject = "Ședință nouă programată — Cabinet Psihologie",
+            Html = html
+        }, cancellationToken);
+    }
+
     public Task SendPasswordResetAsync(string toEmail, string fullName, string resetLink, CancellationToken cancellationToken = default)
     {
         // In Development without an API key, print the link instead of emailing it,

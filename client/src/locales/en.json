@@ -300,6 +300,17 @@
     "buyTitle": "Order it now",
     "buyText": "Choose the Amazon site for the country you live in:"
   },
+  "booking": {
+    "subtitle": "Online / Iași",
+    "title": "Book a session",
+    "intro": "Choose a Monday–Saturday date and an available 50-minute session. Sessions are available from 10:00 to 20:00 Romania time (Europe/Bucharest).",
+    "date": "Date",
+    "loading": "Loading available times…",
+    "availableTimes": "Available times",
+    "none": "No available times on this date. Please try another day.",
+    "confirm": "Confirm session",
+    "confirmed": "Your session is booked. A calendar invitation was sent to {{email}}."
+  },
   "footer": {
     "tagline": "Private Psychology Practice",
     "copyright": "Made with care for inner balance."
