@@ -168,3 +168,102 @@ textarea[aria-invalid="true"] {
     justify-content: center;
     gap: 7px;
 }
+
+/* ---- Booking requests (Booking.tsx, AdminBookings.tsx) ---- */
+.booking-note {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
+.booking-mine,
+.admin-bookings {
+    margin-top: 1.5rem;
+}
+
+.booking-mine h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.booking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.booking-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--accent-soft);
+    border-radius: 12px;
+    background: var(--bg-cream);
+}
+
+.booking-row-main {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.booking-row-main a {
+    color: var(--primary);
+    overflow-wrap: anywhere;
+}
+
+.booking-row-main small {
+    color: var(--text-muted);
+}
+
+.booking-reason {
+    margin: 0.3rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    white-space: pre-line;
+}
+
+.booking-badge {
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.booking-badge-pending { background: #fdf3dc; color: #8a6212; }
+.booking-badge-approved { background: #e6f2e6; color: #2f6b34; }
+.booking-badge-rejected { background: #fbeceb; color: #b3453b; }
+
+.booking-filters,
+.booking-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.booking-filters {
+    margin-bottom: 1.2rem;
+}
+
+.booking-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+}
+
+.booking-reject {
+    display: grid;
+    gap: 0.5rem;
+    width: min(100%, 360px);
+}
+
+.booking-reject label {
+    font-size: 0.88rem;
+    font-weight: 600;
+}

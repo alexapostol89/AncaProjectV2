@@ -115,6 +115,7 @@ In `.env` and environment variables, `:` becomes `__` (e.g. `Jwt:Key` → `Jwt__
 | `GoogleCalendar:ClientId`, `ClientSecret`, `RefreshToken` | yes | `.env` / Fly secrets | Server-only OAuth credentials for availability checks and event creation |
 | `GoogleCalendar:CalendarId` | no | `.env` / `appsettings.json` | Calendar to check and add bookings to; `primary` for the connected account |
 | `Email:From`, `Email:FromName`, `Email:To` | no | `appsettings*.json` / Fly secret | Sender and the practice inbox |
+| `Email:BookingRequestTo` | no | `appsettings.json` | Who gets the "new session request" email (list; falls back to `Email:To`). Currently berbunschi.anca@yahoo.com and psihologancaalexandra@gmail.com |
 | `ClientApp:BaseUrl` | no | `appsettings*.json` | Frontend URL, used to build links in emails |
 | `Cors:AllowedOrigins` | no | `appsettings*.json` / Fly secrets | Which frontends may call the API |
 | `Database:MigrateOnStartup` | no | `appsettings*.json` | `true` in dev, `false` in prod |
@@ -127,6 +128,39 @@ The app refuses to start with a clear message if the connection string or JWT ke
 Bookings use the practice's Google Calendar through the Calendar API. Create an OAuth client in Google Cloud, enable the Google Calendar API, and authorize the client as `psihologancaalexandra@gmail.com` with the `calendar.freebusy` and `calendar.events` scopes. Store the resulting client ID, client secret, and offline refresh token as `GoogleCalendar__ClientId`, `GoogleCalendar__ClientSecret`, and `GoogleCalendar__RefreshToken` in `server/api/.env` locally and as Fly secrets in production. Keep the refresh token server-side. Event creation sends Google Calendar updates to attendees; the API also emails the practice inbox when a booking succeeds.
 
 The booking endpoint currently offers 50-minute slots Monday through Saturday from 10:00 to 20:00 Europe/Bucharest, up to 90 days ahead. Configure `GoogleCalendar:SessionMinutes` to change the duration. A Google connection is required before bookings can be completed.
+
+Bookings need admin approval. When a client picks a slot, a **Pending** row is saved in the `Bookings` table, the slot is held so nobody else can request it, the practice inbox gets an email linking to `/admin/programari`, and the client gets a "request received" email. Nothing goes into Google Calendar yet. On that admin page an admin can:
+
+- **Approve**: creates the Google Calendar event (Google sends the client an invitation) and emails the client a confirmation.
+- **Reject**: frees the slot and emails the client, including the optional reason.
+
+A client can have at most 3 pending requests at a time. Admins see a bell in the navbar with the number of requests waiting. It refreshes every minute, when the tab regains focus, and right after an approve or reject.
+
+### Who can access what
+
+| | Guest | Client (User) | Admin |
+|---|---|---|---|
+| Public pages, register, login, password reset | ✅ | ✅ | ✅ |
+| Contact page | ✅ | ✅ | hidden |
+| Booking page, `/api/bookings/*` | → login | ✅ | ❌ (403 / redirected to the requests page) |
+| My profile (`/profil`): edit name, change password | → login | ✅ | ✅ |
+| Delete own account | ❌ | ✅ | ❌ (developers manage admin accounts) |
+| Booking requests page, bell, Users tab (`/admin/utilizatori`), `/api/admin/*` | → login | ❌ (403 / redirected home) | ✅ |
+
+- **API:** secure by default. Every endpoint requires login unless it is marked `[AllowAnonymous]`, and role-specific controllers add `[Authorize(Roles = ...)]`.
+- **Users tab is read-only:** the admin can see users and their sessions, but there are no endpoints to change roles or delete accounts. Developers do that directly in the database, and a role change or deletion takes effect at once because tokens are checked against the database.
+- **Tokens:** on every request the API checks that the account in the token still exists and still has that role. A deleted user or demoted admin loses access immediately, and the website logs them out.
+- **Website:** pages are wrapped in `RequireRole`. That only hides screens; the API is what enforces access.
+- **Tests:** `AuthorizationTests` scans every endpoint, so a new endpoint that's accidentally public, or an admin endpoint without the Admin role, fails the test suite.
+
+### Tests (`server/api.Tests`)
+
+```bash
+cd server
+dotnet test            # add -c Release if the API is running and locks bin/Debug
+```
+
+The tests need no database, Google account or Resend key. Each test gets a fresh in-memory SQLite database built from the real EF model, and fakes stand in for Google Calendar and email. They cover each booking step (availability → request → lists → approve / reject), the email and Google Calendar clients against fake HTTP backends, the database constraints, and the HTTP API end to end (auth, admin-only access, validation, error codes, rate limiting).
 
 ### Frontend (`client`)
 

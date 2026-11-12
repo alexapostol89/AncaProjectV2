@@ -20,4 +20,10 @@ public class EmailSettings
 
     /// <summary>Psychologist's inbox that should receive contact notifications.</summary>
     public string To { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Who is told about new session requests (Email:BookingRequestTo:0, :1, ...).
+    /// Falls back to <see cref="To"/> when empty.
+    /// </summary>
+    public List<string> BookingRequestTo { get; set; } = [];
 }

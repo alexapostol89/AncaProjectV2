@@ -7,6 +7,7 @@ namespace api.Data;
 /// Database context (PostgreSQL on Neon).
 ///   Roles  — fixed lookup table: (1, Admin), (2, User)
 ///   Users  — accounts; Users.RoleId → Roles.Id (many users, one role each)
+///   Bookings — session requests; Bookings.UserId → Users.Id (pending until an admin approves)
 /// Future chatbot tables (Conversations, ChatMessages) go here too, with a
 /// cascade-delete foreign key to User so deleting an account removes everything.
 /// </summary>
@@ -19,6 +20,8 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
 
     public DbSet<Role> Roles => Set<Role>();
+
+    public DbSet<Booking> Bookings => Set<Booking>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,6 +53,31 @@ public class AppDbContext : DbContext
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Booking>(booking =>
+        {
+            booking.HasKey(b => b.Id);
+            booking.Property(b => b.RejectionReason).HasMaxLength(500);
+            booking.Property(b => b.GoogleEventId).HasMaxLength(1024);
+
+            booking.HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            booking.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(b => b.DecidedByUserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // A slot can be held by only one Pending or Approved booking at a time.
+            // Rejected ones don't count, so a rejected slot can be requested again.
+            booking.HasIndex(b => b.StartUtc)
+                .IsUnique()
+                .HasFilter($"\"Status\" IN ({(int)BookingStatus.Pending}, {(int)BookingStatus.Approved})");
+
+            booking.HasIndex(b => new { b.Status, b.StartUtc });
         });
     }
 }

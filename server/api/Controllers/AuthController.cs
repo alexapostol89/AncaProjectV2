@@ -24,6 +24,7 @@ public class AuthController : ApiControllerBase
     }
 
     /// <summary>Creates a client account (role User) and logs it in.</summary>
+    [AllowAnonymous]
     [HttpPost("register")]
     [EnableRateLimiting(RateLimitPolicies.Auth)]
     [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]
@@ -35,6 +36,7 @@ public class AuthController : ApiControllerBase
         return result.Succeeded ? Ok(result.Value) : ErrorResult(result.Error!);
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     [EnableRateLimiting(RateLimitPolicies.Auth)]
     [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]
@@ -56,7 +58,19 @@ public class AuthController : ApiControllerBase
         return result.Succeeded ? Ok(result.Value) : ErrorResult(result.Error!);
     }
 
+    /// <summary>Updates the logged-in user's name. Returns the updated profile.</summary>
+    [Authorize]
+    [HttpPut("me")]
+    [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateMe([FromBody] UpdateProfileRequest request)
+    {
+        var result = await _authService.UpdateProfileAsync(CurrentUserId, request);
+        return result.Succeeded ? Ok(result.Value) : ErrorResult(result.Error!);
+    }
+
     /// <summary>Emails a password reset link. Same answer whether or not the email exists.</summary>
+    [AllowAnonymous]
     [HttpPost("forgot-password")]
     [EnableRateLimiting(RateLimitPolicies.Auth)]
     [ProducesResponseType<MessageResponse>(StatusCodes.Status200OK)]
@@ -67,6 +81,7 @@ public class AuthController : ApiControllerBase
             "Dacă există un cont cu această adresă, ți-am trimis un email cu instrucțiuni de resetare a parolei."));
     }
 
+    [AllowAnonymous]
     [HttpPost("reset-password")]
     [EnableRateLimiting(RateLimitPolicies.Auth)]
     [ProducesResponseType<MessageResponse>(StatusCodes.Status200OK)]

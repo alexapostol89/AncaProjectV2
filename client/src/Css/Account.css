@@ -1,0 +1,269 @@
+/* Profile page (Profile.tsx) and admin users page (AdminUsers.tsx).
+   Cards, fields and status boxes reuse Contact.css; lists reuse the booking-row styles. */
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: minmax(240px, 320px) 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.account-forms {
+    display: grid;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.account-forms h2,
+.account-danger h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.account-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.4rem;
+}
+
+.account-summary h2 {
+    font-size: 1.3rem;
+    margin: 0.4rem 0 0;
+    overflow-wrap: anywhere;
+}
+
+.account-email {
+    color: var(--text-muted);
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.account-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.account-avatar-small {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+}
+
+.account-facts {
+    width: 100%;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+    border-top: 1px solid var(--accent-soft);
+    padding-top: 1rem;
+}
+
+.account-facts div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.account-facts dt { color: var(--text-muted); }
+.account-facts dd { margin: 0; font-weight: 600; }
+
+.account-link {
+    margin-top: 1rem;
+}
+
+.account-hint {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+input[readonly] {
+    background: var(--bg-cream);
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.account-danger {
+    border: 1px solid #f0d4d1;
+}
+
+.account-danger p {
+    color: var(--text-muted);
+}
+
+.btn-danger,
+.btn-danger-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    border: 1px solid #b3453b;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-danger { background: #b3453b; color: #fff; }
+.btn-danger:hover:not(:disabled) { background: #963831; }
+.btn-danger-outline { background: transparent; color: #b3453b; }
+.btn-danger-outline:hover:not(:disabled) { background: #fbeceb; }
+.btn-danger:disabled,
+.btn-danger-outline:disabled { opacity: 0.65; cursor: not-allowed; }
+
+.role-badge {
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.role-badge-admin { background: var(--primary); color: #fff; }
+.role-badge-user { background: var(--accent-soft); color: var(--primary); }
+
+/* ---- Admin users ---- */
+.admin-users-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+}
+
+.admin-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1 1 260px;
+    max-width: 420px;
+    padding: 0 0.9rem;
+    border: 1px solid var(--accent);
+    border-radius: 30px;
+    background: var(--bg-card);
+    color: var(--text-muted);
+}
+
+.admin-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0.65rem 0;
+    width: 100%;
+    font: inherit;
+}
+
+.admin-search:focus-within {
+    border-color: var(--primary);
+}
+
+.admin-users-count {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.user-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+}
+
+.user-row-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.user-row-head .booking-row-main {
+    flex: 1;
+}
+
+.user-row-head a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.user-you {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.user-sessions-toggle {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--primary);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.user-sessions ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.user-sessions li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    background: var(--bg-card);
+    font-size: 0.9rem;
+}
+
+.admin-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.4rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+    }
+}

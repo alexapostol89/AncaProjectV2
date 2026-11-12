@@ -6,9 +6,11 @@ import { useAuth } from '../context/useAuth';
  * Every "book a session" button. Booking needs an account:
  *  - logged in  → straight to the booking calendar (/booking)
  *  - logged out → login page, which sends the user on to /booking afterwards
+ *  - admin      → hidden (the admin reviews requests instead of booking)
  */
 export default function BookingLink({ className, style, children }: { className?: string; style?: CSSProperties; children: ReactNode }) {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, user } = useAuth();
+    if (user?.role === 'Admin') return null;
     return (
         <Link
             to={isLoggedIn ? '/booking' : '/autentificare'}

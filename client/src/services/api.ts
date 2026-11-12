@@ -1,3 +1,9 @@
+/**
+ * Fired when the API rejects our token (expired, account deleted, or role changed by an admin).
+ * AuthContext listens and logs the user out so the UI matches what the server allows.
+ */
+export const SESSION_REJECTED_EVENT = "session-rejected";
+
 /** Base URL of the ASP.NET Core API (VITE_API_URL in .env / fly.toml). */
 export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:5039";
 
@@ -47,6 +53,7 @@ export async function apiRequest<T>(path: string, { method = "GET", body, token 
 
     if (!response.ok) {
         if (response.status === 429) throw new ApiError("Too many requests", 429, "too_many_requests");
+        if (response.status === 401 && token) window.dispatchEvent(new Event(SESSION_REJECTED_EVENT));
 
         const data = (payload ?? {}) as { message?: string; code?: string; errors?: unknown };
         const code = data.code ?? (data.errors ? "validation" : "unknown");

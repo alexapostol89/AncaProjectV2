@@ -153,6 +153,19 @@ public class AuthService : IAuthService
         return ServiceResult.Ok();
     }
 
+    public async Task<ServiceResult<UserDto>> UpdateProfileAsync(Guid userId, UpdateProfileRequest request)
+    {
+        var user = await _db.Users.FindAsync(userId);
+        if (user is null)
+        {
+            return ServiceResult<UserDto>.Fail(ServiceErrorType.NotFound, "Contul nu a fost găsit.", "not_found");
+        }
+
+        user.FullName = request.FullName.Trim();
+        await _db.SaveChangesAsync();
+        return ServiceResult<UserDto>.Ok(UserDto.FromUser(user));
+    }
+
     public async Task<ServiceResult> ChangePasswordAsync(Guid userId, ChangePasswordRequest request)
     {
         var user = await _db.Users.FindAsync(userId);
@@ -184,9 +197,11 @@ public class AuthService : IAuthService
             return ServiceResult.Fail(ServiceErrorType.Validation, "Parola este incorectă.", "wrong_password");
         }
 
-        if (user.RoleId == UserRole.Admin && await _db.Users.CountAsync(u => u.RoleId == UserRole.Admin) == 1)
+        // Admin accounts are managed by the developers, never deleted from the website.
+        if (user.RoleId == UserRole.Admin)
         {
-            return ServiceResult.Fail(ServiceErrorType.Conflict, "Nu poți șterge singurul cont de administrator.", "last_admin");
+            return ServiceResult.Fail(ServiceErrorType.Conflict,
+                "Contul de administrator nu poate fi șters din site. Contactează echipa tehnică.", "admin_account");
         }
 
         _db.Users.Remove(user);

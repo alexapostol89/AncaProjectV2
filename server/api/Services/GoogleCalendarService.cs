@@ -11,7 +11,8 @@ public sealed record CalendarSlot(DateTimeOffset Start, DateTimeOffset End);
 public interface IGoogleCalendarService
 {
     Task<IReadOnlyList<CalendarSlot>> GetAvailabilityAsync(DateOnly date, CancellationToken cancellationToken);
-    Task CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken);
+    /// <summary>Creates the calendar event (inviting the client) and returns its Google event id.</summary>
+    Task<string> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken);
 }
 
 /// <summary>Calls Google's OAuth and Calendar REST APIs using a server-only refresh token.</summary>
@@ -43,7 +44,7 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
         return slots;
     }
 
-    public async Task CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken)
+    public async Task<string> CreateBookingAsync(string name, string email, DateTimeOffset start, CancellationToken cancellationToken)
     {
         await BookingGate.WaitAsync(cancellationToken);
         try
@@ -71,6 +72,8 @@ public sealed class GoogleCalendarService(HttpClient http, IOptions<GoogleCalend
                 logger.LogError("Google Calendar event creation failed with status {StatusCode}.", (int)response.StatusCode);
                 throw new InvalidOperationException("Calendar event could not be created.");
             }
+            using var json = JsonDocument.Parse(await response.Content.ReadAsStringAsync(cancellationToken));
+            return json.RootElement.GetProperty("id").GetString() ?? string.Empty;
         }
         finally
         {

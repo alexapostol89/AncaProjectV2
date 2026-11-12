@@ -17,7 +17,7 @@ public class UserAdminService : IUserAdminService
         _db = db;
     }
 
-    public async Task<PagedResult<UserDto>> GetUsersAsync(UserListQuery query, CancellationToken cancellationToken = default)
+    public async Task<PagedResult<AdminUserDto>> GetUsersAsync(UserListQuery query, CancellationToken cancellationToken = default)
     {
         var users = _db.Users.AsNoTracking();
 
@@ -33,11 +33,22 @@ public class UserAdminService : IUserAdminService
             .OrderByDescending(u => u.CreatedAt)
             .Skip((query.Page - 1) * query.PageSize)
             .Take(query.PageSize)
+            .Select(u => new AdminUserDto
+            {
+                Id = u.Id,
+                Email = u.Email,
+                FullName = u.FullName,
+                Role = u.RoleId == UserRole.Admin ? nameof(UserRole.Admin) : nameof(UserRole.User),
+                CreatedAt = u.CreatedAt,
+                LastLoginAt = u.LastLoginAt,
+                PendingBookings = _db.Bookings.Count(b => b.UserId == u.Id && b.Status == BookingStatus.Pending),
+                ApprovedBookings = _db.Bookings.Count(b => b.UserId == u.Id && b.Status == BookingStatus.Approved)
+            })
             .ToListAsync(cancellationToken);
 
-        return new PagedResult<UserDto>
+        return new PagedResult<AdminUserDto>
         {
-            Items = page.Select(UserDto.FromUser).ToList(),
+            Items = page,
             Page = query.Page,
             PageSize = query.PageSize,
             TotalCount = totalCount
@@ -48,47 +59,6 @@ public class UserAdminService : IUserAdminService
     {
         var user = await _db.Users.FindAsync(userId);
         return user is null ? NotFound<UserDto>() : ServiceResult<UserDto>.Ok(UserDto.FromUser(user));
-    }
-
-    public async Task<ServiceResult<UserDto>> SetRoleAsync(Guid actingAdminId, Guid userId, string role)
-    {
-        var newRole = Enum.Parse<UserRole>(role); // already validated by UpdateUserRoleRequest
-
-        if (userId == actingAdminId && newRole != UserRole.Admin)
-        {
-            return ServiceResult<UserDto>.Fail(ServiceErrorType.Conflict,
-                "Nu îți poți elimina propriul rol de administrator.", "cannot_demote_self");
-        }
-
-        var user = await _db.Users.FindAsync(userId);
-        if (user is null)
-        {
-            return NotFound<UserDto>();
-        }
-
-        // Takes effect at the user's next login (their current token still has the old role).
-        user.RoleId = newRole;
-        await _db.SaveChangesAsync();
-        return ServiceResult<UserDto>.Ok(UserDto.FromUser(user));
-    }
-
-    public async Task<ServiceResult> DeleteUserAsync(Guid actingAdminId, Guid userId)
-    {
-        if (userId == actingAdminId)
-        {
-            return ServiceResult.Fail(ServiceErrorType.Conflict,
-                "Nu îți poți șterge propriul cont din panoul de administrare.", "cannot_delete_self");
-        }
-
-        var user = await _db.Users.FindAsync(userId);
-        if (user is null)
-        {
-            return NotFound<UserDto>();
-        }
-
-        _db.Users.Remove(user);
-        await _db.SaveChangesAsync();
-        return ServiceResult.Ok();
     }
 
     private static ServiceResult<T> NotFound<T>() =>

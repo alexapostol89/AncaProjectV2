@@ -1,6 +1,7 @@
 using System.Text;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -98,9 +99,41 @@ builder.Services
             NameClaimType = AppClaimTypes.Name,
             RoleClaimType = AppClaimTypes.Role
         };
+
+        // A valid signature isn't enough: the account must still exist and still have the role
+        // written in the token. So a deleted user, or an admin who was demoted, loses access
+        // immediately instead of keeping it until the token expires (8h).
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var principal = context.Principal!;
+                if (!Guid.TryParse(principal.FindFirst(AppClaimTypes.Subject)?.Value, out var userId))
+                {
+                    context.Fail("Token has no valid subject.");
+                    return;
+                }
+
+                var db = context.HttpContext.RequestServices.GetRequiredService<AppDbContext>();
+                var role = await db.Users
+                    .Where(u => u.Id == userId)
+                    .Select(u => (UserRole?)u.RoleId)
+                    .FirstOrDefaultAsync(context.HttpContext.RequestAborted);
+
+                if (role is null || role.ToString() != principal.FindFirst(AppClaimTypes.Role)?.Value)
+                    context.Fail("Account no longer exists or its role changed.");
+            }
+        };
     });
 
-builder.Services.AddAuthorization();
+// Secure by default: every endpoint requires a logged-in user unless it is explicitly
+// marked [AllowAnonymous]. Role-specific endpoints add [Authorize(Roles = ...)] on top.
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 
 // ---- Services ----------------------------------------------------------
 builder.Services.AddControllers();
@@ -111,6 +144,7 @@ builder.Services.AddHttpClient<IGoogleCalendarService, GoogleCalendarService>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserAdminService, UserAdminService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // Fly.io terminates TLS at its proxy and forwards the real client IP in
 // X-Forwarded-For. Without this, every request looks like it comes from the
@@ -171,14 +205,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/", () => "Anca Berbunschi — Psihologie API");
+app.MapGet("/", () => "Anca Berbunschi — Psihologie API").AllowAnonymous();
 app.MapGet("/health", async (AppDbContext db, CancellationToken cancellationToken) =>
 {
     var connected = await db.Database.CanConnectAsync(cancellationToken);
     return connected
         ? Results.Ok(new { status = "ok", database = "ok" })
         : Results.Problem("Database unavailable.", statusCode: StatusCodes.Status503ServiceUnavailable);
-});
+}).AllowAnonymous(); // Fly's health check calls this without a token
 
 // Migrations (dev only, see Database:MigrateOnStartup) + first admin.
 await DatabaseInitializer.InitializeAsync(app.Services);

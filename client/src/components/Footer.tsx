@@ -1,9 +1,11 @@
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAudience } from './useAudience';
 
 export default function Footer() {
     const { t } = useTranslation();
+    const isAdmin = useAudience() === 'Admin';
     return (
         <footer className="footer">
             <div className="footer-content">
@@ -22,7 +24,7 @@ export default function Footer() {
                     <Link to="/studii">{t('nav.education')}</Link>
                     <Link to="/preturi">{t('nav.pricing')}</Link>
                     <Link to="/jurnal">{t('nav.journal')}</Link>
-                    <Link to="/contact">{t('nav.contact')}</Link>
+                    {!isAdmin && <Link to="/contact">{t('nav.contact')}</Link>}
                 </div>
             </div>
 

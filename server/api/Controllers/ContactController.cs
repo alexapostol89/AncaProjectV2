@@ -1,6 +1,7 @@
 using api.Configuration;
 using api.DTOs;
 using api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
@@ -8,6 +9,7 @@ namespace api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous] // public contact form on the website
 [EnableRateLimiting(RateLimitPolicies.Contact)]
 public class ContactController : ControllerBase
 {

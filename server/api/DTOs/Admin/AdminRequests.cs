@@ -16,10 +16,19 @@ public class UserListQuery
     public string? Search { get; set; }
 }
 
-public class UpdateUserRoleRequest
+/// <summary>A user as the admin sees them: profile plus how many sessions they have.</summary>
+public class AdminUserDto
 {
-    /// <summary>"Admin" or "User".</summary>
-    [Required(ErrorMessage = "Rolul este obligatoriu.")]
-    [RegularExpression("^(Admin|User)$", ErrorMessage = "Rolul trebuie să fie Admin sau User.")]
-    public string Role { get; set; } = string.Empty;
+    public Guid Id { get; init; }
+    public string Email { get; init; } = string.Empty;
+    public string FullName { get; init; } = string.Empty;
+    public string Role { get; init; } = string.Empty;
+    public DateTime CreatedAt { get; init; }
+    public DateTime? LastLoginAt { get; init; }
+
+    /// <summary>Requests waiting for approval.</summary>
+    public int PendingBookings { get; init; }
+
+    /// <summary>Approved sessions (past and upcoming).</summary>
+    public int ApprovedBookings { get; init; }
 }

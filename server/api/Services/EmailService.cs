@@ -62,20 +62,110 @@ public class EmailService : IEmailService
         }
     }
 
-    public Task SendBookingNotificationAsync(string fullName, string email, DateTimeOffset start, CancellationToken cancellationToken = default)
+    public async Task SendBookingRequestedAsync(string fullName, string email, DateTimeOffset start, string reviewLink, CancellationToken cancellationToken = default)
     {
         var name = HtmlEncoder.Default.Encode(fullName);
         var safeEmail = HtmlEncoder.Default.Encode(email);
-        var localTime = TimeZoneInfo.ConvertTime(start, TimeZoneInfo.FindSystemTimeZoneById(OperatingSystem.IsWindows() ? "GTB Standard Time" : "Europe/Bucharest"));
-        var html = $"<div style=\"font-family:sans-serif;line-height:1.6;color:#2b2b2b;\"><h2>Ședință nouă programată</h2><p><strong>Nume:</strong> {name}</p><p><strong>Email:</strong> {safeEmail}</p><p><strong>Data:</strong> {localTime:dd.MM.yyyy HH:mm} (ora României)</p><p>Ședința a fost adăugată automat în Google Calendar.</p></div>";
+        var href = HtmlEncoder.Default.Encode(reviewLink);
+        var when = FormatRomaniaTime(start);
+
+        // 1) The practice: a request is waiting for approval.
+        var practiceRecipients = _settings.BookingRequestTo.Where(a => !string.IsNullOrWhiteSpace(a)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        if (practiceRecipients.Count == 0) practiceRecipients = [_settings.To];
+
+        await SendAsync(new ResendEmailPayload
+        {
+            From = $"{_settings.FromName} <{_settings.From}>",
+            To = practiceRecipients,
+            ReplyTo = email,
+            Subject = $"Ai o cerere nouă de programare — {fullName}",
+            Html = $"""
+                <div style="font-family:sans-serif;line-height:1.6;color:#2b2b2b;">
+                  <h2>Ai o cerere nouă de programare</h2>
+                  <p>Un client a solicitat o ședință și așteaptă confirmarea ta.</p>
+                  <p><strong>Nume:</strong> {name}</p>
+                  <p><strong>Email:</strong> {safeEmail}</p>
+                  <p><strong>Data:</strong> {when} (ora României)</p>
+                  <p>Ședința <strong>nu</strong> este încă în calendar. Intervalul este rezervat până când o aprobi sau o respingi.</p>
+                  <p style="margin:24px 0;">
+                    <a href="{href}" style="background:#7a8b6f;color:#ffffff;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Vezi cererile de programare</a>
+                  </p>
+                </div>
+                """
+        }, cancellationToken);
+
+        // 2) The client: we got it, wait for confirmation. Nice-to-have, so failures are only logged.
+        try
+        {
+            await SendAsync(new ResendEmailPayload
+            {
+                From = $"{_settings.FromName} <{_settings.From}>",
+                To = [email],
+                Subject = "Am primit cererea ta de programare — Cabinet Psihologie",
+                Html = $"""
+                    <div style="font-family:sans-serif;line-height:1.6;color:#2b2b2b;">
+                      <p>Bună, {name},</p>
+                      <p>Am primit cererea ta pentru o ședință pe <strong>{when}</strong> (ora României).</p>
+                      <p>Cererea așteaptă confirmarea mea. Vei primi un email și o invitație în calendar imediat ce ședința este confirmată.</p>
+                      <p>Cu drag,<br/>Anca Alexandra Berbunschi<br/>Psiholog · Psihoterapeut Integrativ</p>
+                    </div>
+                    """
+            }, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Booking request acknowledgement to the client failed; the practice was notified.");
+        }
+    }
+
+    public Task SendBookingApprovedAsync(string fullName, string email, DateTimeOffset start, CancellationToken cancellationToken = default)
+    {
+        var name = HtmlEncoder.Default.Encode(fullName);
+        var when = FormatRomaniaTime(start);
         return SendAsync(new ResendEmailPayload
         {
             From = $"{_settings.FromName} <{_settings.From}>",
-            To = [_settings.To],
-            ReplyTo = email,
-            Subject = "Ședință nouă programată — Cabinet Psihologie",
-            Html = html
+            To = [email],
+            Subject = "Ședința ta este confirmată — Cabinet Psihologie",
+            Html = $"""
+                <div style="font-family:sans-serif;line-height:1.6;color:#2b2b2b;">
+                  <p>Bună, {name},</p>
+                  <p>Ședința ta din <strong>{when}</strong> (ora României) este confirmată.</p>
+                  <p>Ai primit și o invitație Google Calendar separată cu toate detaliile.</p>
+                  <p>Cu drag,<br/>Anca Alexandra Berbunschi<br/>Psiholog · Psihoterapeut Integrativ</p>
+                </div>
+                """
         }, cancellationToken);
+    }
+
+    public Task SendBookingRejectedAsync(string fullName, string email, DateTimeOffset start, string? reason, CancellationToken cancellationToken = default)
+    {
+        var name = HtmlEncoder.Default.Encode(fullName);
+        var when = FormatRomaniaTime(start);
+        var reasonHtml = string.IsNullOrWhiteSpace(reason)
+            ? string.Empty
+            : $"""<p style="background:#f7f5f0;padding:12px 16px;border-radius:8px;white-space:pre-line;">{HtmlEncoder.Default.Encode(reason)}</p>""";
+        return SendAsync(new ResendEmailPayload
+        {
+            From = $"{_settings.FromName} <{_settings.From}>",
+            To = [email],
+            Subject = "Cererea ta de programare — Cabinet Psihologie",
+            Html = $"""
+                <div style="font-family:sans-serif;line-height:1.6;color:#2b2b2b;">
+                  <p>Bună, {name},</p>
+                  <p>Din păcate nu pot confirma ședința din <strong>{when}</strong> (ora României).</p>
+                  {reasonHtml}
+                  <p>Te rog să alegi un alt interval pe site sau să-mi scrii direct.</p>
+                  <p>Cu drag,<br/>Anca Alexandra Berbunschi<br/>Psiholog · Psihoterapeut Integrativ</p>
+                </div>
+                """
+        }, cancellationToken);
+    }
+
+    private static string FormatRomaniaTime(DateTimeOffset start)
+    {
+        var zone = TimeZoneInfo.FindSystemTimeZoneById(OperatingSystem.IsWindows() ? "GTB Standard Time" : "Europe/Bucharest");
+        return TimeZoneInfo.ConvertTime(start, zone).ToString("dd.MM.yyyy HH:mm");
     }
 
     public Task SendPasswordResetAsync(string toEmail, string fullName, string resetLink, CancellationToken cancellationToken = default)

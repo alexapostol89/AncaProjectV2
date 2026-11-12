@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import * as authService from '../services/authService';
 import type { AuthResponse } from '../services/authService';
 import { AuthContext, type AuthContextValue } from './useAuth';
+import { SESSION_REJECTED_EVENT } from '../services/api';
 
 /**
  * Who is logged in, shared with the whole app.
@@ -43,6 +44,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return () => clearTimeout(timer);
     }, [session]);
 
+    // The server no longer accepts our token (account deleted or role changed) → log out.
+    useEffect(() => {
+        const onRejected = () => setSession(null);
+        window.addEventListener(SESSION_REJECTED_EVENT, onRejected);
+        return () => window.removeEventListener(SESSION_REJECTED_EVENT, onRejected);
+    }, []);
+
     const login = useCallback(async (email: string, password: string) => {
         setSession(await authService.login(email, password));
     }, []);
@@ -53,6 +61,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const logout = useCallback(() => setSession(null), []);
 
+    const updateUser = useCallback((user: AuthResponse['user']) => {
+        setSession((current) => (current ? { ...current, user } : current));
+    }, []);
+
     const value = useMemo<AuthContextValue>(() => ({
         user: session?.user ?? null,
         token: session?.token ?? null,
@@ -60,7 +72,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         login,
         register,
         logout,
-    }), [session, login, register, logout]);
+        updateUser,
+    }), [session, login, register, logout, updateUser]);
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

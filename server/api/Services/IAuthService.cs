@@ -12,6 +12,9 @@ public interface IAuthService
 
     Task<ServiceResult<UserDto>> GetCurrentUserAsync(Guid userId);
 
+    /// <summary>Updates the logged-in user's own profile (name).</summary>
+    Task<ServiceResult<UserDto>> UpdateProfileAsync(Guid userId, UpdateProfileRequest request);
+
     /// <summary>Emails a reset link if the account exists. Never reveals whether it does.</summary>
     Task ForgotPasswordAsync(string email, CancellationToken cancellationToken = default);
 

@@ -11,8 +11,12 @@ import ExpatJournal from './pages/ExpatJournal';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Booking from './pages/Booking';
+import AdminBookings from './pages/AdminBookings';
+import AdminUsers from './pages/AdminUsers';
+import Profile from './pages/Profile';
 import "./Css/App.css";
 import { AuthProvider } from './context/AuthContext';
+import RequireRole from './components/RequireRole';
 
 export default function App() {
     return (
@@ -27,8 +31,11 @@ export default function App() {
                         <Route path="/servicii" element={<Services />} />
                         <Route path="/studii" element={<Education />} />
                         <Route path="/preturi" element={<Pricing />} />
-                        <Route path="/contact" element={<Contact />} />
-                        <Route path="/booking" element={<Booking />} />
+                        <Route path="/contact" element={<RequireRole allow={['Guest', 'User']}><Contact /></RequireRole>} />
+                        <Route path="/booking" element={<RequireRole allow={['User']}><Booking /></RequireRole>} />
+                        <Route path="/profil" element={<RequireRole allow={['User', 'Admin']}><Profile /></RequireRole>} />
+                        <Route path="/admin/utilizatori" element={<RequireRole allow={['Admin']}><AdminUsers /></RequireRole>} />
+                        <Route path="/admin/programari" element={<RequireRole allow={['Admin']}><AdminBookings /></RequireRole>} />
                         <Route path="/jurnal" element={<ExpatJournal />} />
                         <Route path="/autentificare" element={<Login />} />
                         <Route path="/inregistrare" element={<Register />} />

@@ -1,68 +1,93 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { CalendarDays, Clock3, AlertCircle } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { CalendarDays, Clock3, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/useAuth';
-import { API_URL } from '../services/api';
+import { formatSessionTime, getAvailability, getMyBookings, requestBooking, type MyBooking, type Slot } from '../services/bookingService';
+import { bookingErrorKey } from './bookingErrors';
 import '../Css/Contact.css';
 
-type Slot = { start: string; end: string };
+const today = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Bucharest' });
 
-/** Authenticated calendar booking. The server is the source of availability and creates Google Calendar events. */
+/**
+ * Authenticated booking. Picking a slot sends a *request*: it stays pending until the
+ * practice approves it, and only then is the Google Calendar invitation sent.
+ */
 export default function Booking() {
-    const { t } = useTranslation('translation', { keyPrefix: 'booking' });
-    const { isLoggedIn, token, user } = useAuth();
-    const [date, setDate] = useState(new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Bucharest' }));
+    const { t, i18n } = useTranslation();
+    const { token, user } = useAuth();
+    const [date, setDate] = useState(today);
     const [slots, setSlots] = useState<Slot[]>([]);
     const [selected, setSelected] = useState('');
     const [busy, setBusy] = useState(false);
-    const [message, setMessage] = useState('');
+    const [status, setStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [mine, setMine] = useState<MyBooking[]>([]);
+
+    const loadSlots = useCallback(async (signal?: { active: boolean }) => {
+        if (!token || !date) return;
+        setBusy(true); setSelected('');
+        try {
+            const result = await getAvailability(date, token);
+            if (!signal || signal.active) setSlots(result);
+        } catch (error) {
+            if (!signal || signal.active) { setSlots([]); setStatus({ type: 'error', text: t(`bookingErrors.${bookingErrorKey(error)}`) }); }
+        } finally {
+            if (!signal || signal.active) setBusy(false);
+        }
+    }, [date, token, t]);
+
+    const loadMine = useCallback(async () => {
+        if (!token) return;
+        try { setMine(await getMyBookings(token)); } catch { /* the list is secondary; booking still works */ }
+    }, [token]);
 
     useEffect(() => {
-        if (!isLoggedIn || !token || !date) return;
-        let active = true;
-        setBusy(true); setMessage(''); setSelected('');
-        fetch(`${API_URL}/api/bookings/availability?date=${encodeURIComponent(date)}`, { headers: { Authorization: `Bearer ${token}` } })
-            .then(async (response) => {
-                const body = await response.json();
-                if (!response.ok) throw new Error(body.message ?? 'Could not load available times.');
-                if (active) setSlots(body.slots ?? []);
-            })
-            .catch((error: unknown) => { if (active) setMessage(error instanceof Error ? error.message : 'Could not load available times.'); })
-            .finally(() => { if (active) setBusy(false); });
-        return () => { active = false; };
-    }, [date, isLoggedIn, token]);
+        const signal = { active: true };
+        setStatus(null);
+        void loadSlots(signal);
+        return () => { signal.active = false; };
+    }, [loadSlots]);
 
-    if (!isLoggedIn) return <Navigate to="/autentificare" state={{ from: '/booking' }} replace />;
+    useEffect(() => { void loadMine(); }, [loadMine]);
 
     async function book() {
         if (!selected || !token) return;
-        setBusy(true); setMessage('');
+        setBusy(true); setStatus(null);
         try {
-            const response = await fetch(`${API_URL}/api/bookings`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                body: JSON.stringify({ start: selected }),
-            });
-            const body = await response.json();
-            if (!response.ok) throw new Error(body.message ?? 'This time is no longer available. Please choose another.');
-            setMessage(t('confirmed', { email: user?.email }));
-            setSelected('');
-            const refreshed = await fetch(`${API_URL}/api/bookings/availability?date=${encodeURIComponent(date)}`, { headers: { Authorization: `Bearer ${token}` } });
-            if (refreshed.ok) setSlots((await refreshed.json()).slots ?? []);
-        } catch (error) { setMessage(error instanceof Error ? error.message : 'Booking could not be completed.'); }
-        finally { setBusy(false); }
+            await requestBooking(selected, token);
+            setStatus({ type: 'success', text: t('booking.requested', { email: user?.email }) });
+            await Promise.all([loadSlots(), loadMine()]);
+        } catch (error) {
+            setStatus({ type: 'error', text: t(`bookingErrors.${bookingErrorKey(error)}`) });
+            setBusy(false);
+        }
     }
 
+    const upcoming = mine.filter((b) => new Date(b.start).getTime() > Date.now() || b.status === 'Pending');
+
     return <div className="page-content">
-        <div className="page-header"><span className="page-subtitle">{t('subtitle')}</span><h1>{t('title')}</h1></div>
+        <div className="page-header"><span className="page-subtitle">{t('booking.subtitle')}</span><h1>{t('booking.title')}</h1></div>
         <div className="contact-form-card">
-            <p>{t('intro')}</p>
-            <div className="form-group"><label htmlFor="booking-date"><CalendarDays size={16} /> {t('date')}</label><input id="booking-date" type="date" min={new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Bucharest' })} value={date} onChange={(event) => setDate(event.target.value)} /></div>
-            {busy && <p role="status">{t('loading')}</p>}
-            {!busy && slots.length > 0 && <div className="booking-slots" aria-label={t('availableTimes')}>{slots.map((slot) => <button key={slot.start} type="button" className={selected === slot.start ? 'btn-primary' : 'btn-nav-outline'} onClick={() => setSelected(slot.start)}><Clock3 size={16} />{new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Bucharest' }).format(new Date(slot.start))}</button>)}</div>}
-            {!busy && !message && !slots.length && <p>{t('none')}</p>}
-            {message && <div className="form-status" role="status"><AlertCircle size={18} /><p>{message}</p></div>}
-            <button type="button" className="btn-primary" disabled={!selected || busy} onClick={book}>{t('confirm')}</button>
+            <p>{t('booking.intro')}</p>
+            <p className="booking-note">{t('booking.approvalNote')}</p>
+            <div className="form-group"><label htmlFor="booking-date"><CalendarDays size={16} /> {t('booking.date')}</label><input id="booking-date" type="date" min={today()} value={date} onChange={(event) => setDate(event.target.value)} /></div>
+            {busy && <p role="status">{t('booking.loading')}</p>}
+            {!busy && slots.length > 0 && <div className="booking-slots" aria-label={t('booking.availableTimes')}>{slots.map((slot) => <button key={slot.start} type="button" className={selected === slot.start ? 'btn-primary' : 'btn-nav-outline'} aria-pressed={selected === slot.start} onClick={() => setSelected(slot.start)}><Clock3 size={16} />{new Intl.DateTimeFormat(i18n.language, { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Bucharest' }).format(new Date(slot.start))}</button>)}</div>}
+            {!busy && !status && !slots.length && <p>{t('booking.none')}</p>}
+            {status && <div className={`form-status form-status-${status.type}`} role="status">{status.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}<p>{status.text}</p></div>}
+            <button type="button" className="btn-primary" disabled={!selected || busy} onClick={book}>{t('booking.confirm')}</button>
         </div>
+
+        {upcoming.length > 0 && <div className="contact-form-card booking-mine">
+            <h2>{t('booking.myRequests')}</h2>
+            <ul className="booking-list">
+                {upcoming.map((b) => <li key={b.id} className="booking-row">
+                    <div>
+                        <strong>{formatSessionTime(b.start, i18n.language)}</strong>
+                        {b.status === 'Rejected' && b.rejectionReason && <p className="booking-reason">{b.rejectionReason}</p>}
+                    </div>
+                    <span className={`booking-badge booking-badge-${b.status.toLowerCase()}`}>{t(`booking.status.${b.status}`)}</span>
+                </li>)}
+            </ul>
+        </div>}
     </div>;
 }

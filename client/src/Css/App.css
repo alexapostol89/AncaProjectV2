@@ -448,3 +448,95 @@ h1, h2, h3, h4, .font-serif {
 }
 
 html { zoom: var(--page-zoom); }
+
+/* Admin entry to booking requests: bell + number waiting + label, one pill (Navbar.tsx).
+   The label hides with the other .nav-action-label texts on narrower screens. */
+.nav-bell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 38px;
+  padding: 0.35rem 0.9rem 0.35rem 0.6rem;
+  border: 1px solid var(--accent);
+  border-radius: 30px;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.nav-bell:hover,
+.nav-bell.active {
+  background: var(--accent-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.nav-bell.has-pending {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.nav-bell-icon {
+  position: relative;
+  display: inline-flex;
+}
+
+.nav-bell.has-pending .nav-bell-icon svg {
+  animation: bell-ring 2.4s ease-in-out infinite;
+  transform-origin: 50% 10%;
+}
+
+.nav-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #b3453b;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--bg-cream);
+}
+
+@media (max-width: 1440px) {
+  .nav-bell { padding: 0.35rem 0.75rem; }
+}
+
+@keyframes bell-ring {
+  0%, 70%, 100% { transform: rotate(0); }
+  75% { transform: rotate(14deg); }
+  80% { transform: rotate(-12deg); }
+  85% { transform: rotate(8deg); }
+  90% { transform: rotate(-4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-bell.has-pending .nav-bell-icon svg { animation: none; }
+}
+
+/* ---- Navbar profile link (Navbar.tsx) ---- */
+.nav-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 30px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.nav-profile:hover,
+.nav-profile.active {
+  background: var(--accent-soft);
+  color: var(--primary);
+}
+

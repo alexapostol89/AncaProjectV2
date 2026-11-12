@@ -83,6 +83,14 @@ public class ChangePasswordRequest
     public string NewPassword { get; set; } = string.Empty;
 }
 
+/// <summary>Fields a user may change on their own profile. Email is the login, so it stays fixed.</summary>
+public class UpdateProfileRequest
+{
+    [Required(ErrorMessage = "Numele este obligatoriu.")]
+    [StringLength(120, MinimumLength = 2, ErrorMessage = "Numele trebuie să aibă între 2 și 120 de caractere.")]
+    public string FullName { get; set; } = string.Empty;
+}
+
 /// <summary>Account deletion requires re-entering the password.</summary>
 public class DeleteAccountRequest
 {

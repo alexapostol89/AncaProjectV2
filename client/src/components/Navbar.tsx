@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LogIn, LogOut, Menu, UserRound, X } from 'lucide-react';
+import { Bell, LogIn, LogOut, Menu, UserRound, X } from 'lucide-react';
 import { useAuth } from '../context/useAuth';
 import LanguageSelector from './LanguageSelector';
+import { usePendingBookings } from './usePendingBookings';
 
 const links = [
     { to: '/', key: 'nav.home' },
@@ -12,7 +13,8 @@ const links = [
     { to: '/studii', key: 'nav.education' },
     { to: '/preturi', key: 'nav.pricing' },
     { to: '/jurnal', key: 'nav.journal', highlight: true },
-    { to: '/contact', key: 'nav.contact' },
+    { to: '/contact', key: 'nav.contact', hideForAdmin: true },
+    { to: '/admin/utilizatori', key: 'nav.adminUsers', adminOnly: true },
 ] as const;
 
 /**
@@ -24,6 +26,9 @@ export default function Navbar() {
     const { user, logout } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
     const closeMenu = () => setMenuOpen(false);
+    const isAdmin = user?.role === 'Admin';
+    const pendingBookings = usePendingBookings();
+    const pendingLabel = t('nav.pendingRequests', { count: pendingBookings });
 
     return (
         <nav className="navbar">
@@ -36,7 +41,7 @@ export default function Navbar() {
             </NavLink>
 
             <ul id="main-menu" className={`nav-links ${menuOpen ? 'open' : ''}`}>
-                {links.map((link) => (
+                {links.filter((link) => (isAdmin ? !('hideForAdmin' in link) : !('adminOnly' in link))).map((link) => (
                     <li key={link.to}>
                         <NavLink
                             to={link.to}
@@ -56,11 +61,33 @@ export default function Navbar() {
 
             <div className="nav-actions">
                 <LanguageSelector className="bar-language" />
+                {isAdmin && (
+                    // The admin's single entry to booking requests: bell + label + number waiting.
+                    <NavLink
+                        to="/admin/programari"
+                        className={({ isActive }) => ['nav-bell', pendingBookings > 0 ? 'has-pending' : '', isActive ? 'active' : ''].join(' ').trim()}
+                        onClick={closeMenu}
+                        aria-label={pendingBookings > 0 ? pendingLabel : t('nav.adminBookings')}
+                        title={pendingBookings > 0 ? pendingLabel : t('nav.adminBookings')}
+                    >
+                        <span className="nav-bell-icon">
+                            <Bell size={18} />
+                            {pendingBookings > 0 && <span className="nav-badge" aria-hidden="true">{pendingBookings > 99 ? '99+' : pendingBookings}</span>}
+                        </span>
+                        <span className="nav-action-label">{t('nav.adminBookings')}</span>
+                    </NavLink>
+                )}
                 {user ? (
                     <div className="nav-user">
-                        <span className="nav-user-name" title={user.email}>
-                            <UserRound size={16} /> {user.fullName.split(' ')[0]}
-                        </span>
+                        <NavLink
+                            to="/profil"
+                            className={({ isActive }) => `nav-profile ${isActive ? 'active' : ''}`.trim()}
+                            onClick={closeMenu}
+                            aria-label={t('nav.profile')}
+                            title={`${t('nav.profile')} · ${user.email}`}
+                        >
+                            <UserRound size={16} /> <span className="nav-user-name">{user.fullName.split(' ')[0]}</span>
+                        </NavLink>
                         <button type="button" className="btn-nav-outline" onClick={() => { logout(); closeMenu(); }} aria-label={t('nav.logout')} title={t('nav.logout')}>
                             <LogOut size={16} /> <span className="nav-action-label">{t('nav.logout')}</span>
                         </button>
