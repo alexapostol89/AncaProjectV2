@@ -63,6 +63,7 @@ export default function Login() {
                     <label htmlFor="login-password">{t('password')}</label>
                     <input id="login-password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} aria-invalid={!!errors.password} />
                     {errors.password && <span className="field-error">{errors.password}</span>}
+                    <Link to="/parola-uitata" className="auth-forgot">{t('forgotLink')}</Link>
                 </div>
                 <button type="submit" className="btn-primary auth-submit" disabled={submitting}>
                     <LogIn size={18} />{submitting ? t('loggingIn') : t('loginButton')}

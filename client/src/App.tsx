@@ -10,6 +10,8 @@ import Contact from './pages/Contact';
 import ExpatJournal from './pages/ExpatJournal';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Booking from './pages/Booking';
 import AdminBookings from './pages/AdminBookings';
 import AdminUsers from './pages/AdminUsers';
@@ -41,6 +43,9 @@ export default function App() {
                         <Route path="/jurnal" element={<RequireRole allow={['Guest', 'User']}><ExpatJournal /></RequireRole>} />
                         <Route path="/autentificare" element={<Login />} />
                         <Route path="/inregistrare" element={<Register />} />
+                        <Route path="/parola-uitata" element={<ForgotPassword />} />
+                        {/* Path must match the link in the reset email (server: AuthService.ForgotPasswordAsync). */}
+                        <Route path="/reset-password" element={<ResetPassword />} />
                     </Routes>
                 </main>
                 <Footer />
