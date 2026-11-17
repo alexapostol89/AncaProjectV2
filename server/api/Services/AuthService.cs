@@ -148,6 +148,7 @@ public class AuthService : IAuthService
         user!.PasswordHash = _passwordHasher.HashPassword(user, request.NewPassword);
         user.PasswordResetTokenHash = null; // a link works only once
         user.PasswordResetTokenExpiresAt = null;
+        user.TokenVersion++; // log out everywhere: whoever used the old password loses access now
         await _db.SaveChangesAsync();
 
         return ServiceResult.Ok();

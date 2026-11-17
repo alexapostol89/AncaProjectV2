@@ -1,9 +1,19 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Security.Claims;
+using System.Text;
+using api.Configuration;
+using api.DTOs.Auth;
 using api.DTOs.Common;
+using api.Models;
 using api.Tests.Infrastructure;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 
 namespace api.Tests.Api;
 
@@ -144,6 +154,84 @@ public sealed class PasswordResetEndpointTests : IDisposable
 
         Assert.Equal(HttpStatusCode.BadRequest, (await ResetAsync(email, token, "weak")).StatusCode);
         Assert.Equal(HttpStatusCode.OK, (await ResetAsync(email, token)).StatusCode);
+    }
+
+    // ---- Old logins stop working after a reset ---------------------------------------
+
+    [Fact]
+    public async Task Reset_logs_out_every_existing_login()
+    {
+        var user = await _api.AddUserAsync(email: "maria@example.com");
+        var oldSession = _api.ClientFor(user); // e.g. someone who knew the old password
+        Assert.Equal(HttpStatusCode.OK, (await oldSession.GetAsync("/api/auth/me")).StatusCode);
+
+        var (email, token) = await RequestLinkAsync(user.Email);
+        await ResetAsync(email, token);
+
+        Assert.Equal(HttpStatusCode.Unauthorized, (await oldSession.GetAsync("/api/auth/me")).StatusCode);
+    }
+
+    [Fact]
+    public async Task Logging_in_with_the_new_password_gives_a_working_token()
+    {
+        var user = await _api.AddUserAsync(email: "maria@example.com");
+        var (email, token) = await RequestLinkAsync(user.Email);
+        await ResetAsync(email, token);
+
+        var auth = await ApiFactory.ReadAsync<AuthResponse>(await LoginAsync(user.Email, NewPassword));
+        var client = _api.Anonymous();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth!.Token);
+
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("/api/auth/me")).StatusCode);
+    }
+
+    [Fact]
+    public async Task Reset_does_not_log_out_other_users()
+    {
+        var maria = await _api.AddUserAsync(email: "maria@example.com");
+        var ioana = await _api.AddUserAsync("Ioana Ionescu", email: "ioana@example.com");
+        var ioanaSession = _api.ClientFor(ioana);
+
+        var (email, token) = await RequestLinkAsync(maria.Email);
+        await ResetAsync(email, token);
+
+        Assert.Equal(HttpStatusCode.OK, (await ioanaSession.GetAsync("/api/auth/me")).StatusCode);
+    }
+
+    [Fact]
+    public async Task Tokens_issued_before_this_check_existed_keep_working_until_a_reset()
+    {
+        var user = await _api.AddUserAsync(email: "maria@example.com");
+        var legacy = _api.Anonymous();
+        legacy.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", LegacyTokenFor(user));
+
+        Assert.Equal(HttpStatusCode.OK, (await legacy.GetAsync("/api/auth/me")).StatusCode);
+
+        var (email, token) = await RequestLinkAsync(user.Email);
+        await ResetAsync(email, token);
+
+        Assert.Equal(HttpStatusCode.Unauthorized, (await legacy.GetAsync("/api/auth/me")).StatusCode);
+    }
+
+    /// <summary>A token like the ones issued before the "tv" claim was added (no token version in it).</summary>
+    private string LegacyTokenFor(User user)
+    {
+        var jwt = _api.Services.GetRequiredService<IOptions<JwtSettings>>().Value;
+        return new JsonWebTokenHandler().CreateToken(new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(
+            [
+                new Claim(AppClaimTypes.Subject, user.Id.ToString()),
+                new Claim(AppClaimTypes.Email, user.Email),
+                new Claim(AppClaimTypes.Name, user.FullName),
+                new Claim(AppClaimTypes.Role, user.RoleId.ToString())
+            ]),
+            Issuer = jwt.Issuer,
+            Audience = jwt.Audience,
+            Expires = DateTime.UtcNow.AddHours(1),
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)), SecurityAlgorithms.HmacSha256)
+        });
     }
 
     public void Dispose() => _api.Dispose();

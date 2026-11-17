@@ -35,7 +35,8 @@ public class TokenService : ITokenService
                 new Claim(AppClaimTypes.Subject, user.Id.ToString()),
                 new Claim(AppClaimTypes.Email, user.Email),
                 new Claim(AppClaimTypes.Name, user.FullName),
-                new Claim(AppClaimTypes.Role, user.RoleId.ToString())
+                new Claim(AppClaimTypes.Role, user.RoleId.ToString()),
+                new Claim(AppClaimTypes.TokenVersion, user.TokenVersion.ToString(), ClaimValueTypes.Integer32)
             ]),
             Issuer = _settings.Issuer,
             Audience = _settings.Audience,

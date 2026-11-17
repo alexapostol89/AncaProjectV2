@@ -29,4 +29,10 @@ public class User
     public string? PasswordResetTokenHash { get; set; }
 
     public DateTime? PasswordResetTokenExpiresAt { get; set; }
+
+    /// <summary>
+    /// Written into every login token. Raised on a password reset, which makes every token issued
+    /// before it invalid (checked on each request in Program.cs), so old logins stop working.
+    /// </summary>
+    public int TokenVersion { get; set; }
 }
