@@ -36,7 +36,6 @@ public sealed class ProfileEndpointTests : IDisposable
         Assert.Equal("Ioana Ionescu", me.FullName);
         Assert.Equal("User", me.Role);
         Assert.DoesNotContain("passwordHash", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("resetToken", json, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

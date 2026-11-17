@@ -10,7 +10,7 @@ A chatbot is planned for later.
 | Frontend | React 19 + TypeScript + Vite, react-router, i18next | `client/` | https://anca-frontend.fly.dev |
 | Backend API | ASP.NET Core (.NET 10), controllers + DTOs + services | `server/api/` | https://anca-api.fly.dev |
 | Database | PostgreSQL on Neon (EU / Frankfurt), EF Core + Npgsql | — | Neon project, `main` branch |
-| Email | Resend (contact form, password reset) | — | — |
+| Email | Gmail SMTP or Resend (contact form, booking emails) | — | — |
 | Hosting | Fly.io (`fra` region), Docker | `client/fly.toml`, `server/fly.toml` | — |
 
 ---
@@ -112,7 +112,7 @@ In `.env` and environment variables, `:` becomes `__` (e.g. `Jwt:Key` → `Jwt__
 | `Jwt:Key` | yes | `.env` / Fly secret | Signs login tokens (≥ 32 chars) |
 | `Jwt:Issuer`, `Jwt:Audience`, `Jwt:ExpiryHours` | no | `appsettings.json` | Token settings (login lasts 8 hours) |
 | `Email:SmtpHost`, `SmtpUsername`, `SmtpPassword` | one of these two | `.env` / Fly secrets | Gmail sending: `smtp.gmail.com`, the Gmail address, and a Google **app password**. When set, used instead of Resend; `Email:From` must be the same Gmail address |
-| `Email:ApiKey` | one of these two | `.env` / Fly secret | Resend API key. Resend only emails people other than its account owner once a domain is verified. If neither option is set in Development, reset links are printed to the console instead of emailed |
+| `Email:ApiKey` | one of these two | `.env` / Fly secret | Resend API key. Resend only emails people other than its account owner once a domain is verified. |
 | `GoogleCalendar:ClientId`, `ClientSecret`, `RefreshToken` | yes | `.env` / Fly secrets | Server-only OAuth credentials for availability checks and event creation |
 | `GoogleCalendar:CalendarId` | no | `.env` / `appsettings.json` | Calendar to check and add bookings to; `primary` for the connected account |
 | `Email:From`, `Email:FromName`, `Email:To` | no | `appsettings*.json` / Fly secret | Sender and the practice inbox |
@@ -141,7 +141,7 @@ A client can have at most 3 pending requests at a time. Admins see a bell in the
 
 | | Guest | Client (User) | Admin |
 |---|---|---|---|
-| Public pages, register, login, password reset | ✅ | ✅ | ✅ |
+| Public pages, register, login | ✅ | ✅ | ✅ |
 | Contact page | ✅ | ✅ | hidden |
 | Booking page, `/api/bookings/*` | → login | ✅ | ❌ (403 / redirected to the requests page) |
 | My profile (`/profil`): edit name, change password | → login | ✅ | ✅ |
@@ -223,8 +223,6 @@ Name  text (unique)           Id                          uuid PK
 (2, User)                     PasswordHash                text (PBKDF2 via PasswordHasher)
                               CreatedAt                   timestamptz
                               LastLoginAt                 timestamptz?
-                              PasswordResetTokenHash      text?  (SHA-256 of the emailed token)
-                              PasswordResetTokenExpiresAt timestamptz?
 ```
 
 - **Roles** is a fixed lookup table. Its two rows are inserted by the migration (`HasData`). In C#, the enum `UserRole { Admin = 1, User = 2 }` matches those ids.
@@ -258,7 +256,6 @@ Always commit the migration files. Never edit a migration that has already been 
 - **Registration always creates role `User`.** The first admin comes from the `Seed:*` settings; admins can then promote others.
 - Safety rules: an admin cannot demote or delete themselves, and the last admin cannot delete their own account.
 - **Password rules** (backend `PasswordRules` and frontend `isStrongPassword`, keep them in sync): 8+ characters, a lowercase letter, an uppercase letter, a digit.
-- **Password reset:** a random token is emailed, only its SHA-256 hash is stored, valid 1 hour, usable once.
 
 **Known trade-off (by design, for simplicity):** a JWT cannot be revoked before it expires. A demoted or deleted user keeps
 their current token for up to 8 hours. Role changes take effect at the next login.
@@ -276,8 +273,6 @@ Base URL: `http://localhost:5039` (dev), `https://anca-api.fly.dev` (prod). 🔒
 | POST | `/register` | `{ fullName, email, password }` | 200 `AuthResponse` | 400 validation, 409 `email_taken` |
 | POST | `/login` | `{ email, password }` | 200 `AuthResponse` | 401 `invalid_credentials` |
 | GET 🔒 | `/me` | — | 200 `UserDto` | 401 |
-| POST | `/forgot-password` | `{ email }` | 200 (always the same answer) | — |
-| POST | `/reset-password` | `{ email, token, newPassword }` | 200 | 400 `invalid_link` |
 | POST 🔒 | `/change-password` | `{ currentPassword, newPassword }` | 200 | 400 `wrong_password` |
 | POST 🔒 | `/delete-account` | `{ password }` | 204 | 400 `wrong_password`, 409 `last_admin` |
 
@@ -478,6 +473,5 @@ Log in as an admin and call `PUT /api/admin/users/{id}/role` with `{ "role": "Ad
 | `429 Too Many Requests` | Rate limit (10/min on auth). Wait a minute |
 | `npm run build` fails with "Translations are out of date" | Run `npm run translate` and commit the locale files |
 | `npm run translate`: "Missing DEEPL_API_KEY" | Add it to `client/.env.local` |
-| Forgot-password email never arrives in dev | Without `Email:ApiKey`, the reset link is printed in the API console |
 | First request is slow | Neon (free tier) and Fly machines sleep when idle; the first request wakes them |
 | Logged out after a while | Tokens expire after 8 hours by design |

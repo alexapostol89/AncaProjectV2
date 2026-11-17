@@ -42,7 +42,4 @@ public class EmailSettings
     public string SmtpPassword { get; set; } = string.Empty;
 
     public bool UseSmtp => !string.IsNullOrWhiteSpace(SmtpHost);
-
-    /// <summary>False when neither SMTP nor Resend is set up (local development).</summary>
-    public bool CanSend => UseSmtp || !string.IsNullOrWhiteSpace(ApiKey);
 }

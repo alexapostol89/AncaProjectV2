@@ -3,8 +3,6 @@ using System.Text.Json;
 using api.Configuration;
 using api.Services;
 using api.Tests.Infrastructure;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
@@ -25,7 +23,6 @@ public sealed class EmailServiceBookingTests
             BookingRequestTo = [.. bookingRequestTo]
         }),
         NullLogger<EmailService>.Instance,
-        new StubEnvironment(),
         new RecordingSmtpSender());
 
     private List<ResendEmail> SentEmails() =>
@@ -202,7 +199,6 @@ public sealed class EmailServiceBookingTests
                 From = "practice@gmail.test", FromName = "Cabinet", To = PracticeInbox
             }),
             NullLogger<EmailService>.Instance,
-            new StubEnvironment(),
             smtp);
         return (service, smtp);
     }
@@ -212,14 +208,14 @@ public sealed class EmailServiceBookingTests
     {
         var (service, smtp) = CreateSmtpService();
 
-        await service.SendPasswordResetAsync("ioana@example.com", "Ioana", "https://site.test/reset-password?token=abc");
+        await service.SendBookingApprovedAsync("Ioana", "ioana@example.com", _start, "https://meet.google.com/test");
 
         Assert.Empty(_resend.Requests);
         var message = Assert.Single(smtp.Sent);
         Assert.Equal("ioana@example.com", message.To.Mailboxes.Single().Address);
         Assert.Equal("practice@gmail.test", message.From.Mailboxes.Single().Address);
         Assert.Equal("Cabinet", message.From.Mailboxes.Single().Name);
-        Assert.Contains("https://site.test/reset-password?token=abc", message.HtmlBody);
+        Assert.Contains("https://meet.google.com/test", message.HtmlBody);
     }
 
     [Fact]
@@ -257,12 +253,4 @@ public sealed class EmailServiceBookingTests
     }
 
     private sealed record ResendEmail(string From, string[] To, string? Reply_To, string Subject, string Html);
-
-    private sealed class StubEnvironment : IHostEnvironment
-    {
-        public string EnvironmentName { get; set; } = "Testing";
-        public string ApplicationName { get; set; } = "api";
-        public string ContentRootPath { get; set; } = AppContext.BaseDirectory;
-        public IFileProvider ContentRootFileProvider { get; set; } = new NullFileProvider();
-    }
 }

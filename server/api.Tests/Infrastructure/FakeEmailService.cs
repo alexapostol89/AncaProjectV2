@@ -42,10 +42,4 @@ public sealed class FakeEmailService : IEmailService
         Emails.Add(new Sent("Rejected", name, email, start, reason));
         return Task.CompletedTask;
     }
-
-    public Task SendPasswordResetAsync(string toEmail, string fullName, string resetLink, CancellationToken cancellationToken = default)
-    {
-        Emails.Add(new Sent("PasswordReset", fullName, toEmail, Extra: resetLink));
-        return Task.CompletedTask;
-    }
 }

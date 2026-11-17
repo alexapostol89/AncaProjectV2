@@ -6,7 +6,7 @@ public static class RateLimitPolicies
     /// <summary>Contact form: 5 requests / minute.</summary>
     public const string Contact = "contact";
 
-    /// <summary>Login, register, password reset: 10 requests / minute. Slows down password guessing and spam.</summary>
+    /// <summary>Login, register, password and account changes: 10 requests / minute. Slows down password guessing and spam.</summary>
     public const string Auth = "auth";
 
     /// <summary>Booking reads/writes: 10 requests / minute per IP.</summary>

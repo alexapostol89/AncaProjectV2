@@ -18,7 +18,4 @@ public static class AppClaimTypes
     public const string Email = "email";
     public const string Name = "name";
     public const string Role = "role";
-
-    /// <summary>The user's TokenVersion when the token was issued (see User.TokenVersion).</summary>
-    public const string TokenVersion = "tv";
 }

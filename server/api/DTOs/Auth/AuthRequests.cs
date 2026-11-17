@@ -45,32 +45,6 @@ public class LoginRequest
     public string Password { get; set; } = string.Empty;
 }
 
-public class ForgotPasswordRequest
-{
-    [Required(ErrorMessage = "Adresa de email este obligatorie.")]
-    [EmailAddress(ErrorMessage = "Adresa de email nu este validă.")]
-    [StringLength(180)]
-    public string Email { get; set; } = string.Empty;
-}
-
-/// <summary>Sent by the frontend's /reset-password page with the email + token from the link.</summary>
-public class ResetPasswordRequest
-{
-    [Required]
-    [EmailAddress]
-    [StringLength(180)]
-    public string Email { get; set; } = string.Empty;
-
-    [Required]
-    [StringLength(200)]
-    public string Token { get; set; } = string.Empty;
-
-    [Required(ErrorMessage = "Parola nouă este obligatorie.")]
-    [StringLength(128, MinimumLength = PasswordRules.MinLength, ErrorMessage = PasswordRules.Message)]
-    [RegularExpression(PasswordRules.Pattern, ErrorMessage = PasswordRules.Message)]
-    public string NewPassword { get; set; } = string.Empty;
-}
-
 public class ChangePasswordRequest
 {
     [Required(ErrorMessage = "Parola curentă este obligatorie.")]

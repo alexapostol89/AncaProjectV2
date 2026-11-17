@@ -100,9 +100,8 @@ builder.Services
             RoleClaimType = AppClaimTypes.Role
         };
 
-        // A valid signature isn't enough: the account must still exist, still have the role written
-        // in the token, and its password must not have been reset since the token was issued.
-        // So a deleted user, a demoted admin, or anyone logged in with an old password loses access
+        // A valid signature isn't enough: the account must still exist and still have the role
+        // written in the token. So a deleted user, or an admin who was demoted, loses access
         // immediately instead of keeping it until the token expires (8h).
         options.Events = new JwtBearerEvents
         {
@@ -116,21 +115,13 @@ builder.Services
                 }
 
                 var db = context.HttpContext.RequestServices.GetRequiredService<AppDbContext>();
-                var account = await db.Users
+                var role = await db.Users
                     .Where(u => u.Id == userId)
-                    .Select(u => new { u.RoleId, u.TokenVersion })
+                    .Select(u => (UserRole?)u.RoleId)
                     .FirstOrDefaultAsync(context.HttpContext.RequestAborted);
 
-                if (account is null || account.RoleId.ToString() != principal.FindFirst(AppClaimTypes.Role)?.Value)
-                {
+                if (role is null || role.ToString() != principal.FindFirst(AppClaimTypes.Role)?.Value)
                     context.Fail("Account no longer exists or its role changed.");
-                    return;
-                }
-
-                // Tokens issued before this claim existed have no "tv": they count as version 0.
-                var tokenVersion = int.TryParse(principal.FindFirst(AppClaimTypes.TokenVersion)?.Value, out var tv) ? tv : 0;
-                if (tokenVersion != account.TokenVersion)
-                    context.Fail("Password was reset after this token was issued.");
             }
         };
     });

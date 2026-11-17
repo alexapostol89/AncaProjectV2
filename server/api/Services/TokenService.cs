@@ -1,9 +1,7 @@
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using api.Configuration;
 using api.Models;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
@@ -35,8 +33,7 @@ public class TokenService : ITokenService
                 new Claim(AppClaimTypes.Subject, user.Id.ToString()),
                 new Claim(AppClaimTypes.Email, user.Email),
                 new Claim(AppClaimTypes.Name, user.FullName),
-                new Claim(AppClaimTypes.Role, user.RoleId.ToString()),
-                new Claim(AppClaimTypes.TokenVersion, user.TokenVersion.ToString(), ClaimValueTypes.Integer32)
+                new Claim(AppClaimTypes.Role, user.RoleId.ToString())
             ]),
             Issuer = _settings.Issuer,
             Audience = _settings.Audience,
@@ -48,8 +45,4 @@ public class TokenService : ITokenService
 
         return new AccessToken(_handler.CreateToken(descriptor), expiresAt);
     }
-
-    public string GenerateResetToken() => WebEncoders.Base64UrlEncode(RandomNumberGenerator.GetBytes(32));
-
-    public string HashToken(string token) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(token)));
 }

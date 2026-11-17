@@ -128,17 +128,7 @@ namespace api.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("PasswordResetTokenExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("PasswordResetTokenHash")
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
                     b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TokenVersion")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

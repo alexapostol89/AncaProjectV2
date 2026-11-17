@@ -46,7 +46,6 @@ public class AppDbContext : DbContext
             user.Property(u => u.Email).HasMaxLength(180).IsRequired();
             user.Property(u => u.FullName).HasMaxLength(120).IsRequired();
             user.Property(u => u.PasswordHash).IsRequired();
-            user.Property(u => u.PasswordResetTokenHash).HasMaxLength(64);
 
             // Many users → one role. Restrict: a role that still has users can't be deleted.
             user.HasOne(u => u.Role)

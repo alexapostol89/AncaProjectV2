@@ -26,8 +26,6 @@ public sealed class AuthorizationTests : IDisposable
         "GET /health",
         "POST /api/auth/register",
         "POST /api/auth/login",
-        "POST /api/auth/forgot-password",
-        "POST /api/auth/reset-password",
         "POST /api/contact",
     ];
 
@@ -111,8 +109,6 @@ public sealed class AuthorizationTests : IDisposable
 
     [Theory]
     [InlineData("/api/auth/register")]
-    [InlineData("/api/auth/forgot-password")]
-    [InlineData("/api/auth/reset-password")]
     [InlineData("/api/contact")]
     public async Task Public_forms_are_reachable_without_login(string url)
     {

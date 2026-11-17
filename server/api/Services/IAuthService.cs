@@ -15,11 +15,6 @@ public interface IAuthService
     /// <summary>Updates the logged-in user's own profile (name).</summary>
     Task<ServiceResult<UserDto>> UpdateProfileAsync(Guid userId, UpdateProfileRequest request);
 
-    /// <summary>Emails a reset link if the account exists. Never reveals whether it does.</summary>
-    Task ForgotPasswordAsync(string email, CancellationToken cancellationToken = default);
-
-    Task<ServiceResult> ResetPasswordAsync(ResetPasswordRequest request);
-
     Task<ServiceResult> ChangePasswordAsync(Guid userId, ChangePasswordRequest request);
 
     /// <summary>Permanently deletes the account (GDPR right to erasure).</summary>

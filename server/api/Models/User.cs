@@ -24,15 +24,4 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public DateTime? LastLoginAt { get; set; }
-
-    /// <summary>SHA-256 hash of the "forgot password" token emailed to the user (null when none pending).</summary>
-    public string? PasswordResetTokenHash { get; set; }
-
-    public DateTime? PasswordResetTokenExpiresAt { get; set; }
-
-    /// <summary>
-    /// Written into every login token. Raised on a password reset, which makes every token issued
-    /// before it invalid (checked on each request in Program.cs), so old logins stop working.
-    /// </summary>
-    public int TokenVersion { get; set; }
 }

@@ -1,42 +1,23 @@
-using System.Security.Cryptography;
-using System.Text;
-using api.Configuration;
 using api.Data;
 using api.DTOs.Auth;
 using api.Models;
 using api.Services.Results;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace api.Services;
 
 public class AuthService : IAuthService
 {
-    private static readonly TimeSpan ResetTokenLifetime = TimeSpan.FromHours(1);
-
     private readonly AppDbContext _db;
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly ITokenService _tokenService;
-    private readonly IEmailService _emailService;
-    private readonly ClientAppSettings _clientApp;
-    private readonly ILogger<AuthService> _logger;
 
-    public AuthService(
-        AppDbContext db,
-        IPasswordHasher<User> passwordHasher,
-        ITokenService tokenService,
-        IEmailService emailService,
-        IOptions<ClientAppSettings> clientApp,
-        ILogger<AuthService> logger)
+    public AuthService(AppDbContext db, IPasswordHasher<User> passwordHasher, ITokenService tokenService)
     {
         _db = db;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
-        _emailService = emailService;
-        _clientApp = clientApp.Value;
-        _logger = logger;
     }
 
     public async Task<ServiceResult<AuthResponse>> RegisterAsync(RegisterRequest request)
@@ -98,60 +79,6 @@ public class AuthService : IAuthService
         return user is null
             ? ServiceResult<UserDto>.Fail(ServiceErrorType.NotFound, "Contul nu a fost găsit.", "not_found")
             : ServiceResult<UserDto>.Ok(UserDto.FromUser(user));
-    }
-
-    public async Task ForgotPasswordAsync(string email, CancellationToken cancellationToken = default)
-    {
-        var normalized = NormalizeEmail(email);
-        var user = await _db.Users.SingleOrDefaultAsync(u => u.Email == normalized, cancellationToken);
-        if (user is null)
-        {
-            return; // say nothing — the controller always returns the same message
-        }
-
-        // The raw token goes in the email; only its hash is saved.
-        var token = _tokenService.GenerateResetToken();
-        user.PasswordResetTokenHash = _tokenService.HashToken(token);
-        user.PasswordResetTokenExpiresAt = DateTime.UtcNow.Add(ResetTokenLifetime);
-        await _db.SaveChangesAsync(cancellationToken);
-
-        var link = QueryHelpers.AddQueryString($"{_clientApp.BaseUrl.TrimEnd('/')}/reset-password",
-            new Dictionary<string, string?> { ["email"] = user.Email, ["token"] = token });
-
-        try
-        {
-            await _emailService.SendPasswordResetAsync(user.Email, user.FullName, link, cancellationToken);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to send password reset email.");
-        }
-    }
-
-    public async Task<ServiceResult> ResetPasswordAsync(ResetPasswordRequest request)
-    {
-        var email = NormalizeEmail(request.Email);
-        var user = await _db.Users.SingleOrDefaultAsync(u => u.Email == email);
-
-        var tokenIsValid = user?.PasswordResetTokenHash is not null
-            && user.PasswordResetTokenExpiresAt > DateTime.UtcNow
-            && CryptographicOperations.FixedTimeEquals(
-                Encoding.UTF8.GetBytes(user.PasswordResetTokenHash),
-                Encoding.UTF8.GetBytes(_tokenService.HashToken(request.Token)));
-
-        if (!tokenIsValid)
-        {
-            return ServiceResult.Fail(ServiceErrorType.Validation,
-                "Linkul este invalid sau a expirat. Te rugăm să soliciți unul nou.", "invalid_link");
-        }
-
-        user!.PasswordHash = _passwordHasher.HashPassword(user, request.NewPassword);
-        user.PasswordResetTokenHash = null; // a link works only once
-        user.PasswordResetTokenExpiresAt = null;
-        user.TokenVersion++; // log out everywhere: whoever used the old password loses access now
-        await _db.SaveChangesAsync();
-
-        return ServiceResult.Ok();
     }
 
     public async Task<ServiceResult<UserDto>> UpdateProfileAsync(Guid userId, UpdateProfileRequest request)

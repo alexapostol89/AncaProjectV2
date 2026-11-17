@@ -69,31 +69,6 @@ public class AuthController : ApiControllerBase
         return result.Succeeded ? Ok(result.Value) : ErrorResult(result.Error!);
     }
 
-    /// <summary>Emails a password reset link. Same answer whether or not the email exists.</summary>
-    [AllowAnonymous]
-    [HttpPost("forgot-password")]
-    [EnableRateLimiting(RateLimitPolicies.Auth)]
-    [ProducesResponseType<MessageResponse>(StatusCodes.Status200OK)]
-    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request, CancellationToken cancellationToken)
-    {
-        await _authService.ForgotPasswordAsync(request.Email, cancellationToken);
-        return Ok(new MessageResponse(
-            "Dacă există un cont cu această adresă, ți-am trimis un email cu instrucțiuni de resetare a parolei."));
-    }
-
-    [AllowAnonymous]
-    [HttpPost("reset-password")]
-    [EnableRateLimiting(RateLimitPolicies.Auth)]
-    [ProducesResponseType<MessageResponse>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
-    {
-        var result = await _authService.ResetPasswordAsync(request);
-        return result.Succeeded
-            ? Ok(new MessageResponse("Parola a fost schimbată. Te poți autentifica acum cu noua parolă."))
-            : ErrorResult(result.Error!);
-    }
-
     [Authorize]
     [HttpPost("change-password")]
     [EnableRateLimiting(RateLimitPolicies.Auth)]
