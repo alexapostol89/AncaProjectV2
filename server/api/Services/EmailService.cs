@@ -5,13 +5,14 @@ using System.Text.Json.Serialization;
 using api.Configuration;
 using api.DTOs;
 using Microsoft.Extensions.Options;
+using MimeKit;
 
 namespace api.Services;
 
 /// <summary>
-/// Sends emails through Resend's REST API (https://resend.com/docs/api-reference/emails/send-email).
-/// Only this class knows about Resend; swapping providers later means
-/// touching this file only, not the controller.
+/// Builds the site's emails and sends them through SMTP (Gmail) when Email:SmtpHost is set,
+/// otherwise through Resend's REST API (https://resend.com/docs/api-reference/emails/send-email).
+/// Only this class knows about the providers; the rest of the app just calls IEmailService.
 /// </summary>
 public class EmailService : IEmailService
 {
@@ -19,14 +20,17 @@ public class EmailService : IEmailService
     private readonly EmailSettings _settings;
     private readonly ILogger<EmailService> _logger;
     private readonly IHostEnvironment _environment;
+    private readonly ISmtpSender _smtp;
 
     public EmailService(
         HttpClient httpClient,
         IOptions<EmailSettings> settings,
         ILogger<EmailService> logger,
-        IHostEnvironment environment)
+        IHostEnvironment environment,
+        ISmtpSender smtp)
     {
         _httpClient = httpClient;
+        _smtp = smtp;
         _settings = settings.Value;
         _logger = logger;
         _environment = environment;
@@ -174,9 +178,9 @@ public class EmailService : IEmailService
     {
         // In Development without an API key, print the link instead of emailing it,
         // so "forgot password" can be tested locally. Never happens in production.
-        if (_environment.IsDevelopment() && string.IsNullOrWhiteSpace(_settings.ApiKey))
+        if (_environment.IsDevelopment() && !_settings.CanSend)
         {
-            _logger.LogWarning("DEV: Email:ApiKey not set, reset email not sent. Link: {Link}", resetLink);
+            _logger.LogWarning("DEV: no email provider configured, reset email not sent. Link: {Link}", resetLink);
             return Task.CompletedTask;
         }
 
@@ -207,6 +211,12 @@ public class EmailService : IEmailService
 
     private async Task SendAsync(ResendEmailPayload payload, CancellationToken cancellationToken)
     {
+        if (_settings.UseSmtp)
+        {
+            await SendWithSmtpAsync(payload, cancellationToken);
+            return;
+        }
+
         var response = await _httpClient.PostAsJsonAsync("emails", payload, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
@@ -218,6 +228,29 @@ public class EmailService : IEmailService
                 "Resend API call failed with status {StatusCode}. Response: {Body}",
                 (int)response.StatusCode, body);
             throw new InvalidOperationException($"Email provider returned {(int)response.StatusCode}.");
+        }
+    }
+
+    private async Task SendWithSmtpAsync(ResendEmailPayload payload, CancellationToken cancellationToken)
+    {
+        var message = new MimeMessage { Subject = payload.Subject };
+        message.From.Add(MailboxAddress.Parse(payload.From));
+        message.To.AddRange(payload.To.Select(MailboxAddress.Parse));
+        if (!string.IsNullOrWhiteSpace(payload.ReplyTo))
+        {
+            message.ReplyTo.Add(MailboxAddress.Parse(payload.ReplyTo));
+        }
+        message.Body = new BodyBuilder { HtmlBody = payload.Html }.ToMessageBody();
+
+        try
+        {
+            await _smtp.SendAsync(message, cancellationToken);
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            // Same contract as the Resend path: log the reason, throw so callers decide what to do.
+            _logger.LogError(ex, "SMTP send via {Host} failed.", _settings.SmtpHost);
+            throw new InvalidOperationException("Email provider failed.", ex);
         }
     }
 

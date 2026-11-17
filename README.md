@@ -111,7 +111,8 @@ In `.env` and environment variables, `:` becomes `__` (e.g. `Jwt:Key` → `Jwt__
 | `DATABASE_URL` | yes | repo-root `.env.local` (written by the Neon CLI) | Alternative to the above as a `postgresql://` URL; only used when `ConnectionStrings:Default` is empty |
 | `Jwt:Key` | yes | `.env` / Fly secret | Signs login tokens (≥ 32 chars) |
 | `Jwt:Issuer`, `Jwt:Audience`, `Jwt:ExpiryHours` | no | `appsettings.json` | Token settings (login lasts 8 hours) |
-| `Email:ApiKey` | yes | `.env` / Fly secret | Resend API key. If empty in Development, reset links are printed to the console instead of emailed |
+| `Email:SmtpHost`, `SmtpUsername`, `SmtpPassword` | one of these two | `.env` / Fly secrets | Gmail sending: `smtp.gmail.com`, the Gmail address, and a Google **app password**. When set, used instead of Resend; `Email:From` must be the same Gmail address |
+| `Email:ApiKey` | one of these two | `.env` / Fly secret | Resend API key. Resend only emails people other than its account owner once a domain is verified. If neither option is set in Development, reset links are printed to the console instead of emailed |
 | `GoogleCalendar:ClientId`, `ClientSecret`, `RefreshToken` | yes | `.env` / Fly secrets | Server-only OAuth credentials for availability checks and event creation |
 | `GoogleCalendar:CalendarId` | no | `.env` / `appsettings.json` | Calendar to check and add bookings to; `primary` for the connected account |
 | `Email:From`, `Email:FromName`, `Email:To` | no | `appsettings*.json` / Fly secret | Sender and the practice inbox |

@@ -148,6 +148,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddSingleton<ISmtpSender, MailKitSmtpSender>();
 builder.Services.AddHttpClient<IEmailService, EmailService>();
 builder.Services.AddHttpClient<IGoogleCalendarService, GoogleCalendarService>();
 builder.Services.AddSingleton<ITokenService, TokenService>();

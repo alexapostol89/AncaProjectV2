@@ -25,7 +25,8 @@ public sealed class EmailServiceBookingTests
             BookingRequestTo = [.. bookingRequestTo]
         }),
         NullLogger<EmailService>.Instance,
-        new StubEnvironment());
+        new StubEnvironment(),
+        new RecordingSmtpSender());
 
     private List<ResendEmail> SentEmails() =>
         _resend.To("emails").Select(r => JsonSerializer.Deserialize<ResendEmail>(r.Body, new JsonSerializerOptions(JsonSerializerDefaults.Web))!).ToList();
@@ -185,6 +186,74 @@ public sealed class EmailServiceBookingTests
         await CreateService().SendBookingApprovedAsync("Ioana", "ioana@example.com", _start, null);
 
         Assert.Equal("Bearer re_test", _resend.Requests[0].Authorization);
+    }
+
+    // ---- Gmail (SMTP) ----------------------------------------------------------------
+
+    private (EmailService Service, RecordingSmtpSender Smtp) CreateSmtpService()
+    {
+        var smtp = new RecordingSmtpSender();
+        var service = new EmailService(
+            new HttpClient(_resend),
+            Options.Create(new EmailSettings
+            {
+                ApiKey = "re_test", // ignored once SMTP is configured
+                SmtpHost = "smtp.gmail.com", SmtpUsername = "practice@gmail.test", SmtpPassword = "app-password",
+                From = "practice@gmail.test", FromName = "Cabinet", To = PracticeInbox
+            }),
+            NullLogger<EmailService>.Instance,
+            new StubEnvironment(),
+            smtp);
+        return (service, smtp);
+    }
+
+    [Fact]
+    public async Task With_smtp_configured_emails_go_through_smtp_not_resend()
+    {
+        var (service, smtp) = CreateSmtpService();
+
+        await service.SendPasswordResetAsync("ioana@example.com", "Ioana", "https://site.test/reset-password?token=abc");
+
+        Assert.Empty(_resend.Requests);
+        var message = Assert.Single(smtp.Sent);
+        Assert.Equal("ioana@example.com", message.To.Mailboxes.Single().Address);
+        Assert.Equal("practice@gmail.test", message.From.Mailboxes.Single().Address);
+        Assert.Equal("Cabinet", message.From.Mailboxes.Single().Name);
+        Assert.Contains("https://site.test/reset-password?token=abc", message.HtmlBody);
+    }
+
+    [Fact]
+    public async Task Smtp_keeps_reply_to_and_every_recipient()
+    {
+        var (service, smtp) = CreateSmtpService();
+
+        await service.SendBookingRequestedAsync("Ioana", "ioana@example.com", _start, "https://site.test/admin/programari");
+
+        Assert.Equal(PracticeInbox, smtp.Sent[0].To.Mailboxes.Single().Address);
+        Assert.Equal("ioana@example.com", smtp.Sent[0].ReplyTo.Mailboxes.Single().Address);
+        Assert.Equal("ioana@example.com", smtp.Sent[1].To.Mailboxes.Single().Address);
+    }
+
+    [Fact]
+    public async Task Smtp_failure_is_reported_like_a_resend_failure()
+    {
+        var (service, smtp) = CreateSmtpService();
+        smtp.Fail = true;
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => service.SendBookingApprovedAsync("Ioana", "ioana@example.com", _start));
+    }
+
+    private sealed class RecordingSmtpSender : ISmtpSender
+    {
+        public List<MimeKit.MimeMessage> Sent { get; } = [];
+        public bool Fail { get; set; }
+
+        public Task SendAsync(MimeKit.MimeMessage message, CancellationToken cancellationToken = default)
+        {
+            if (Fail) throw new MailKit.Security.AuthenticationException("535 Username and Password not accepted.");
+            Sent.Add(message);
+            return Task.CompletedTask;
+        }
     }
 
     private sealed record ResendEmail(string From, string[] To, string? Reply_To, string Subject, string Html);
