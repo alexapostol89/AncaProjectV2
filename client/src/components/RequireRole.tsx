@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAudience, type Audience } from './useAudience';
 
 /** Where each audience lands when it opens a page that isn't meant for it. */
-const HOME: Record<Audience, string> = { Guest: '/', User: '/', Admin: '/admin/programari' };
+const HOME: Record<Audience, string> = { Guest: '/', User: '/', Admin: '/admin/calendar' };
 
 /**
  * Route guard. Renders the page only for the listed audiences:

@@ -43,7 +43,7 @@ export const getAdminBookings = (status: BookingStatus | null, token: string) =>
 export const getPendingCount = (token: string) =>
     apiRequest<{ count: number }>("/api/admin/bookings/pending-count", { token }).then((r) => r.count);
 
-/** Fired after the admin approves/rejects, so the navbar bell refreshes immediately. */
+/** Fired after the admin approves/rejects, so the navbar badge refreshes immediately. */
 export const BOOKINGS_CHANGED_EVENT = "bookings-changed";
 export const notifyBookingsChanged = () => window.dispatchEvent(new Event(BOOKINGS_CHANGED_EVENT));
 

@@ -18,13 +18,19 @@ export default function Footer() {
                 </div>
 
                 <div className="footer-links">
-                    <Link to="/">{t('nav.home')}</Link>
-                    <Link to="/despre">{t('nav.about')}</Link>
-                    <Link to="/servicii">{t('nav.services')}</Link>
-                    <Link to="/studii">{t('nav.education')}</Link>
-                    <Link to="/preturi">{t('nav.pricing')}</Link>
-                    <Link to="/jurnal">{t('nav.journal')}</Link>
-                    {!isAdmin && <Link to="/contact">{t('nav.contact')}</Link>}
+                    {isAdmin ? <>
+                        <Link to="/admin/utilizatori">{t('nav.adminUsers')}</Link>
+                        <Link to="/admin/programari">{t('nav.adminBookings')}</Link>
+                        <Link to="/admin/calendar">{t('nav.adminCalendar')}</Link>
+                    </> : <>
+                        <Link to="/">{t('nav.home')}</Link>
+                        <Link to="/despre">{t('nav.about')}</Link>
+                        <Link to="/servicii">{t('nav.services')}</Link>
+                        <Link to="/studii">{t('nav.education')}</Link>
+                        <Link to="/preturi">{t('nav.pricing')}</Link>
+                        <Link to="/jurnal">{t('nav.journal')}</Link>
+                        <Link to="/contact">{t('nav.contact')}</Link>
+                    </>}
                 </div>
             </div>
 

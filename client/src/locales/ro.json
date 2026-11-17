@@ -13,6 +13,7 @@
     "adminBookings": "Cereri de programare",
     "pendingRequests": "Cereri de programare care așteaptă aprobarea: {{count}}",
     "adminUsers": "Utilizatori",
+    "adminCalendar": "Calendar",
     "profile": "Profilul meu",
     "login": "Autentificare",
     "logout": "Ieșire",
@@ -355,6 +356,29 @@
     "reasonLabel": "Motiv pentru client (opțional)",
     "confirmReject": "Respinge cererea",
     "cancel": "Anulează"
+  },
+  "adminCalendar": {
+    "subtitle": "Admin",
+    "title": "Calendar",
+    "loading": "Se încarcă calendarul…",
+    "today": "Astăzi",
+    "previous": "Înapoi",
+    "next": "Înainte",
+    "viewLabel": "Vizualizare calendar",
+    "views": {
+      "day": "Zi",
+      "week": "Săptămână",
+      "month": "Lună",
+      "year": "An"
+    },
+    "confirmedCount": "Confirmate: {{count}}",
+    "pendingCount": "În așteptare: {{count}}",
+    "reviewPending": "Vezi cererile",
+    "reviewRequest": "Vezi această cerere",
+    "more": "încă {{count}}",
+    "sessions": "Ședințe: {{count}}",
+    "emptyDay": "Nicio ședință în această zi.",
+    "close": "Închide"
   },
   "roles": {
     "Admin": "Administrator",

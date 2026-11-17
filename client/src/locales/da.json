@@ -13,6 +13,7 @@
     "adminBookings": "Reservationsanmodninger",
     "pendingRequests": "Reservationsanmodninger, der afventer godkendelse: {{count}}",
     "adminUsers": "Brugere",
+    "adminCalendar": "Kalender",
     "profile": "Min profil",
     "login": "Log ind",
     "logout": "Log ud",
@@ -355,6 +356,29 @@
     "reasonLabel": "Årsag for kunden (valgfrit)",
     "confirmReject": "Afvis anmodning",
     "cancel": "Annuller"
+  },
+  "adminCalendar": {
+    "subtitle": "Admin",
+    "title": "Kalender",
+    "loading": "Indlæser kalender…",
+    "today": "I dag",
+    "previous": "Forrige",
+    "next": "Næste",
+    "viewLabel": "Kalendervisning",
+    "views": {
+      "day": "Dag",
+      "week": "Uge",
+      "month": "Måned",
+      "year": "År"
+    },
+    "confirmedCount": "Bekræftet: {{count}}",
+    "pendingCount": "Afventer godkendelse: {{count}}",
+    "reviewPending": "Se anmodninger",
+    "reviewRequest": "Se denne anmodning",
+    "more": "+{{count}} mere",
+    "sessions": "Sessioner: {{count}}",
+    "emptyDay": "Ingen sessioner denne dag.",
+    "close": "Luk"
   },
   "roles": {
     "Admin": "Admin",

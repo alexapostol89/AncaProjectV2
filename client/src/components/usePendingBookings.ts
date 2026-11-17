@@ -20,7 +20,7 @@ export function usePendingBookings(): number {
         const refresh = () => {
             getPendingCount(token)
                 .then((n) => { if (active) setCount(n); })
-                .catch(() => { /* keep the last known number; the bell is a hint, not critical */ });
+                .catch(() => { /* keep the last known number; the badge is a hint, not critical */ });
         };
         const refreshIfVisible = () => { if (document.visibilityState === 'visible') refresh(); };
 

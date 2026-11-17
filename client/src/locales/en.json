@@ -13,6 +13,7 @@
     "adminBookings": "Booking requests",
     "pendingRequests": "Booking requests waiting for approval: {{count}}",
     "adminUsers": "Users",
+    "adminCalendar": "Calendar",
     "profile": "My profile",
     "login": "Log in",
     "logout": "Log out",
@@ -355,6 +356,29 @@
     "reasonLabel": "Reason for the client (optional)",
     "confirmReject": "Decline request",
     "cancel": "Cancel"
+  },
+  "adminCalendar": {
+    "subtitle": "Admin",
+    "title": "Calendar",
+    "loading": "Loading calendar…",
+    "today": "Today",
+    "previous": "Previous",
+    "next": "Next",
+    "viewLabel": "Calendar view",
+    "views": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "confirmedCount": "Confirmed: {{count}}",
+    "pendingCount": "Awaiting approval: {{count}}",
+    "reviewPending": "Review requests",
+    "reviewRequest": "Review this request",
+    "more": "+{{count}} more",
+    "sessions": "Sessions: {{count}}",
+    "emptyDay": "No sessions on this day.",
+    "close": "Close"
   },
   "roles": {
     "Admin": "Admin",

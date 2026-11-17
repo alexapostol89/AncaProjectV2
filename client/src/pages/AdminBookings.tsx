@@ -31,7 +31,7 @@ export default function AdminBookings() {
         setLoading(true);
         try {
             setBookings(await getAdminBookings(filter, token));
-            notifyBookingsChanged(); // keep the navbar bell in sync with what's on screen
+            notifyBookingsChanged(); // keep the navbar badge in sync with what's on screen
         } catch (e) {
             setError(t(`bookingErrors.${bookingErrorKey(e)}`));
         } finally {

@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import Booking from './pages/Booking';
 import AdminBookings from './pages/AdminBookings';
 import AdminUsers from './pages/AdminUsers';
+import AdminCalendar from './pages/AdminCalendar';
 import Profile from './pages/Profile';
 import "./Css/App.css";
 import { AuthProvider } from './context/AuthContext';
@@ -26,17 +27,18 @@ export default function App() {
                 <Navbar />
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/despre" element={<About />} />
-                        <Route path="/servicii" element={<Services />} />
-                        <Route path="/studii" element={<Education />} />
-                        <Route path="/preturi" element={<Pricing />} />
+                        <Route path="/" element={<RequireRole allow={['Guest', 'User']}><Home /></RequireRole>} />
+                        <Route path="/despre" element={<RequireRole allow={['Guest', 'User']}><About /></RequireRole>} />
+                        <Route path="/servicii" element={<RequireRole allow={['Guest', 'User']}><Services /></RequireRole>} />
+                        <Route path="/studii" element={<RequireRole allow={['Guest', 'User']}><Education /></RequireRole>} />
+                        <Route path="/preturi" element={<RequireRole allow={['Guest', 'User']}><Pricing /></RequireRole>} />
                         <Route path="/contact" element={<RequireRole allow={['Guest', 'User']}><Contact /></RequireRole>} />
                         <Route path="/booking" element={<RequireRole allow={['User']}><Booking /></RequireRole>} />
                         <Route path="/profil" element={<RequireRole allow={['User', 'Admin']}><Profile /></RequireRole>} />
                         <Route path="/admin/utilizatori" element={<RequireRole allow={['Admin']}><AdminUsers /></RequireRole>} />
                         <Route path="/admin/programari" element={<RequireRole allow={['Admin']}><AdminBookings /></RequireRole>} />
-                        <Route path="/jurnal" element={<ExpatJournal />} />
+                        <Route path="/admin/calendar" element={<RequireRole allow={['Admin']}><AdminCalendar /></RequireRole>} />
+                        <Route path="/jurnal" element={<RequireRole allow={['Guest', 'User']}><ExpatJournal /></RequireRole>} />
                         <Route path="/autentificare" element={<Login />} />
                         <Route path="/inregistrare" element={<Register />} />
                     </Routes>
