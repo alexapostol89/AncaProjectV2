@@ -240,7 +240,7 @@ public sealed class EmailServiceBookingTests
         var (service, smtp) = CreateSmtpService();
         smtp.Fail = true;
 
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.SendBookingApprovedAsync("Ioana", "ioana@example.com", _start));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => service.SendBookingApprovedAsync("Ioana", "ioana@example.com", _start, "https://meet.google.com/test"));
     }
 
     private sealed class RecordingSmtpSender : ISmtpSender
