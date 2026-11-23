@@ -350,7 +350,17 @@
     "adminCalendar.more": "8b304163e61e7580",
     "adminCalendar.sessions": "9c4740f62aa8a0d8",
     "adminCalendar.emptyDay": "9a91c8b7f24d9500",
-    "adminCalendar.close": "bbfa773e5a63a5ea"
+    "adminCalendar.close": "bbfa773e5a63a5ea",
+    "chat.open": "10a8fd63e5206da7",
+    "chat.close": "eb376184348e1361",
+    "chat.title": "d15041fb4abda1c9",
+    "chat.subtitle": "069cde3cd436c1c6",
+    "chat.greeting": "867d2c1fd7a9f3a7",
+    "chat.placeholder": "a351c059a3d2ea58",
+    "chat.send": "c70a890d1411098b",
+    "chat.thinking": "018eba8cb9363cac",
+    "chat.error": "d301cd2acbd7e4c9",
+    "chat.disclaimer": "d2599ce19702c136"
   },
   "da": {
     "meta.title": "d29b2b179f3cc32a",
@@ -703,6 +713,16 @@
     "adminCalendar.more": "8b304163e61e7580",
     "adminCalendar.sessions": "9c4740f62aa8a0d8",
     "adminCalendar.emptyDay": "9a91c8b7f24d9500",
-    "adminCalendar.close": "bbfa773e5a63a5ea"
+    "adminCalendar.close": "bbfa773e5a63a5ea",
+    "chat.open": "10a8fd63e5206da7",
+    "chat.close": "eb376184348e1361",
+    "chat.title": "d15041fb4abda1c9",
+    "chat.subtitle": "069cde3cd436c1c6",
+    "chat.greeting": "867d2c1fd7a9f3a7",
+    "chat.placeholder": "a351c059a3d2ea58",
+    "chat.send": "c70a890d1411098b",
+    "chat.thinking": "018eba8cb9363cac",
+    "chat.error": "d301cd2acbd7e4c9",
+    "chat.disclaimer": "d2599ce19702c136"
   }
 }

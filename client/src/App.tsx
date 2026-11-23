@@ -18,6 +18,7 @@ import Profile from './pages/Profile';
 import "./Css/App.css";
 import { AuthProvider } from './context/AuthContext';
 import RequireRole from './components/RequireRole';
+import ChatWidget from './components/ChatWidget';
 
 export default function App() {
     return (
@@ -44,6 +45,7 @@ export default function App() {
                     </Routes>
                 </main>
                 <Footer />
+                <ChatWidget />
             </div>
         </Router>
         </AuthProvider>

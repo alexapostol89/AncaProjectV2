@@ -11,4 +11,5 @@ public static class RateLimitPolicies
 
     /// <summary>Booking reads/writes: 10 requests / minute per IP.</summary>
     public const string Booking = "booking";
+    public const string Chat = "chat";
 }

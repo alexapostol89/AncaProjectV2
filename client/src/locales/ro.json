@@ -447,5 +447,17 @@
   "footer": {
     "tagline": "Cabinet Individual de Psihologie",
     "copyright": "Creat cu grijă pentru echilibru interior."
+  },
+  "chat": {
+    "open": "Întreabă-mă",
+    "close": "Închide conversația",
+    "title": "Asistentul Ancăi",
+    "subtitle": "Întrebări despre ședințe și servicii",
+    "greeting": "Bună! Te pot ajuta cu informații despre servicii, tarife și programări. Ce ai dori să afli?",
+    "placeholder": "Scrie întrebarea ta…",
+    "send": "Trimite mesajul",
+    "thinking": "Pregătesc un răspuns…",
+    "error": "Nu m-am putut conecta acum. Încearcă din nou sau folosește pagina de contact.",
+    "disclaimer": "Mesajele sunt procesate de furnizorul AI. Doar pentru informații generale; te rugăm să nu trimiți detalii personale sau medicale sensibile. Chatul nu este monitorizat pentru urgențe."
   }
 }
