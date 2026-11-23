@@ -141,6 +141,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddHttpClient<IEmailService, EmailService>();
 builder.Services.AddHttpClient<IGoogleCalendarService, GoogleCalendarService>();
+builder.Services.AddHttpClient<ChatService>(client => client.Timeout = TimeSpan.FromSeconds(20));
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserAdminService, UserAdminService>();
@@ -180,6 +181,7 @@ builder.Services.AddRateLimiter(options =>
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
     options.AddPolicy(RateLimitPolicies.Contact, httpContext => PerIp(httpContext, permitLimit: 5));
+    options.AddPolicy(RateLimitPolicies.Chat, httpContext => PerIp(httpContext, permitLimit: 5));
     options.AddPolicy(RateLimitPolicies.Auth, httpContext => PerIp(httpContext, permitLimit: 10));
     options.AddPolicy(RateLimitPolicies.Booking, httpContext => PerIp(httpContext, permitLimit: 10));
 

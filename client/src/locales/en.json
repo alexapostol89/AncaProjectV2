@@ -423,5 +423,17 @@
   "footer": {
     "tagline": "Private Psychology Practice",
     "copyright": "Made with care for inner balance."
+  },
+  "chat": {
+    "open": "Ask me",
+    "close": "Close chat",
+    "title": "Anca's assistant",
+    "subtitle": "Questions about sessions and services",
+    "greeting": "Hello! I can help with questions about services, prices, and booking. What would you like to know?",
+    "placeholder": "Type your question…",
+    "send": "Send message",
+    "thinking": "Preparing a reply…",
+    "error": "I couldn't connect just now. Please try again or use the contact page.",
+    "disclaimer": "Messages are processed by the AI provider. For general information only; please don't share sensitive personal or health details. Not monitored for emergencies."
   }
 }

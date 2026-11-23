@@ -423,5 +423,17 @@
   "footer": {
     "tagline": "Privat psykologpraksis",
     "copyright": "Skabt med omtanke for indre balance."
+  },
+  "chat": {
+    "open": "Spørg mig",
+    "close": "Luk chatten",
+    "title": "Ancas assistent",
+    "subtitle": "Spørgsmål om samtaler og ydelser",
+    "greeting": "Hej! Jeg kan hjælpe med spørgsmål om ydelser, priser og tidsbestilling. Hvad vil du gerne vide?",
+    "placeholder": "Skriv dit spørgsmål…",
+    "send": "Send besked",
+    "thinking": "Jeg forbereder et svar…",
+    "error": "Jeg kunne ikke oprette forbindelse lige nu. Prøv igen, eller brug kontaktsiden.",
+    "disclaimer": "Beskeder behandles af AI-udbyderen. Kun til generel information; del ikke følsomme personlige eller helbredsmæssige oplysninger. Chatten overvåges ikke ved nødsituationer."
   }
 }
